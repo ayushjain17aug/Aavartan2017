@@ -26,7 +26,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     private final Context mContext;
     private final List<Integer> mItems;
     private int mCurrentItemId = 0;
-    String url1[], url2[], url3[];
+    String url0[], url1[], url2[], url3[];
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
@@ -39,9 +39,10 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         }
     }
 
-    public SimpleAdapter(Context context, String url1[], String[] url2, String url3[]) {
+    public SimpleAdapter(Context context, String[] url0, String url1[], String[] url2, String url3[]) {
         mContext = context;
         COUNT = url1.length + url2.length + url3.length;
+        this.url0 = url0;
         this.url1 = url1;
         this.url2 = url2;
         this.url3 = url3;
@@ -59,19 +60,21 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     @Override
     public void onBindViewHolder(final SimpleViewHolder holder, int position) {
         String[] url = null;
-        if (position < url1.length)
-            url = url1;
-        else if (position >= url1.length && position < url1.length + url2.length) {
+        if (position < url0.length)
+            url = url0;
+        if (position >= url0.length && position < url1.length){
+            url = url1;position=position - url0.length;}
+        else if (position >= url1.length+url0.length && position < url1.length + url2.length+url0.length) {
             url = url2;
-            position = position - url1.length;
-        } else if ((position >= (url1.length + url2.length)) && (position < (url1.length + url2.length + url3.length))) {
+            position = position - url1.length-url0.length;
+        } else if ((position >= (url1.length + url2.length+url0.length)) && (position < (url1.length + url2.length + url3.length+url0.length))) {
             url = url3;
-            position = position - url1.length - url2.length;
+            position = position - url1.length - url2.length-url0.length;
         }
         App.showProgressBar(holder.pBAr);
 
         int width = (int) App.getScreenWidth(mContext);
-        holder.imageView.getLayoutParams().height = width/2;
+        holder.imageView.getLayoutParams().height = width / 2;
         holder.imageView.getLayoutParams().width = width;
         holder.imageView.requestLayout();
 

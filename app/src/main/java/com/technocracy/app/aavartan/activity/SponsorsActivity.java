@@ -119,31 +119,36 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
             return;
         try {
             JSONArray sponsors = jsonObject.getJSONArray("sponsors");
-            String url1[] = null, url2[] = null, url3[] = null;
+            String url0[]=null,url1[] = null, url2[] = null, url3[] = null;
             for (int i = 0; i < sponsors.length(); i++) {
                 JSONObject jobj = sponsors.getJSONObject(i);
-                if (i == 0)
-                    url1 = new String[jobj.length()];
+                if(i==0)
+                    url0=new String[jobj.length()];
                 if (i == 1)
-                    url2 = new String[jobj.length()];
+                    url1 = new String[jobj.length()];
                 if (i == 2)
+                    url2 = new String[jobj.length()];
+                if (i == 3)
                     url3 = new String[jobj.length()];
                 String url[] = new String[jobj.length()];
                 for (int j = 0; j < jobj.length(); j++) {
                     url[j] = jobj.getString("" + j);
                 }
-                if (i == 0) {
+                if(i==0)
+                    url0=url;
+                if (i == 1) {
                     url1 = url;
-                } else if (i == 1) {
+                } else if (i == 2) {
                     url2 = url;
                 } else {
                     url3 = url;
                 }
             }
-            mAdapter = new SimpleAdapter(this, url1, url2, url3);
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "MEGAEVENT SPONSORS"));
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(url1.length, "EVENT SPONSORS"));
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(url1.length + url2.length, "PARTNERS"));
+            mAdapter = new SimpleAdapter(this,url0, url1, url2, url3);
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length, "MEGAEVENT SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(url1.length+url0.length, "EVENT SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length+url1.length + url2.length, "PARTNERS"));
             //Add your adapter to the sectionAdapter
             SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
             SectionedGridRecyclerViewAdapter mSectionedAdapter = new
