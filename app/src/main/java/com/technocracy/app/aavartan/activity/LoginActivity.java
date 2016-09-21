@@ -161,8 +161,23 @@ public class LoginActivity extends AppCompatActivity {
                         LoginActivity.this.startActivity(intent);
                         finish();
                     } else {
+                        if (jsonResponse.getString("message")!=null)
+                        {
+                            new AlertDialog.Builder(LoginActivity.this).setIcon(R.drawable.ic_dialog_alert).setTitle("Message")
+                                    .setMessage(jsonResponse.getString("error_msg"))
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }).show();
+
+                        }
+                        else{
                         Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                                .setAction("Action", null).show();}
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -230,11 +245,13 @@ public class LoginActivity extends AppCompatActivity {
                                 boolean error = jsonResponse.getBoolean("error");
                                 if (!error) {
                                     Log.d("ayush","no error");
-                                    Toast.makeText(LoginActivity.this, "Please check your email.", Toast.LENGTH_SHORT).show();
+                                    Snackbar.make(findViewById(R.id.relativeLayout), "Please check your e-mail!",Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
                                 }
                                 else {
                                     Log.d("ayush","got error");
-                                    Toast.makeText(LoginActivity.this, jsonResponse.getString("error_msg"), Toast.LENGTH_SHORT).show();
+                                    Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -246,8 +263,8 @@ public class LoginActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             //Log.e(TAG, "Login Error: " + error.getMessage());
                             hideDialog();
-                            Toast.makeText(getApplicationContext(),
-                                    "Connection Error! Try Again Later", Toast.LENGTH_LONG).show();
+                            Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection Error.",Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
                     }) {
                         @Override
