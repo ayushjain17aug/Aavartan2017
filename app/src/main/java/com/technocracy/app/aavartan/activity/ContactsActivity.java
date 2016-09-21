@@ -35,7 +35,6 @@ import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.Contact;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
-import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
@@ -81,58 +80,53 @@ public class ContactsActivity extends AppCompatActivity {
     private void getContacts() {
         // Tag used to cancel the request
         String tag_string_req = "req_contacts";
-        if (!ConnectivityReceiver.isConnected())
-            Snackbar.make(findViewById(R.id.relativeLayout), "Please connect to Internet!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        else {
-            pDialog.setMessage("Loading...");
-            showDialog();
+        pDialog.setMessage("Loading...");
+        showDialog();
 
-            StringRequest strReq = new StringRequest(Request.Method.GET,
-                    App.CONTACTS_URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d(TAG, "Contacts Response: " + response.toString());
-                    hideDialog();
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        JSONArray contacts = jsonObject.getJSONArray("contacts");
-                        db.deleteAllContacts();
-                        for (int i = 0; i < contacts.length(); i++) {
-                            JSONObject contactObject = contacts.getJSONObject(i);
-                            Contact contact = new Contact(contactObject.getInt("id"),
-                                    contactObject.getString("name"),
-                                    contactObject.getString("designation"),
-                                    contactObject.getString("image_url"),
-                                    contactObject.getString("fb_url"));
-                            db.addContact(contact);
-                        }
-                        contactList = db.getAllContacts();
-                        contactsAdapter = new ContactsAdapter(contactList);
-                        contactsGridView.setAdapter(contactsAdapter);
-                    } catch (JSONException e) {
-                        // JSON error
-                        e.printStackTrace();
-                        contactList = db.getAllContacts();
-                        contactsAdapter = new ContactsAdapter(contactList);
-                        contactsGridView.setAdapter(contactsAdapter);
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                App.CONTACTS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Contacts Response: " + response.toString());
+                hideDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray contacts = jsonObject.getJSONArray("contacts");
+                    db.deleteAllContacts();
+                    for (int i = 0; i < contacts.length(); i++) {
+                        JSONObject contactObject = contacts.getJSONObject(i);
+                        Contact contact = new Contact(contactObject.getInt("id"),
+                                contactObject.getString("name"),
+                                contactObject.getString("designation"),
+                                contactObject.getString("image_url"),
+                                contactObject.getString("fb_url"));
+                        db.addContact(contact);
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "Contacts Request Error: " + error.getMessage());
-                    Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection not Present.", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    hideDialog();
+                    contactList = db.getAllContacts();
+                    contactsAdapter = new ContactsAdapter(contactList);
+                    contactsGridView.setAdapter(contactsAdapter);
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
                     contactList = db.getAllContacts();
                     contactsAdapter = new ContactsAdapter(contactList);
                     contactsGridView.setAdapter(contactsAdapter);
                 }
-            });
-            // Adding request to request queue
-            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-        }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Contacts Request Error: " + error.getMessage());
+                Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection not Present.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                hideDialog();
+                contactList = db.getAllContacts();
+                contactsAdapter = new ContactsAdapter(contactList);
+                contactsGridView.setAdapter(contactsAdapter);
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private class ContactsAdapter extends BaseAdapter {

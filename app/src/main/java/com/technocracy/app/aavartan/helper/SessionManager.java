@@ -3,6 +3,7 @@ package com.technocracy.app.aavartan.helper;
 /**
  * Created by nsn on 10/13/2015.
  */
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -20,7 +21,7 @@ public class SessionManager {
 
     // Shared pref mode
     int PRIVATE_MODE = 0;
-    int check =0;
+    int check = 0;
     // Shared preferences file name
     private static final String PREF_NAME = "AavartanLogin";
 
@@ -43,12 +44,12 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         check = 1;
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
-    public int check()
-    {
+
+    public int check() {
         return check;
     }
 }

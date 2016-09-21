@@ -23,7 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.adapter.AttractionAdapter;
 import com.technocracy.app.aavartan.api.Attraction;
@@ -31,7 +31,6 @@ import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
-import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.Eventkeys;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
@@ -55,6 +54,7 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
     private DrawerLayout drawer;
     private DatabaseHandler db;
     private ArrayList<Attraction> attractionsList;
+    private static final String TAG = AttractionActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Attraction");
+        toolbar.setTitle("Attractions");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -95,61 +95,61 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
         Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
         rCyclerView.setAdapter(Adap);
 
-        if (!ConnectivityReceiver.isConnected()) {
-            Snackbar.make(findViewById(R.id.drawer_layout), "Please connect to Internet!",Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        } else {
-            try {
-                volleySinleton = VolleySingleton.getInstance();
-                requestQueue = volleySinleton.getRequestQueue();
-                pDialog.setMessage("Loading Attractions...");
-                pDialog.show();
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, App.ATTRACTIONS_URL, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        pDialog.dismiss();
-                        Log.d("abhi", "" + jsonObject.toString());
-                        parseJsonResponse(jsonObject);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Snackbar.make(findViewById(R.id.drawer_layout), "Please try again!", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        pDialog.dismiss();
-                    }
-                });
-                requestQueue.add(request);
-            } catch (NullPointerException e) {
-            }
-        }
+        getAttractions();
+
     }
 
-    private void parseJsonResponse(JSONObject jsonObject) {
+    private void getAttractions() {
+        // Tag used to cancel the request
+        String tag_string_req = "req_attractions";
+        pDialog.setMessage("Loading Attractions...");
+        showDialog();
 
-        if (jsonObject == null || jsonObject.length() == 0)
-            return;
-        try {
-            db.deleteAllAttractions();
-            JSONArray attractions = jsonObject.getJSONArray("attractions");
-            for (int i = 0; i < attractions.length(); i++) {
-                JSONObject currentEvent = attractions.getJSONObject(i);
-                String event = currentEvent.getString(KEY_NAME);
-                String description = currentEvent.getString(KEY_DESCRIPTION);
-                String id = currentEvent.getString(KEY_ID);
-                String imgUrl = currentEvent.getString(KEY_IMG_URL);
-                Attraction a = new Attraction(Integer.parseInt(id), event, description, imgUrl);
-                db.addAttraction(a);
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                App.ATTRACTIONS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Attractions Response: " + response.toString());
+                hideDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray attractions = jsonObject.getJSONArray("attractions");
+                    db.deleteAllAttractions();
+                    for (int i = 0; i < attractions.length(); i++) {
+                        JSONObject currentEvent = attractions.getJSONObject(i);
+                        String event = currentEvent.getString(KEY_NAME);
+                        String description = currentEvent.getString(KEY_DESCRIPTION);
+                        String id = currentEvent.getString(KEY_ID);
+                        String imgUrl = currentEvent.getString(KEY_IMG_URL);
+                        Attraction a = new Attraction(Integer.parseInt(id), event, description, imgUrl);
+                        db.addAttraction(a);
+                    }
+                    attractionsList = db.getAllAttractions();
+                    Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
+                    rCyclerView.setAdapter(Adap);
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    attractionsList = db.getAllAttractions();
+                    Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
+                    rCyclerView.setAdapter(Adap);
+                }
             }
-            attractionsList = db.getAllAttractions();
-        } catch (JSONException e) {
-            e.printStackTrace();
-            attractionsList = db.getAllAttractions();
-        }
-        Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
-        rCyclerView.setAdapter(Adap);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Attractions Request Error: " + error.getMessage());
+                Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection not Present.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                hideDialog();
+                attractionsList = db.getAllAttractions();
+                Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
+                rCyclerView.setAdapter(Adap);
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -259,5 +259,15 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }
