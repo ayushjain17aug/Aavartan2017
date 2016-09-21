@@ -50,8 +50,8 @@
         android:id="@+id/planet"
         android:src="@drawable/planet"
         android:layout_marginBottom="47dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginStart="44dp"
         android:layout_alignBottom="@+id/revolve"
         android:layout_alignLeft="@+id/revolve"
         android:layout_alignStart="@+id/revolve" />
