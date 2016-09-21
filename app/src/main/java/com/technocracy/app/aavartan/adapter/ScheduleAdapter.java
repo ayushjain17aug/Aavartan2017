@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.api.Schedule;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by User on 20/09/2016.
@@ -24,14 +24,14 @@ import java.util.HashMap;
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.LeaderboardViewHolder> {
 
     private final TypedValue mTypedValue = new TypedValue();
-    private final ArrayList<HashMap<String, String>> eventslists;
+    private final ArrayList<Schedule> scheduleArrayList;
     private final Context mContext;
 
-    public ScheduleAdapter(Context context, ArrayList<HashMap<String, String>> eventslists) {
+    public ScheduleAdapter(Context context, ArrayList<Schedule> scheduleArrayList) {
 
         mContext = context;
         mContext.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
-        this.eventslists = eventslists;
+        this.scheduleArrayList = scheduleArrayList;
     }
 
     @Override
@@ -44,13 +44,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
 
     @Override
     public void onBindViewHolder(final LeaderboardViewHolder holder, final int position) {
-        holder.boundLeader = eventslists.get(position);
-        holder.leaderCard.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
-        holder.event_name.setText(Html.fromHtml(holder.boundLeader.get("event")));
-        holder.event_time.setText(Html.fromHtml(holder.boundLeader.get("time")));
-        holder.event_venue.setText(Html.fromHtml(holder.boundLeader.get("venue")));
+        holder.boundScheduleItem = scheduleArrayList.get(position);
+        holder.scheduleCard.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
+        holder.eventNameTv.setText(Html.fromHtml(holder.boundScheduleItem.getEventName()));
+        holder.eventTimeTv.setText(Html.fromHtml(holder.boundScheduleItem.getTime()));
+        holder.eventVenueTv.setText(Html.fromHtml(holder.boundScheduleItem.getVenue()));
 
-        String eventImageUrl = holder.boundLeader.get("image_url");
+        String eventImageUrl = holder.boundScheduleItem.getImageUrl();
         Picasso.with(mContext)
                 .load(eventImageUrl).placeholder(R.drawable.ic_logo_small)
                 .into(holder.eventImage);
@@ -65,27 +65,27 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
 
     @Override
     public int getItemCount() {
-        return eventslists.size();
+        return scheduleArrayList.size();
     }
 
     public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
-        public final CardView leaderCard;
-        public final TextView event_name;
-        public final TextView event_time;
-        public final TextView event_venue;
+        public final CardView scheduleCard;
+        public final TextView eventNameTv;
+        public final TextView eventTimeTv;
+        public final TextView eventVenueTv;
 
         public final ImageView eventImage;
-        public HashMap<String, String> boundLeader;
+        public Schedule boundScheduleItem;
 
         public LeaderboardViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            leaderCard = (CardView) itemView.findViewById(R.id.leaderboard_card);
-            event_name = (TextView) itemView.findViewById(R.id.ListHead);
-            event_time = (TextView) itemView.findViewById(R.id.ListTime);
-            event_venue = (TextView) itemView.findViewById(R.id.ListVenue);
+            scheduleCard = (CardView) itemView.findViewById(R.id.leaderboard_card);
+            eventNameTv = (TextView) itemView.findViewById(R.id.ListHead);
+            eventTimeTv = (TextView) itemView.findViewById(R.id.ListTime);
+            eventVenueTv = (TextView) itemView.findViewById(R.id.ListVenue);
             eventImage = (ImageView) itemView.findViewById(R.id.eventsImage);
         }
     }
