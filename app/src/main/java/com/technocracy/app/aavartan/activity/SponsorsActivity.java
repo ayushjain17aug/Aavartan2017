@@ -62,7 +62,6 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-
         //This is the code to provide a sectioned grid
         sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
 
@@ -144,6 +143,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
                     url3 = url;
                 }
             }
+
             mAdapter = new SimpleAdapter(this,url0, url1, url2, url3);
             sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
             sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length, "MEGAEVENT SPONSORS"));

@@ -41,7 +41,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
     public SimpleAdapter(Context context, String[] url0, String url1[], String[] url2, String url3[]) {
         mContext = context;
-        COUNT = url1.length + url2.length + url3.length;
+        COUNT =url0.length+ url1.length + url2.length + url3.length;
         this.url0 = url0;
         this.url1 = url1;
         this.url2 = url2;
@@ -62,7 +62,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         String[] url = null;
         if (position < url0.length)
             url = url0;
-        if (position >= url0.length && position < url1.length){
+        if (position >= url0.length && position < url0.length+url1.length){
             url = url1;position=position - url0.length;}
         else if (position >= url1.length+url0.length && position < url1.length + url2.length+url0.length) {
             url = url2;
