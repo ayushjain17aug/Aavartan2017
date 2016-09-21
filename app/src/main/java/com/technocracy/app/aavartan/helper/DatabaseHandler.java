@@ -11,6 +11,7 @@ import com.technocracy.app.aavartan.api.Attraction;
 import com.technocracy.app.aavartan.api.Contact;
 import com.technocracy.app.aavartan.api.GalleryItem;
 import com.technocracy.app.aavartan.api.Notifications;
+import com.technocracy.app.aavartan.api.Schedule;
 
 import java.util.ArrayList;
 
@@ -51,13 +52,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String GALLERY_IMAGE_URL = "image";
 
     // Notifications table name
-    private static final String TABLE_CONTACTS = "gallery";
+    private static final String TABLE_CONTACTS = "contacts";
     // Notifications Table Columns names
     private static final String CONTACTS_ID = "id";
     private static final String CONTACTS_NAME = "name";
     private static final String CONTACTS_DESIGNATION = "designation";
     private static final String CONTACTS_IMAGE_URL = "image";
     private static final String CONTACTS_FACEBOOK_URL = "facebook";
+
+    // Notifications table name
+    private static final String TABLE_SCHEDULE_DAY1 = "schedule_day1";
+    // Notifications Table Columns names
+    private static final String SCHEDULE_DAY1_ID = "id";
+    private static final String SCHEDULE_DAY1_EVENT = "event";
+    private static final String SCHEDULE_DAY1_TIME = "time";
+    private static final String SCHEDULE_DAY1_VENUE = "venue";
+    private static final String SCHEDULE_DAY1_IMAGE_URL = "image";
+
+    // Notifications table name
+    private static final String TABLE_SCHEDULE_DAY2 = "schedule_day2";
+    // Notifications Table Columns names
+    private static final String SCHEDULE_DAY2_ID = "id";
+    private static final String SCHEDULE_DAY2_EVENT = "event";
+    private static final String SCHEDULE_DAY2_TIME = "time";
+    private static final String SCHEDULE_DAY2_VENUE = "venue";
+    private static final String SCHEDULE_DAY2_IMAGE_URL = "image";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -78,16 +97,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ATTRACTION_DESCRIPTION + " TEXT," + ATTRACTION_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_ATTRACTIONS_TABLE);
 
-        String CREATE_GALLEY_TABLE = "CREATE TABLE " + TABLE_GALLERY + "("
+        String CREATE_GALLERY_TABLE = "CREATE TABLE " + TABLE_GALLERY + "("
                 + GALLERY_ID + " INTEGER PRIMARY KEY," + GALLERY_TITLE + " TEXT,"
                 + GALLERY_RATIO + " TEXT," + GALLERY_IMAGE_URL + " TEXT" + ")";
-        db.execSQL(CREATE_GALLEY_TABLE);
+        db.execSQL(CREATE_GALLERY_TABLE);
 
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
                 + CONTACTS_ID + " INTEGER PRIMARY KEY," + CONTACTS_NAME + " TEXT,"
                 + CONTACTS_DESIGNATION + " TEXT," + CONTACTS_IMAGE_URL + " TEXT,"
                 + CONTACTS_FACEBOOK_URL + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
+
+        String CREATE_SCHEDULE_DAY1_TABLE = "CREATE TABLE " + TABLE_SCHEDULE_DAY1 + "("
+                + SCHEDULE_DAY1_ID + " INTEGER PRIMARY KEY," + SCHEDULE_DAY1_EVENT + " TEXT,"
+                + SCHEDULE_DAY1_TIME + " TEXT," + SCHEDULE_DAY1_VENUE  + " TEXT,"
+                + SCHEDULE_DAY1_IMAGE_URL + " TEXT" + ")";
+        db.execSQL(CREATE_SCHEDULE_DAY1_TABLE);
+
+        String CREATE_SCHEDULE_DAY2_TABLE = "CREATE TABLE " + TABLE_SCHEDULE_DAY2 + "("
+                + SCHEDULE_DAY2_ID + " INTEGER PRIMARY KEY," + SCHEDULE_DAY2_EVENT + " TEXT,"
+                + SCHEDULE_DAY2_TIME + " TEXT," + SCHEDULE_DAY2_VENUE  + " TEXT,"
+                + SCHEDULE_DAY2_IMAGE_URL + " TEXT" + ")";
+        db.execSQL(CREATE_SCHEDULE_DAY2_TABLE);
     }
 
     // Upgrading database
@@ -97,6 +128,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTIFICATIONS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ATTRACTIONS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GALLERY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE_DAY1);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE_DAY2);
         // Create tables again
         onCreate(db);
     }
@@ -209,6 +243,78 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteAllContacts() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_CONTACTS);
+    }
+
+    public void addScheduleDay1Item(Schedule schedule) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SCHEDULE_DAY1_ID, schedule.getId());
+        values.put(SCHEDULE_DAY1_EVENT, schedule.getEventName());
+        values.put(SCHEDULE_DAY1_TIME, schedule.getTime());
+        values.put(SCHEDULE_DAY1_VENUE, schedule.getVenue());
+        values.put(SCHEDULE_DAY1_IMAGE_URL, schedule.getImageUrl());
+        // Inserting Row
+        db.insert(TABLE_SCHEDULE_DAY1, null, values);
+        db.close(); // Closing database connection
+        Log.e("Contact :", "stored in db.");
+    }
+
+    public ArrayList<Schedule> getScheduleDay1Items() {
+        ArrayList<Schedule> scheduleDay1ArrayList = new ArrayList<Schedule>();
+        String selectQuery = "SELECT * FROM " + TABLE_SCHEDULE_DAY1;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Schedule schedule = new Schedule(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                scheduleDay1ArrayList.add(schedule);
+            } while (cursor.moveToNext());
+        }
+        return scheduleDay1ArrayList;
+    }
+
+    public void deleteScheduleDay1() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_SCHEDULE_DAY1);
+    }
+
+    public void addScheduleDay2Item(Schedule schedule) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SCHEDULE_DAY2_ID, schedule.getId());
+        values.put(SCHEDULE_DAY2_EVENT, schedule.getEventName());
+        values.put(SCHEDULE_DAY2_TIME, schedule.getTime());
+        values.put(SCHEDULE_DAY2_VENUE, schedule.getVenue());
+        values.put(SCHEDULE_DAY2_IMAGE_URL, schedule.getImageUrl());
+        // Inserting Row
+        db.insert(TABLE_SCHEDULE_DAY2, null, values);
+        db.close(); // Closing database connection
+        Log.e("Contact :", "stored in db.");
+    }
+
+    public ArrayList<Schedule> getScheduleDay2Items() {
+        ArrayList<Schedule> scheduleDay2ArrayList = new ArrayList<Schedule>();
+        String selectQuery = "SELECT * FROM " + TABLE_SCHEDULE_DAY2;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Schedule schedule = new Schedule(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                scheduleDay2ArrayList.add(schedule);
+            } while (cursor.moveToNext());
+        }
+        return scheduleDay2ArrayList;
+    }
+
+    public void deleteScheduleDay2() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_SCHEDULE_DAY2);
     }
 
     public void addNotification(Notifications notification) {
