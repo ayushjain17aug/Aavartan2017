@@ -33,7 +33,7 @@
         android:layout_marginRight="16dp"
         android:src="@android:drawable/ic_menu_slideshow"
         android:tint="#000000"
-        app:backgroundTint="#ffffff" />
+        app:backgroundTint="#FFF9C4" />
 
     <include
         layout="@layout/fab_layout"

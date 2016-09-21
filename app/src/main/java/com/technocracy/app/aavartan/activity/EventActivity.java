@@ -1,6 +1,8 @@
 package com.technocracy.app.aavartan.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +26,17 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.adapter.EventsAdapter;
 import com.technocracy.app.aavartan.api.Event;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
+import com.technocracy.app.aavartan.helper.AppController;
+import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
+import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.Eventkeys;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
@@ -39,6 +47,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private VolleySingleton volleySinleton;
@@ -53,6 +63,7 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
     private ProgressDialog pDialog;
     private String key0;
     private EventsAdapter Recycler_Adap;
+    private DatabaseHandler db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,11 +73,16 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         Bundle data = getIntent().getExtras();
         String title = data.getString("event_selected");
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(title);
         toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+
+        db = new DatabaseHandler(getApplicationContext());
+
+        eventsList = new ArrayList<>();
 
         pDialog = new ProgressDialog(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -76,6 +92,7 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLoggedIn()) {
@@ -128,55 +145,64 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         rCyclerView = (RecyclerView) findViewById(R.id.rView);
         rCyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            try {
-                volleySinleton = VolleySingleton.getInstance();
-                requestQueue = volleySinleton.getRequestQueue();
-                pDialog.setMessage("Loading Events...");
-                pDialog.show();
-                //loading the php file of the particular category of the events
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url1, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        pDialog.dismiss();
-                        parseJsonResponse(jsonObject);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(EventActivity.this, "Connection problem,Please try again!", Toast.LENGTH_LONG).show();
-                         pDialog.dismiss();
-                    }
-                });
-                requestQueue.add(request);
-            } catch (NullPointerException e) {
-            }
-        }
+        //Checking if user is online or not
 
-    public void parseJsonResponse(JSONObject jsonObject) {
-        if (jsonObject == null || jsonObject.length() == 0)
-            return;
-        try {
-            JSONArray object_Events = jsonObject.getJSONArray(key1);
-            eventsList = new ArrayList<>();
-            for (int i = 0; i < object_Events.length(); i++) {
-                //getting the details of all the events in the category and storing it in Event object which contains data as name,type,description,id
-                JSONObject currentEvent = object_Events.getJSONObject(i);
-                String event_name = currentEvent.getString(key2);
-                String event_type = currentEvent.getString(key3);
-                String event_description = currentEvent.getString(key4);
-                int event_id = currentEvent.getInt(key0);
-                String event_img_url = currentEvent.getString(key5);
-                Event events = new Event(event_id, event_name, event_type, event_description, event_img_url);
-                eventsList.add(events);
-            }
+        // Tag used to cancel the request
+        String tag_string_req = "req_events";
+        pDialog.setMessage("Loading ...");
+        showDialog();
 
-            Recycler_Adap = new EventsAdapter(this, eventsList);
-            rCyclerView.setAdapter(Recycler_Adap);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-        }
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                url1, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                hideDialog();
+
+                try {
+                    Log.e(EventActivity.class.getSimpleName(), "EVENT GOT RESPONSE");
+                    db.deleteAllEvent(key1);
+                    JSONObject jsonResponse = new JSONObject(response);
+                    JSONArray jsonArray = jsonResponse.getJSONArray(key1);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        //getting the details of all the events in the category and storing it in Event object which contains data as name,type,description,id
+                        JSONObject currentEvent = jsonArray.getJSONObject(i);
+                        String event_name = currentEvent.getString(key2);
+                        String event_type = currentEvent.getString(key3);
+                        String event_description = currentEvent.getString(key4);
+                        int event_id = currentEvent.getInt(key0);
+                        String event_img_url = currentEvent.getString(key5);
+                        Event events = new Event(event_id, event_name, event_type, event_description, event_img_url);
+                        db.addEvents(events, key1);
+                    }
+                    //Log.d("ayush","no error");
+                    eventsList = db.getAllEvents(key1);
+                    Recycler_Adap = new EventsAdapter(EventActivity.this, eventsList);
+                    rCyclerView.setAdapter(Recycler_Adap);
+                } catch (JSONException e) {
+                    eventsList = db.getAllEvents(key1);
+                    Recycler_Adap = new EventsAdapter(EventActivity.this, eventsList);
+                    rCyclerView.setAdapter(Recycler_Adap);
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e(EventActivity.class.getSimpleName(), "EVENT JSON Error: " + error.getMessage());
+                eventsList = db.getAllEvents(key1);
+                Recycler_Adap = new EventsAdapter(EventActivity.this, eventsList);
+                rCyclerView.setAdapter(Recycler_Adap);
+                Snackbar.make(findViewById(R.id.drawer_layout), "Internet Connection Error!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                hideDialog();
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -281,6 +307,16 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -291,3 +327,4 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         }
     }
 }
+

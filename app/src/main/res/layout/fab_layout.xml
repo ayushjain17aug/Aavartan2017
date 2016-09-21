@@ -13,8 +13,8 @@
         android:src="@android:drawable/ic_menu_share"
         android:visibility="invisible"
         android:tint="#000000"
-        app:backgroundTint="#ffffff"
-        android:background="#ffffff" />
+        app:backgroundTint="#FFF9C4"
+        android:background="#FFF9C4" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_2"
@@ -25,8 +25,8 @@
         android:src="@android:drawable/ic_menu_myplaces"
         android:visibility="invisible"
         android:tint="#000000"
-        android:background="#ffffff"
-        app:backgroundTint="#ffffff" />
+        android:background="#FFF9C4"
+        app:backgroundTint="#FFF9C4" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_1"
@@ -37,9 +37,9 @@
         android:src="@android:drawable/ic_menu_compass"
         android:visibility="invisible"
         android:tint="#000000"
-        app:backgroundTint="#ffffff"
+        app:backgroundTint="#FFF9C4"
         android:layout_gravity="bottom|end"
-        android:background="#ffffff" />
+        android:background="#FFF9C4" />
 
 
 

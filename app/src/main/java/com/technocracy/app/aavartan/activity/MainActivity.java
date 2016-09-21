@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.GalleryActivity;
+import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         currentDateString = dateFormat.format(Calendar.getInstance().getTime());
         sessionManager = new SessionManager(getApplicationContext());
+
 
         if (sessionManager.isLoggedIn()) {
             sqLiteHandler = new SQLiteHandler(getApplicationContext());
