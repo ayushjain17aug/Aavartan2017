@@ -8,7 +8,9 @@ public class Schedule1 {
     private String image;
     private String event;
     private String venuetime;
-    public Schedule1() {}
+
+    public Schedule1() {
+    }
 
     public String getEvent() {
         return event;
