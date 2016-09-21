@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "23874352368",
+    "firebase_url": "https://aavartan-a38c6.firebaseio.com",
+    "project_id": "aavartan-a38c6",
+    "storage_bucket": "aavartan-a38c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23874352368:android:81ca3f3d187bd871",
+        "android_client_info": {
+          "package_name": "com.technocracy.app.aavartan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23874352368-1rotvauldmu3h6ij8nnilnk17ahf472b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD14DAJD0TzHM0HZHHmnsBiP9ul0WG342E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

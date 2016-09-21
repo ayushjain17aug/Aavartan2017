@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/spaceblack"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/spaceblack"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:adjustViewBounds="true"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/aboutuspic" />
+
+                <TextView
+                    android:id="@+id/about"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="All the theories and formulae boils down to one most crucial thing in engineering- Application.This ideology forms the basis of an occasion which lets the engineer in every student fly and air the spark within. And we have named it as Aavartan.It is a two day annual symposium of NIT Raipur, by far the largest Techfest of central India, by some standards.\n\n Aavartan is the celebration of engineering, science and technology organized wholly and solely by the students of TechnoCracy-Technical Committee NIT Raipur.Thus, one cannot go wrong with the level of enthusiam shown by the young engineering population and the resulting magnificient fire from the aired spark.Meticulously planned events, enticing guest lectures and modern workshops organized with the help of other committees and clubs of NIT Raipur makes Aavartan a hard to miss event.\n\nAnd if that is not all, Aavartan also sees itself as a socially responsible entity by encouraging and undertaking various social causes every year, like this time around it is; Awareness about cyber crime.This is the edition of Aavartan and is planned to be bigger and better than before. One can definitely expect an altogether new spin to things already done and something far more amazing like never seen before."
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorblack"
+        android:fitsSystemWindows="false"
+        app:headerLayout="@layout/nav_header_main"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/activity_main_drawer" />
+</android.support.v4.widget.DrawerLayout>

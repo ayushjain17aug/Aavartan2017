@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:background="@drawable/spaceblack"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:layout_alignParentTop="true"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/spaceblack"
+            android:titleTextColor="@color/white"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:popupTheme="@style/AppTheme.AppBarOverlay"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/initiatives_img"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+                android:padding="7dp"
+                android:src="@drawable/graffiti"
+                android:adjustViewBounds="true"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+       />
+</RelativeLayout>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/intvs"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:text="Awareness on CYBER CRIME"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Everything from traffic lights and trains to database and communication is predicated on functional supercomputer technology. Since, so much of the technology depends on networking and interconnectivity, our dependence on computer technology has created openings to predators to mutilate our treasured systems. The potential damage that such a mishap could cause, ranges from troubling to catastrophic. When you consider the implications of those risks it’s no wonder that cyber security has taken up the forefront, serving as an antidote to the prevalent cyber threat. Hence, AAVARTAN 2016 brings out to you, its social cause: CYBER SECURITY IT SECURITY.\n\n
+
+Aavartan is the celebration of engineering, science and technology organized wholly and solely by the students of NIT Raipur. Thus, one cannot go wrong with the level of enthusiam shown by the young engineering population and the resulting magnificient fire from the aired spark."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/descrptn"
+                android:textAlignment="center"/>
+    </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorblack"
+        android:fitsSystemWindows="false"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+</android.support.v4.widget.DrawerLayout>

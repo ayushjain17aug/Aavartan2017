@@ -1,20 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.technocracy.app.aavartan">
+    package="com.technocracy.app.aavartan"
+    android:versionCode="2"
+    android:versionName="1.2.0">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
+        android:largeHeap="true"
+        android:name="com.technocracy.app.aavartan.helper.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.technocracy.app.aavartan.gallery.GalleryActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.VigyaanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.MapsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.gallery.FullscreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.intentactivity.ViewPDF"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <receiver
+            android:name="com.technocracy.app.aavartan.helper.ConnectivityReceiver"
+            android:enabled="true" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB5-D4zZKVzXnylxLy8eQ-WWg8J_1YsJRo" />
+
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.ScheduleActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_schedule"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.EventActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.UserActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_user_area"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.MyEventsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_myevents"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.intentactivity.EventDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.NotificationsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_notifications"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_about_us"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.SponsorsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_sponsors"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <service android:name="com.technocracy.app.aavartan.fcm.FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.technocracy.app.aavartan.fcm.FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.StayActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_stay"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.AttractionActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_attraction"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.technocracy.app.aavartan.activity.InitiativesActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_initiatives"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <activity android:name="com.technocracy.app.aavartan.activity.ContactsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_contacts"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>

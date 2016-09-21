@@ -1,3 +1,52 @@
 <resources>
     <string name="app_name">Aavartan</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main2">activity main2</string>
+    <string name="title_activity_vigyaan">Vigyaan</string>
+    <string name="action_Login">User Area</string>
+    <string name="action_notif">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_events">Events</string>
+    <string name="nav_item_register">Events Registration</string>
+    <string name="nav_item_schedule">Schedule</string>
+    <string name="nav_item_problem">Vigyaan - Problem Statements</string>
+    <string name="nav_item_workshop">Workshops and Lectures</string>
+    <string name="nav_item_shows">Tech Shows</string>
+    <string name="nav_item_about">E-Summit</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_events</item>
+        <item>@string/nav_item_register</item>
+        <item>@string/nav_item_schedule</item>
+        <item>@string/nav_item_problem</item>
+        <item>@string/nav_item_workshop</item>
+        <item>@string/nav_item_shows</item>
+        <item>@string/nav_item_about</item>
+
+    </string-array>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_schedule">Schedule</string>
+    <string name="title_activity_event">Events</string>
+    <string name="title_activity_event_details">EventDetails</string>
+    <string name="title_activity_about_us">About Us</string>
+    <string name="title_activity_sponsors">Our Sponsors</string>
+    <string name="title_activity_notifications">Notifications</string>
+    <string name="title_activity_user_area">User Area</string>
+    <string name="title_activity_stay">Stay</string>
+    <string name="title_activity_attraction">Attractions</string>
+    <string name="title_activity_contacts">Contacts</string>
+    <string name="title_activity_myevents">My Events</string>
+    <string name="title_activity_initiatives">Initiatives</string>
+
 </resources>
