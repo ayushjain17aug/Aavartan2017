@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.technocracy.app.aavartan.api.Attraction;
+import com.technocracy.app.aavartan.api.Contact;
 import com.technocracy.app.aavartan.api.GalleryItem;
 import com.technocracy.app.aavartan.api.Notifications;
 
@@ -49,6 +50,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String GALLERY_RATIO = "ratio";
     private static final String GALLERY_IMAGE_URL = "image";
 
+    // Notifications table name
+    private static final String TABLE_CONTACTS = "gallery";
+    // Notifications Table Columns names
+    private static final String CONTACTS_ID = "id";
+    private static final String CONTACTS_NAME = "name";
+    private static final String CONTACTS_DESIGNATION = "designation";
+    private static final String CONTACTS_IMAGE_URL = "image";
+    private static final String CONTACTS_FACEBOOK_URL = "facebook";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -66,13 +75,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_ATTRACTIONS_TABLE = "CREATE TABLE " + TABLE_ATTRACTIONS + "("
                 + ATTRACTION_ID + " INTEGER PRIMARY KEY," + ATTRACTION_NAME + " TEXT,"
-                + ATTRACTION_DESCRIPTION + " TEXT," + ATTRACTION_IMAGE_URL  + " TEXT" + ")";
+                + ATTRACTION_DESCRIPTION + " TEXT," + ATTRACTION_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_ATTRACTIONS_TABLE);
 
         String CREATE_GALLEY_TABLE = "CREATE TABLE " + TABLE_GALLERY + "("
                 + GALLERY_ID + " INTEGER PRIMARY KEY," + GALLERY_TITLE + " TEXT,"
                 + GALLERY_RATIO + " TEXT," + GALLERY_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_GALLEY_TABLE);
+
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
+                + CONTACTS_ID + " INTEGER PRIMARY KEY," + CONTACTS_NAME + " TEXT,"
+                + CONTACTS_DESIGNATION + " TEXT," + CONTACTS_IMAGE_URL + " TEXT,"
+                + CONTACTS_FACEBOOK_URL + " TEXT" + ")";
+        db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
     // Upgrading database
@@ -85,6 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Create tables again
         onCreate(db);
     }
+
     public void addAttraction(Attraction attraction) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -96,8 +112,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_ATTRACTIONS, null, values);
         db.close(); // Closing database connection
-        Log.e("Attraction:","stored in db.");
+        Log.e("Attraction:", "stored in db.");
     }
+
     public ArrayList<Attraction> getAllAttractions() {
         ArrayList<Attraction> attractionList = new ArrayList<Attraction>();
         String selectQuery = "SELECT  * FROM " + TABLE_ATTRACTIONS + " ORDER BY " + ATTRACTION_ID;
@@ -115,6 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return attractionList;
     }
+
     public void deleteAllAttractions() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_ATTRACTIONS);
@@ -131,8 +149,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_GALLERY, null, values);
         db.close(); // Closing database connection
-        Log.e("Gallery Item:","stored in db.");
+        Log.e("Gallery Item:", "stored in db.");
     }
+
     public ArrayList<GalleryItem> getAllGalleryItems() {
         ArrayList<GalleryItem> galleryItemList = new ArrayList<GalleryItem>();
         String selectQuery = "SELECT * FROM " + TABLE_GALLERY;
@@ -150,9 +169,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return galleryItemList;
     }
+
     public void deleteAllGalleryItems() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_GALLERY);
+    }
+
+    public void addContact(Contact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CONTACTS_ID, contact.getId());
+        values.put(CONTACTS_NAME, contact.getName());
+        values.put(CONTACTS_DESIGNATION, contact.getDesignation());
+        values.put(CONTACTS_IMAGE_URL, contact.getImageUrl());
+        values.put(CONTACTS_FACEBOOK_URL, contact.getFacebookUrl());
+        // Inserting Row
+        db.insert(TABLE_CONTACTS, null, values);
+        db.close(); // Closing database connection
+        Log.e("Contact :", "stored in db.");
+    }
+
+    public ArrayList<Contact> getAllContacts() {
+        ArrayList<Contact> contactList = new ArrayList<Contact>();
+        String selectQuery = "SELECT * FROM " + TABLE_CONTACTS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Contact contact = new Contact(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                contactList.add(contact);
+            } while (cursor.moveToNext());
+        }
+        return contactList;
+    }
+
+    public void deleteAllContacts() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_CONTACTS);
     }
 
     public void addNotification(Notifications notification) {
@@ -170,6 +226,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_NOTIFICATIONS, null, values);
         db.close(); // Closing database connection
     }
+
     public Notifications getNotification(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -187,6 +244,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return notifications;
     }
+
     public ArrayList<Notifications> getAllNotifications() {
         ArrayList<Notifications> notificationsList = new ArrayList<Notifications>();
         // Select All Query
@@ -209,6 +267,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return notification list
         return notificationsList;
     }
+
     public int getNotificationsCount() {
         String countQuery = "SELECT  * FROM " + TABLE_NOTIFICATIONS;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -219,11 +278,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return count
         return count;
     }
+
     public void refreshNotifications(ArrayList<Notifications> notificationsArrayList) {
         deleteAllNotifications();
         for (Notifications notification : notificationsArrayList)
             addNotification(notification);
     }
+
     public int updateNotification(Notifications notification) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -240,16 +301,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.update(TABLE_NOTIFICATIONS, values, NOTIFICATION_ID + " = ?",
                 new String[]{String.valueOf(notification.getId())});
     }
+
     public void deleteAllNotifications() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NOTIFICATIONS);
     }
+
     public void deleteNotification(Notifications notification) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NOTIFICATIONS, NOTIFICATION_ID + " = ?",
                 new String[]{String.valueOf(notification.getId())});
         db.close();
     }
+
     public boolean notificationAlreadyPresent(Notifications notification) {
         SQLiteDatabase db = this.getReadableDatabase();
         String Query = "SELECT * FROM " + TABLE_NOTIFICATIONS + " WHERE "
@@ -262,7 +326,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return true;
     }
-    public void dropDB(){
+
+    public void dropDB() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTIFICATIONS);
         onCreate(db);

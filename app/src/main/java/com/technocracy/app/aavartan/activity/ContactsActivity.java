@@ -32,9 +32,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.api.Contact;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
+import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
 import org.json.JSONArray;
@@ -42,15 +44,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ContactsActivity extends AppCompatActivity {
 
     private GridView contactsGridView;
     private static final String TAG = ContactsActivity.class.getSimpleName();
-    private ArrayList<HashMap<String, String>> contactList;
+    private ArrayList<Contact> contactList;
     private ContactsAdapter contactsAdapter;
     private ProgressDialog pDialog;
+    private DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,12 @@ public class ContactsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        db = new DatabaseHandler(getApplicationContext());
         contactsGridView = (GridView) findViewById(R.id.contacts_gridView);
-        contactList = new ArrayList<HashMap<String, String>>();
+        contactList = db.getAllContacts();
+        contactsAdapter = new ContactsAdapter(contactList);
+        contactsGridView.setAdapter(contactsAdapter);
+
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
         getContacts();
@@ -82,7 +88,6 @@ public class ContactsActivity extends AppCompatActivity {
             pDialog.setMessage("Loading...");
             showDialog();
 
-
             StringRequest strReq = new StringRequest(Request.Method.GET,
                     App.CONTACTS_URL, new Response.Listener<String>() {
                 @Override
@@ -92,42 +97,50 @@ public class ContactsActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         JSONArray contacts = jsonObject.getJSONArray("contacts");
-                        contactList.clear();
+                        db.deleteAllContacts();
                         for (int i = 0; i < contacts.length(); i++) {
-                            JSONObject updatesObject = contacts.getJSONObject(i);
-                            HashMap<String, String> contactsEntry = new HashMap<>();
-                            contactsEntry.put("name", updatesObject.getString("name"));
-                            contactsEntry.put("designation", updatesObject.getString("designation"));
-                            contactsEntry.put("image_url", updatesObject.getString("image_url"));
-                            contactsEntry.put("fb_url", updatesObject.getString("fb_url"));
-                            contactList.add(i, contactsEntry);
+                            JSONObject contactObject = contacts.getJSONObject(i);
+                            Contact contact = new Contact(contactObject.getInt("id"),
+                                    contactObject.getString("name"),
+                                    contactObject.getString("designation"),
+                                    contactObject.getString("image_url"),
+                                    contactObject.getString("fb_url"));
+                            db.addContact(contact);
                         }
+                        contactList = db.getAllContacts();
                         contactsAdapter = new ContactsAdapter(contactList);
                         contactsGridView.setAdapter(contactsAdapter);
                     } catch (JSONException e) {
                         // JSON error
                         e.printStackTrace();
+                        contactList = db.getAllContacts();
+                        contactsAdapter = new ContactsAdapter(contactList);
+                        contactsGridView.setAdapter(contactsAdapter);
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e(TAG, "Contacts Request Error: " + error.getMessage());
-                    Snackbar.make(findViewById(R.id.relativeLayout), "Please try again!",Snackbar.LENGTH_LONG)
+                    Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection not Present.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     hideDialog();
+                    contactList = db.getAllContacts();
+                    contactsAdapter = new ContactsAdapter(contactList);
+                    contactsGridView.setAdapter(contactsAdapter);
                 }
             });
             // Adding request to request queue
             AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
         }
     }
+
     private class ContactsAdapter extends BaseAdapter {
 
-        private ArrayList<HashMap<String, String>> contactList;
+        private ArrayList<Contact> contactList;
         private LayoutInflater inflater = null;
 
-        public ContactsAdapter(ArrayList<HashMap<String, String>> contactList) {
+        public ContactsAdapter(ArrayList<Contact> contactList) {
             this.contactList = contactList;
             inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -164,8 +177,8 @@ public class ContactsActivity extends AppCompatActivity {
             holder.contactName = (TextView) rowView.findViewById(R.id.contact_name);
             holder.contactDesignation = (TextView) rowView.findViewById(R.id.contact_designation);
             holder.progressBar = (ProgressBar) rowView.findViewById(R.id.progressBar);
-            holder.contactName.setText(contactList.get(position).get("name"));
-            holder.contactDesignation.setText(contactList.get(position).get("designation"));
+            holder.contactName.setText(contactList.get(position).getName());
+            holder.contactDesignation.setText(contactList.get(position).getDesignation());
 
             int width = Math.round(App.getScreenWidth(ContactsActivity.this) / 2 - 10);
             int height = Math.round(width * 1);
@@ -178,7 +191,7 @@ public class ContactsActivity extends AppCompatActivity {
             canvas.drawPaint(paint);
             holder.contactImageView.setImageBitmap(bitmap);
             App.showProgressBar(holder.progressBar);
-            Picasso.with(ContactsActivity.this).load(contactList.get(position).get("image_url")).into(holder.contactImageView, new Callback() {
+            Picasso.with(ContactsActivity.this).load(contactList.get(position).getImageUrl()).into(holder.contactImageView, new Callback() {
                 @Override
                 public void onSuccess() {
                     App.hideProgressBar(holder.progressBar);
@@ -195,7 +208,7 @@ public class ContactsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(contactList.get(position).get("fb_url")));
+                    i.setData(Uri.parse(contactList.get(position).getFacebookUrl()));
                     startActivity(i);
                 }
             });

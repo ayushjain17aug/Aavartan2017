@@ -41,6 +41,7 @@ public class ScheduleActivity extends ActionBarActivity implements NavigationVie
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setOffscreenPageLimit(1);
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
         mTabs.setDistributeEvenly(true);

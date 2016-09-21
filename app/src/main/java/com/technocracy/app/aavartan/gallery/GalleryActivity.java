@@ -43,7 +43,7 @@ import com.technocracy.app.aavartan.activity.VigyaanActivity;
 import com.technocracy.app.aavartan.api.GalleryItem;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
-import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
+import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
 import org.json.JSONArray;
@@ -59,6 +59,8 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
     private ArrayList<GalleryItem> galleryImageList;
     private GalleryRecyclerViewAdapter galleryRecyclerViewAdapter;
     private ProgressDialog pDialog;
+    private DatabaseHandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +73,9 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        pDialog=new ProgressDialog(this);
+
+        db = new DatabaseHandler(getApplicationContext());
+        pDialog = new ProgressDialog(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -80,65 +84,72 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        galleryImageList = new ArrayList<GalleryItem>();
+        galleryImageList = db.getAllGalleryItems();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view1);
         int value = this.getResources().getConfiguration().orientation;
         if (Configuration.ORIENTATION_LANDSCAPE == value)
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, 1));
         else
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, 1));
+
+        galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter(GalleryActivity.this, galleryImageList);
+        recyclerView.setAdapter(galleryRecyclerViewAdapter);
+
         getImageURLs();
     }
 
     private void getImageURLs() {
         // Tag used to cancel the request
         String tag_string_req = "req_gallery";
-        if (!ConnectivityReceiver.isConnected())
-            Snackbar.make(findViewById(R.id.drawer_layout), "Please connect to internet!! ", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        else {
-            pDialog.setMessage("Loading");
-            pDialog.show();
-            StringRequest strReq = new StringRequest(Request.Method.POST,
-                    App.GALLERY_URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d(TAG, "Updates Response: " + response.toString());
-                    //swipeRefreshLayout.setRefreshing(false);
-                    try {
-                        pDialog.hide();
-                        JSONObject jsonObject = new JSONObject(response);
-                        // show dialog box for next question or home.
-                        JSONArray galleryArray = jsonObject.getJSONArray("gallery");
-                        galleryImageList.clear();
-                        for (int i = 0; i < galleryArray.length(); i++) {
-                            JSONObject galleryObject = galleryArray.getJSONObject(i);
-                            GalleryItem galleryEntry = new GalleryItem(galleryObject.getInt("id"),
-                                    galleryObject.getString("title"), galleryObject.getDouble("ratio"),
-                                    galleryObject.getString("url"));
-                            galleryImageList.add(i, galleryEntry);
-                        }
-                        galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter(GalleryActivity.this, galleryImageList);
-                        recyclerView.setAdapter(galleryRecyclerViewAdapter);
-                    } catch (JSONException e) {
-                        // JSON error
-                        pDialog.hide();
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+
+        pDialog.setMessage("Loading");
+        pDialog.show();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                App.GALLERY_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Updates Response: " + response.toString());
+                //swipeRefreshLayout.setRefreshing(false);
+                try {
                     pDialog.hide();
-                    Snackbar.make(findViewById(R.id.drawer_layout), "Error loading image!! ", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    //swipeRefreshLayout.setRefreshing(false);
+                    JSONObject jsonObject = new JSONObject(response);
+                    // show dialog box for next question or home.
+                    JSONArray galleryArray = jsonObject.getJSONArray("gallery");
+                    db.deleteAllGalleryItems();
+                    for (int i = 0; i < galleryArray.length(); i++) {
+                        JSONObject galleryObject = galleryArray.getJSONObject(i);
+                        GalleryItem galleryEntry = new GalleryItem(galleryObject.getInt("id"),
+                                galleryObject.getString("title"), galleryObject.getDouble("ratio"),
+                                galleryObject.getString("url"));
+                        db.addGalleryItem(galleryEntry);
+                    }
+                    galleryImageList = db.getAllGalleryItems();
+                    galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter(GalleryActivity.this, galleryImageList);
+                    recyclerView.setAdapter(galleryRecyclerViewAdapter);
+                } catch (JSONException e) {
+                    // JSON error
+                    pDialog.hide();
+                    galleryImageList = db.getAllGalleryItems();
+                    galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter(GalleryActivity.this, galleryImageList);
+                    recyclerView.setAdapter(galleryRecyclerViewAdapter);
+                    e.printStackTrace();
                 }
-            });
-            // Adding request to request queue
-            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-        }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pDialog.hide();
+                Snackbar.make(findViewById(R.id.drawer_layout), "Internet Connection not present", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                galleryImageList = db.getAllGalleryItems();
+                galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter(GalleryActivity.this, galleryImageList);
+                recyclerView.setAdapter(galleryRecyclerViewAdapter);
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
     class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecyclerViewAdapter.GalleryViewHolder> {
 
         private final TypedValue mTypedValue = new TypedValue();
@@ -205,6 +216,7 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
         getMenuInflater().inflate(R.menu.actionbarbutton, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
