@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -153,9 +154,11 @@ public class MyEventsActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "MyEvents Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        "Internet Connection Failed", Toast.LENGTH_LONG).show();
+                eventlist = new ArrayList<HashMap<String, String>>();
+                eventsAdapter = new EventsAdapter(MyEventsActivity.this, eventlist);
+                recyclerView.setAdapter(eventsAdapter);
+                Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection Error.",Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
         }) {
