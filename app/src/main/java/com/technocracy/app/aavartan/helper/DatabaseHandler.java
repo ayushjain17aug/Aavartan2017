@@ -132,7 +132,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + SCHEDULE_DAY2_TIME + " TEXT," + SCHEDULE_DAY2_VENUE  + " TEXT,"
                 + SCHEDULE_DAY2_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_SCHEDULE_DAY2_TABLE);
-        db.execSQL(CREATE_GALLEY_TABLE);
 
         String CREATE_FUNEVENTS_TABLE = "CREATE TABLE " + TABLE_FUNEVENTS + "("
                 + EVENT_ID + " INTEGER PRIMARY KEY," +  EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
