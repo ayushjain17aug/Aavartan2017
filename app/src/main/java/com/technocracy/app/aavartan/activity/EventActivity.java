@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -30,7 +29,6 @@ import com.technocracy.app.aavartan.api.Event;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
-import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
 import com.technocracy.app.aavartan.helper.Eventkeys;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
@@ -130,11 +128,6 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         rCyclerView = (RecyclerView) findViewById(R.id.rView);
         rCyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Checking if user is online or not
-        if (!ConnectivityReceiver.isConnected())
-            Snackbar.make(findViewById(R.id.drawer_layout), "Please conect to Internet!",Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        else {
             try {
                 volleySinleton = VolleySingleton.getInstance();
                 requestQueue = volleySinleton.getRequestQueue();
@@ -144,21 +137,20 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url1, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        pDialog.hide();
+                        pDialog.dismiss();
                         parseJsonResponse(jsonObject);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(EventActivity.this, "Please try again!", Toast.LENGTH_LONG).show();
-                         pDialog.hide();
+                        Toast.makeText(EventActivity.this, "Connection problem,Please try again!", Toast.LENGTH_LONG).show();
+                         pDialog.dismiss();
                     }
                 });
                 requestQueue.add(request);
             } catch (NullPointerException e) {
             }
         }
-    }
 
     public void parseJsonResponse(JSONObject jsonObject) {
         if (jsonObject == null || jsonObject.length() == 0)

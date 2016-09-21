@@ -83,8 +83,6 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister = (TextView) findViewById(R.id.tvRegister);
         forgotpassword = (TextView) findViewById(R.id.forgotpassword);
 
-
-
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(final View v) {
                 final String email = etUsername.getText().toString().trim();
                 final String password = etPassword.getText().toString().trim();
-
                 loginUser(email, password);
             }
         });

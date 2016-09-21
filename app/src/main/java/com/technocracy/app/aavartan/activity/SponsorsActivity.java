@@ -97,7 +97,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, App.SPONSORS_URL, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
-                    pDialog.hide();
+                    pDialog.dismiss();
                     Log.d("abhi", "" + jsonObject.toString());
                     parseJsonResponse(jsonObject);
                 }
@@ -107,7 +107,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
                     Log.d("abhi", "Error in loading " + volleyError.getMessage());
                     Snackbar.make(findViewById(R.id.drawer_layout), "Please try again!! ",Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    pDialog.hide();
+                    pDialog.dismiss();
                 }
             });
             requestQueue.add(request);

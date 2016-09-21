@@ -111,7 +111,7 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
                 Log.d(TAG, "Updates Response: " + response.toString());
                 //swipeRefreshLayout.setRefreshing(false);
                 try {
-                    pDialog.hide();
+                    pDialog.dismiss();
                     JSONObject jsonObject = new JSONObject(response);
                     // show dialog box for next question or home.
                     JSONArray galleryArray = jsonObject.getJSONArray("gallery");
@@ -128,7 +128,7 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
                     recyclerView.setAdapter(galleryRecyclerViewAdapter);
                 } catch (JSONException e) {
                     // JSON error
-                    pDialog.hide();
+                    pDialog.dismiss();
                     galleryImageList = db.getAllGalleryItems();
                     galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter(GalleryActivity.this, galleryImageList);
                     recyclerView.setAdapter(galleryRecyclerViewAdapter);
@@ -138,7 +138,7 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                pDialog.hide();
+                pDialog.dismiss();
                 Snackbar.make(findViewById(R.id.drawer_layout), "Internet Connection not present", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 galleryImageList = db.getAllGalleryItems();

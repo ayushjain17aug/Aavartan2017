@@ -107,7 +107,7 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, App.ATTRACTIONS_URL, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        pDialog.hide();
+                        pDialog.dismiss();
                         Log.d("abhi", "" + jsonObject.toString());
                         parseJsonResponse(jsonObject);
                     }
@@ -116,7 +116,7 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
                     public void onErrorResponse(VolleyError volleyError) {
                         Snackbar.make(findViewById(R.id.drawer_layout), "Please try again!", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        pDialog.hide();
+                        pDialog.dismiss();
                     }
                 });
                 requestQueue.add(request);
