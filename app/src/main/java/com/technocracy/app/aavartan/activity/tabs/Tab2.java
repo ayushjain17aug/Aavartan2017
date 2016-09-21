@@ -38,7 +38,8 @@ public class Tab2 extends Fragment {
     private ProgressDialog progressDialog;
     private static final String TAG_SCHEDULE = "schedule";
     private static final String TAG_EVENT = "event";
-    private static final String TAG_VENUETIME = "venuetime";
+    private static final String TAG_VENUE = "venue";
+    private static final String TAG_TIME="time";
     private static final String TAG_IMAGE = "image_url";
     View v;
     JSONArray schedule = null;
@@ -78,14 +79,16 @@ public class Tab2 extends Fragment {
                         JSONObject c = schedule.getJSONObject(i);
 
                         String Event = c.getString(TAG_EVENT);
-                        String VenueTime = c.getString(TAG_VENUETIME);
+                        String Venue = c.getString(TAG_VENUE);
+                        String Time = c.getString(TAG_TIME);
                         String imageUrl = c.getString(TAG_IMAGE);
                         // tmp hashmap for single contact
                         HashMap<String, String> schedule = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
                         schedule.put(TAG_EVENT, Event);
-                        schedule.put(TAG_VENUETIME, VenueTime);
+                        schedule.put(TAG_TIME,Time);
+                        schedule.put(TAG_VENUE, Venue);
                         schedule.put(TAG_IMAGE, imageUrl);
 
                         // adding contact to contact list

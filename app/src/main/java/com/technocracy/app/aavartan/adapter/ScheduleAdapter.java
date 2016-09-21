@@ -29,7 +29,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
 
     public ScheduleAdapter(Context context, ArrayList<HashMap<String, String>> eventslists) {
 
-        mContext=context;
+        mContext = context;
         mContext.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
         this.eventslists = eventslists;
     }
@@ -47,11 +47,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
         holder.boundLeader = eventslists.get(position);
         holder.leaderCard.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
         holder.event_name.setText(Html.fromHtml(holder.boundLeader.get("event")));
-        holder.event_date.setText(Html.fromHtml(holder.boundLeader.get("venuetime")));
+        holder.event_time.setText(Html.fromHtml(holder.boundLeader.get("time")));
+        holder.event_venue.setText(Html.fromHtml(holder.boundLeader.get("venue")));
+
         String eventImageUrl = holder.boundLeader.get("image_url");
-            Picasso.with(mContext)
-                    .load(eventImageUrl).placeholder(R.drawable.ic_logo_small)
-                    .into(holder.eventImage);
+        Picasso.with(mContext)
+                .load(eventImageUrl).placeholder(R.drawable.ic_logo_small)
+                .into(holder.eventImage);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +73,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
         public final View mView;
         public final CardView leaderCard;
         public final TextView event_name;
-        public final TextView event_date;
+        public final TextView event_time;
+        public final TextView event_venue;
+
         public final ImageView eventImage;
         public HashMap<String, String> boundLeader;
 
@@ -80,7 +84,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
             mView = itemView;
             leaderCard = (CardView) itemView.findViewById(R.id.leaderboard_card);
             event_name = (TextView) itemView.findViewById(R.id.ListHead);
-            event_date = (TextView) itemView.findViewById(R.id.ListDesc);
+            event_time = (TextView) itemView.findViewById(R.id.ListTime);
+            event_venue = (TextView) itemView.findViewById(R.id.ListVenue);
             eventImage = (ImageView) itemView.findViewById(R.id.eventsImage);
         }
     }

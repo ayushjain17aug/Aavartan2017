@@ -154,7 +154,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp">
         <TextView
-            android:text="Event Registration : "
+            android:text="Event Registered : "
             android:layout_width="wrap_content"
             android:layout_marginLeft="60dp"
             android:layout_height="wrap_content"

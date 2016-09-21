@@ -15,7 +15,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/graffiti" />
+             />
 
         <ProgressBar
             android:id="@+id/progressBar"

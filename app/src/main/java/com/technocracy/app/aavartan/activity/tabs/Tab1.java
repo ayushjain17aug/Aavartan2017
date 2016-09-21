@@ -40,7 +40,8 @@ public class Tab1 extends Fragment {
     ListView listView;
     private static final String TAG_SCHEDULE = "schedule";
     private static final String TAG_EVENT = "event";
-    private static final String TAG_VENUETIME = "venuetime";
+    private static final String TAG_VENUE = "venue";
+    private static final String TAG_TIME = "time";
     private static final String TAG_IMAGE = "image_url";
     View v;
 
@@ -50,7 +51,7 @@ public class Tab1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         v = inflater.inflate(R.layout.tab_1, container, false);
+        v = inflater.inflate(R.layout.tab_1, container, false);
         pDialog = new ProgressDialog(getContext());
         scheduleList = new ArrayList<HashMap<String, String>>();
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
@@ -82,7 +83,8 @@ public class Tab1 extends Fragment {
                         JSONObject c = schedule.getJSONObject(i);
 
                         String Event = c.getString(TAG_EVENT);
-                        String VenueTime = c.getString(TAG_VENUETIME);
+                        String Venue = c.getString(TAG_VENUE);
+                        String Time = c.getString(TAG_TIME);
                         String imageUrl = c.getString(TAG_IMAGE);
 
                         // tmp hashmap for single contact
@@ -90,7 +92,8 @@ public class Tab1 extends Fragment {
 
                         // adding each child node to HashMap key => value
                         schedule.put(TAG_EVENT, Event);
-                        schedule.put(TAG_VENUETIME, VenueTime);
+                        schedule.put(TAG_TIME, Time);
+                        schedule.put(TAG_VENUE, Venue);
                         schedule.put(TAG_IMAGE, imageUrl);
 
                         // adding contact to contact list
@@ -100,6 +103,9 @@ public class Tab1 extends Fragment {
                     ScheduleAdapter adapter = new ScheduleAdapter(getContext(), scheduleList);
                     recyclerView.setAdapter(adapter);
                 } catch (JSONException e) {
+                    pDialog.hide();
+                    Snackbar.make(v, "Please try again!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                     e.printStackTrace();
                 }
             }
@@ -116,7 +122,6 @@ public class Tab1 extends Fragment {
                 pDialog.hide();
             }
         }
-
         );
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
