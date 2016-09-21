@@ -17,6 +17,10 @@ import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by User on 16/09/2016.
@@ -65,7 +69,7 @@ public class UserActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ayush", "clicked my events");
+
                 Intent intent = new Intent(UserActivity.this, MyEventsActivity.class);
                 UserActivity.this.startActivity(intent);
             }
@@ -90,6 +94,17 @@ public class UserActivity extends AppCompatActivity {
                 UserActivity.this.startActivity(intent);
             }
         });
+        Date notifDate = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");;
+        try {
+            notifDate = dateFormat.parse(user.getMember_since());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy h:mm:ss a ");
+
+        String outputdate = outputFormat.format(notifDate);
+
 
         user_id = (TextView) findViewById(R.id.user_id);
         first_name = (TextView) findViewById(R.id.first_name);
@@ -111,7 +126,7 @@ public class UserActivity extends AppCompatActivity {
         phone.setText(user.getPhone());
         college.setText(user.getCollege());
         event.setText(String.valueOf(user.getcount_event_registered()));
-        member_since.setText(user.getMember_since());
+        member_since.setText(outputdate);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

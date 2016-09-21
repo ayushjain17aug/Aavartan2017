@@ -142,8 +142,6 @@ public class NotificationsActivity extends AppCompatActivity {
                             notifications.setCreatedAt(jsonObject.getString("created_at"));
                             db.addNotification(notifications);
                         }
-
-                        notificationsList = db.getAllNotifications();
                         notificationsList = db.getAllNotifications();
                         mAdapter = new NotificationAdapter(notificationsList, NotificationsActivity.this);
                         recyclerView.setAdapter(mAdapter);

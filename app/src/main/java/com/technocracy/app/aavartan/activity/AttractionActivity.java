@@ -32,6 +32,7 @@ import com.technocracy.app.aavartan.gallery.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
+import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.Eventkeys;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
@@ -50,9 +51,10 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
     private VolleySingleton volleySinleton;
     private ProgressDialog pDialog;
     private RequestQueue requestQueue;
-    private ArrayList<Attraction> b;
     private AttractionAdapter Adap;
     private DrawerLayout drawer;
+    private DatabaseHandler db;
+    private ArrayList<Attraction> attractionsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +86,15 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
             username.setText(user.getFirst_name());
             usermail.setText(user.getEmail());
         }
+        db = new DatabaseHandler(getApplicationContext());
         pDialog = new ProgressDialog(this);
         rCyclerView = (RecyclerView) findViewById(R.id.rView);
         rCyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        attractionsList = db.getAllAttractions();
+        Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
+        rCyclerView.setAdapter(Adap);
+
         if (!ConnectivityReceiver.isConnected()) {
             Snackbar.make(findViewById(R.id.drawer_layout), "Please connect to Internet!",Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -122,7 +130,7 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
         if (jsonObject == null || jsonObject.length() == 0)
             return;
         try {
-            b = new ArrayList<Attraction>();
+            db.deleteAllAttractions();
             JSONArray attractions = jsonObject.getJSONArray("attractions");
             for (int i = 0; i < attractions.length(); i++) {
                 JSONObject currentEvent = attractions.getJSONObject(i);
@@ -130,13 +138,15 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
                 String description = currentEvent.getString(KEY_DESCRIPTION);
                 String id = currentEvent.getString(KEY_ID);
                 String imgUrl = currentEvent.getString(KEY_IMG_URL);
-                Attraction a = new Attraction(event, id, description, imgUrl);
-                b.add(a);
+                Attraction a = new Attraction(Integer.parseInt(id), event, description, imgUrl);
+                db.addAttraction(a);
             }
+            attractionsList = db.getAllAttractions();
         } catch (JSONException e) {
             e.printStackTrace();
+            attractionsList = db.getAllAttractions();
         }
-        Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), b);
+        Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
         rCyclerView.setAdapter(Adap);
     }
 
