@@ -69,7 +69,7 @@
             android:layout_alignParentBottom="true"
             android:background="#FFF9C4"
             android:text="REGISTER NOW!"
-            android:textColor="#ffffff"
+            android:textColor="#000000"
             android:textStyle="bold" />
     </RelativeLayout>
 
