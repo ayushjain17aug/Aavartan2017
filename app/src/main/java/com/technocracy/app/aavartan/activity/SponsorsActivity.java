@@ -30,10 +30,10 @@ import com.technocracy.app.aavartan.adapter.SimpleAdapter;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
+import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
-import com.technocracy.app.aavartan.helper.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +43,6 @@ import java.util.ArrayList;
 
 public class SponsorsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ProgressDialog pDialog;
-    private VolleySingleton volleySinleton;
     private RequestQueue requestQueue;
     private RecyclerView mRecyclerView;
     private SimpleAdapter mAdapter;
@@ -88,8 +87,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
             Snackbar.make(findViewById(R.id.drawer_layout), "Please Connect To Internet!", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         } else {
-            volleySinleton = VolleySingleton.getInstance();
-            requestQueue = volleySinleton.getRequestQueue();
+            requestQueue = AppController.getInstance().getRequestQueue();
             pDialog.setMessage("Loading Sponsors...");
             pDialog.show();
 
@@ -144,7 +142,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
                 }
             }
 
-            mAdapter = new SimpleAdapter(this,url0, url1, url2, url3);
+            mAdapter = new SimpleAdapter(this, url0, url1, url2, url3);
             sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
             sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length, "MEGAEVENT SPONSORS"));
             sections.add(new SectionedGridRecyclerViewAdapter.Section(url1.length + url0.length, "EVENT SPONSORS"));
