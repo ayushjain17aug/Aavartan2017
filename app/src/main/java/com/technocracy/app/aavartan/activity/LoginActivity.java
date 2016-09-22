@@ -53,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(!ConnectivityReceiver.isConnected())
-            Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG)
+        if (!ConnectivityReceiver.isConnected())
+            Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String email = etUsername.getText().toString().trim();
-                 setForgotpassword();
+                setForgotpassword();
 
             }
         });
@@ -152,13 +152,12 @@ public class LoginActivity extends AppCompatActivity {
                         session = new SessionManager(getApplicationContext());
                         session.setLogin(true);
                         db.addUser(user_id, first_name, last_name, email, phone, verified, college_name, member_since, count_event_registered);
-                        registerToken(FirebaseInstanceId.getInstance().getToken(),String.valueOf(user_id));
+                        registerToken(FirebaseInstanceId.getInstance().getToken(), String.valueOf(user_id));
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        if (jsonResponse.getString("message")!=null)
-                        {
+                        if (jsonResponse.has("message")) {
                             new AlertDialog.Builder(LoginActivity.this).setIcon(R.drawable.ic_dialog_alert).setTitle("Message")
                                     .setMessage(jsonResponse.getString("error_msg"))
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -170,10 +169,10 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     }).show();
 
+                        } else {
+                            Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
-                        else{
-                        Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();}
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -183,8 +182,8 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-               // Log.e(TAG, "Login Error: " + error.getMessage());
-                Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.connection_error_try_again),Snackbar.LENGTH_LONG)
+                // Log.e(TAG, "Login Error: " + error.getMessage());
+                Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.connection_error_try_again), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
             }
@@ -193,14 +192,15 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("email",email);
-                params.put("password",password);
+                params.put("email", email);
+                params.put("password", password);
                 return params;
             }
         };
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
     private void setForgotpassword() {
         // Tag used to cancel the request
 
@@ -210,14 +210,14 @@ public class LoginActivity extends AppCompatActivity {
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(20,0,20,0);
+        layoutParams.setMargins(20, 0, 20, 0);
 
         final EditText emailid = new EditText(getApplicationContext());
         emailid.setBackgroundColor(Color.parseColor("#ffffff"));
         emailid.setTextColor(Color.parseColor("#000000"));
         emailid.setHint("Email");
         emailid.setHintTextColor(Color.parseColor("#BDBDBD"));
-        layout.addView(emailid,layoutParams);
+        layout.addView(emailid, layoutParams);
 
         homeScreenDialog.setMessage("Enter Email Id :");
         homeScreenDialog.setTitle("Forgot Password");
@@ -239,13 +239,12 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean error = jsonResponse.getBoolean("error");
                                 if (!error) {
-                                    Log.d("ayush","no error");
-                                    Snackbar.make(findViewById(R.id.relativeLayout), "Please check your e-mail for resetting password.",Snackbar.LENGTH_LONG)
+                                    Log.d("ayush", "no error");
+                                    Snackbar.make(findViewById(R.id.relativeLayout), "Please check your e-mail for resetting password.", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
-                                }
-                                else {
-                                    Log.d("ayush","got error");
-                                    Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG)
+                                } else {
+                                    Log.d("ayush", "got error");
+                                    Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
                                 }
                             } catch (JSONException e) {
@@ -258,14 +257,14 @@ public class LoginActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             //Log.e(TAG, "Login Error: " + error.getMessage());
                             hideDialog();
-                            Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG).show();
                         }
                     }) {
                         @Override
                         protected Map<String, String> getParams() {
                             // Posting parameters to login url
                             Map<String, String> params = new HashMap<String, String>();
-                            params.put("email",emailids);
+                            params.put("email", emailids);
                             return params;
                         }
                     };
@@ -273,7 +272,7 @@ public class LoginActivity extends AppCompatActivity {
                     AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
                 } else {
                     // Prompt user to enter credentials
-                    Snackbar.make(findViewById(R.id.relativeLayout), "Please enter your email address.",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.relativeLayout), "Please enter your email address.", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -295,7 +294,8 @@ public class LoginActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-    private void registerToken(final String token,final String user_id) {
+
+    private void registerToken(final String token, final String user_id) {
         // Tag used to cancel the request
         String tag_string_req = "req_fcm_token_reg";
 
@@ -310,21 +310,21 @@ public class LoginActivity extends AppCompatActivity {
                     boolean error = jsonObject.getBoolean("error");
                     // Check for error node in json
                     if (!error) {
-                        Log.e("FCM Token Registration"," Successfully Registered");
+                        Log.e("FCM Token Registration", " Successfully Registered");
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jsonObject.getString("error_msg");
-                        Log.e("FCM Token Registration","Error : "+errorMsg);
+                        Log.e("FCM Token Registration", "Error : " + errorMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("FCM Token Registration","JSON Error : "+e.getMessage());
+                    Log.e("FCM Token Registration", "JSON Error : " + e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("FCM Token Registration","Volley Error : "+error.getMessage());
+                Log.e("FCM Token Registration", "Volley Error : " + error.getMessage());
             }
         }) {
             @Override
@@ -332,7 +332,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("token", token);
-                params.put("user_id",user_id);
+                params.put("user_id", user_id);
                 return params;
             }
         };
