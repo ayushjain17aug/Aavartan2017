@@ -102,7 +102,24 @@ public class RegisterActivity extends AppCompatActivity {
                 final String college = collegeEditText.getText().toString().trim();
                 final String phone = phoneEditText.getText().toString().trim();
 
-                registerUser(first_name, last_name, email, password0, password1, phone, college);
+                if(!first_name.isEmpty() && !last_name.isEmpty() && !password0.isEmpty()
+                        && !password1.isEmpty() && !email.isEmpty() && !college.isEmpty() && !phone.isEmpty()){
+                    if(password0.equals(password1)){
+                        if(password0.length()>5){
+                            if(phone.length()==10){
+                                registerUser(first_name, last_name, email, password0, password1, phone, college);
+                            }else{
+                                Snackbar.make(findViewById(R.id.drawer_layout),"Enter a valid 10 digit phone number.",Snackbar.LENGTH_LONG).show();
+                            }
+                        }else{
+                            Snackbar.make(findViewById(R.id.drawer_layout),"Password should be atleast 6 character long.",Snackbar.LENGTH_LONG).show();
+                        }
+                    }else{
+                        Snackbar.make(findViewById(R.id.drawer_layout),"Passwords are not same.",Snackbar.LENGTH_LONG).show();
+                    }
+                }else{
+                    Snackbar.make(findViewById(R.id.drawer_layout),"All fields are necessary.",Snackbar.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -141,7 +158,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
+                                        Intent toLogin = new Intent(RegisterActivity.this,LoginActivity.class);
+                                        startActivity(toLogin);
+                                        finish();
                                     }
                                 }).show();
 
