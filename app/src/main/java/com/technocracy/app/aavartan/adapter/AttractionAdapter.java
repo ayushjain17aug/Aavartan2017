@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.Attraction;
 import com.technocracy.app.aavartan.helper.App;
-import com.technocracy.app.aavartan.helper.AppController;
 
 import java.util.ArrayList;
 
@@ -49,7 +47,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.My
             @Override
             public void onError() {
                 App.hideProgressBar(holder.progressBar);
-                Toast.makeText(AppController.getInstance().getApplicationContext(), "Error Loading Image!", Toast.LENGTH_LONG).show();
+                //Toast.makeText(AppController.getInstance().getApplicationContext(), "Error Loading Image!", Toast.LENGTH_LONG).show();
             }
         });
         holder.name.setText(i.getName());

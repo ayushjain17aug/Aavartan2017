@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -71,7 +70,7 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(UserActivity.this, MyEventsActivity.class);
-                UserActivity.this.startActivity(intent);
+                startActivity(intent);
             }
         });
         button1 = (Button) findViewById(R.id.button1);
@@ -82,7 +81,8 @@ public class UserActivity extends AppCompatActivity {
                 sessionManager.setLogin(false);
                 sqLiteHandler.deleteUsers();
                 Intent intent = new Intent(UserActivity.this, LoginActivity.class);
-                UserActivity.this.startActivity(intent);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -91,11 +91,11 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserActivity.this, StayActivity.class);
-                UserActivity.this.startActivity(intent);
+                startActivity(intent);
             }
         });
         Date notifDate = null;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             notifDate = dateFormat.parse(user.getMember_since());
         } catch (ParseException e) {

@@ -256,7 +256,7 @@ public class EventDetailsActivity extends AppCompatActivity implements Navigatio
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Snackbar.make(findViewById(R.id.drawer_layout), "Please try again!",Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         }) {

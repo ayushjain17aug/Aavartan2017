@@ -77,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent RegisterIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                 RegisterActivity.this.startActivity(RegisterIntent);
+                finish();
             }
         });
 
@@ -157,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Registration Error: " + error.getMessage());
-                Snackbar.make(findViewById(R.id.drawer_layout), "Please try again!",Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.connection_error_try_again),Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
             }

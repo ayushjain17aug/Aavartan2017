@@ -70,7 +70,7 @@ public class InitiativesActivity extends AppCompatActivity implements Navigation
             @Override
             public void onError() {
                 App.hideProgressBar(pBar);
-                Snackbar.make(findViewById(R.id.drawer_layout), "Could not load image!",Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.image_loading_failed),Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

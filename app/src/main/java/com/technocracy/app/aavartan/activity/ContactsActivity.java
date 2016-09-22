@@ -117,7 +117,7 @@ public class ContactsActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Contacts Request Error: " + error.getMessage());
-                Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection not Present.", Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
                 contactList = db.getAllContacts();

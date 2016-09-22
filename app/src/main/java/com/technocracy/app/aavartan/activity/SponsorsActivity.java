@@ -20,10 +20,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.adapter.SectionedGridRecyclerViewAdapter;
 import com.technocracy.app.aavartan.adapter.SimpleAdapter;
@@ -31,7 +30,6 @@ import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
-import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
@@ -43,9 +41,9 @@ import java.util.ArrayList;
 
 public class SponsorsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ProgressDialog pDialog;
-    private RequestQueue requestQueue;
     private RecyclerView mRecyclerView;
     private SimpleAdapter mAdapter;
+    private SessionManager sessionManager;
     private ArrayList<SectionedGridRecyclerViewAdapter.Section> sections;
 
     @Override
@@ -56,14 +54,12 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+
+        sessionManager = new SessionManager(getApplicationContext());
         pDialog = new ProgressDialog(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-        //This is the code to provide a sectioned grid
-        sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,80 +79,85 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
             username.setText(user.getFirst_name());
             usermail.setText(user.getEmail());
         }
-        if (!ConnectivityReceiver.isConnected()) {
-            Snackbar.make(findViewById(R.id.drawer_layout), "Please Connect To Internet!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        } else {
-            requestQueue = AppController.getInstance().getRequestQueue();
-            pDialog.setMessage("Loading Sponsors...");
-            pDialog.show();
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, App.SPONSORS_URL, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject jsonObject) {
-                    pDialog.dismiss();
-                    Log.d("abhi", "" + jsonObject.toString());
-                    parseJsonResponse(jsonObject);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    Log.d("abhi", "Error in loading " + volleyError.getMessage());
-                    Snackbar.make(findViewById(R.id.drawer_layout), "Please try again. ", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    pDialog.dismiss();
-                }
-            });
-            requestQueue.add(request);
-        }
+        parseSponsors(sessionManager.getSponsorsData());
+        getSponsors();
     }
 
-    private void parseJsonResponse(JSONObject jsonObject) {
-        if (jsonObject == null || jsonObject.length() == 0)
-            return;
-        try {
-            JSONArray sponsors = jsonObject.getJSONArray("sponsors");
-            String url0[] = null, url1[] = null, url2[] = null, url3[] = null;
-            for (int i = 0; i < sponsors.length(); i++) {
-                JSONObject jobj = sponsors.getJSONObject(i);
-                if (i == 0)
-                    url0 = new String[jobj.length()];
-                if (i == 1)
-                    url1 = new String[jobj.length()];
-                if (i == 2)
-                    url2 = new String[jobj.length()];
-                if (i == 3)
-                    url3 = new String[jobj.length()];
-                String url[] = new String[jobj.length()];
-                for (int j = 0; j < jobj.length(); j++) {
-                    url[j] = jobj.getString("" + j);
-                }
-                if (i == 0)
-                    url0 = url;
-                if (i == 1) {
-                    url1 = url;
-                } else if (i == 2) {
-                    url2 = url;
-                } else {
-                    url3 = url;
-                }
-            }
+    private void getSponsors() {
+        // Tag used to cancel the request
+        String tag_string_req = "req_sponsors";
+        pDialog.setMessage("Loading Sponsors...");
+        showDialog();
 
-            mAdapter = new SimpleAdapter(this, url0, url1, url2, url3);
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length, "MEGAEVENT SPONSORS"));
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(url1.length + url0.length, "EVENT SPONSORS"));
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length + url1.length + url2.length, "PARTNERS"));
-            //Add your adapter to the sectionAdapter
-            SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
-            SectionedGridRecyclerViewAdapter mSectionedAdapter = new
-                    SectionedGridRecyclerViewAdapter(this, R.layout.section, R.id.section_text, mRecyclerView, mAdapter);
-            mSectionedAdapter.setSections(sections.toArray(dummy));
-            //Your RecyclerView.Adapter
-            //Apply this adapter to the RecyclerView
-            mRecyclerView.setAdapter(mSectionedAdapter);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                App.SPONSORS_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(SponsorsActivity.class.getSimpleName(), "Sponsors Response: " + response.toString());
+                hideDialog();
+                sessionManager.deleteSponsorsData();
+                sessionManager.saveSponsorsData(response);
+                parseSponsors(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(SponsorsActivity.class.getSimpleName(), "Attractions Request Error: " + error.getMessage());
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                hideDialog();
+                parseSponsors(sessionManager.getSponsorsData());
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    void parseSponsors(String response) {
+        if (response != null && !response.isEmpty() && response.length() > 0) {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray sponsors = jsonObject.getJSONArray("sponsors");
+                String url0[] = null, url1[] = null, url2[] = null, url3[] = null;
+                for (int i = 0; i < sponsors.length(); i++) {
+                    JSONObject jobj = sponsors.getJSONObject(i);
+                    if (i == 0)
+                        url0 = new String[jobj.length()];
+                    if (i == 1)
+                        url1 = new String[jobj.length()];
+                    if (i == 2)
+                        url2 = new String[jobj.length()];
+                    if (i == 3)
+                        url3 = new String[jobj.length()];
+                    String url[] = new String[jobj.length()];
+                    for (int j = 0; j < jobj.length(); j++) {
+                        url[j] = jobj.getString("" + j);
+                    }
+                    if (i == 0)
+                        url0 = url;
+                    if (i == 1) {
+                        url1 = url;
+                    } else if (i == 2) {
+                        url2 = url;
+                    } else {
+                        url3 = url;
+                    }
+                }
+                mAdapter = new SimpleAdapter(SponsorsActivity.this, url0, url1, url2, url3);
+                sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
+                sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
+                sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length, "MEGAEVENT SPONSORS"));
+                sections.add(new SectionedGridRecyclerViewAdapter.Section(url1.length + url0.length, "EVENT SPONSORS"));
+                sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length + url1.length + url2.length, "PARTNERS"));
+                SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
+                SectionedGridRecyclerViewAdapter mSectionedAdapter = new
+                        SectionedGridRecyclerViewAdapter(SponsorsActivity.this, R.layout.section, R.id.section_text, mRecyclerView, mAdapter);
+                mSectionedAdapter.setSections(sections.toArray(dummy));
+                mRecyclerView.setAdapter(mSectionedAdapter);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -268,5 +269,15 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }

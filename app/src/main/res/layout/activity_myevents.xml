@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:id="@+id/relativeLayout"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.technocracy.app.aavartan.activity.MyEventsActivity">
 
 
     <android.support.v7.widget.Toolbar
-        android:layout_height="?attr/actionBarSize"
-        android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        android:title="My Events"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="@drawable/spaceblack"
-        android:titleTextColor="@color/white"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:popupTheme="@style/AppTheme.AppBarOverlay"/>
+        android:title="My Events"
+        android:titleTextColor="@color/white"
+        app:popupTheme="@style/AppTheme.AppBarOverlay" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/swiperefreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,24 +28,24 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:background="@drawable/spaceblack"
             android:layout_height="match_parent"
+            android:background="@drawable/spaceblack"
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
-        android:text="You have not registered for any events. Yet."
+        android:id="@+id/no_events_yet_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
-        android:visibility="gone"
+        android:text="You have not registered for any events. Yet."
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/no_events_yet_textView"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

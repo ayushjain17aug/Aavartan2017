@@ -26,7 +26,7 @@ public class SessionManager {
     private static final String PREF_NAME = "AavartanLogin";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-
+    private static final String KEY_SPONSORS = "sponsorsData";
 
     public SessionManager(Context context) {
         this._context = context;
@@ -35,13 +35,25 @@ public class SessionManager {
     }
 
     public void setLogin(boolean isLoggedIn) {
-
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
-
         // commit changes
         editor.commit();
-
         Log.d(TAG, "User login session modified!");
+    }
+
+    public void saveSponsorsData(String sponsor) {
+        editor.putString(KEY_SPONSORS, sponsor);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "Sponsors saved!");
+    }
+
+    public void deleteSponsorsData(){
+        editor.remove(KEY_SPONSORS).commit();
+    }
+
+    public String getSponsorsData(){
+        return pref.getString(KEY_SPONSORS,null);
     }
 
     public boolean isLoggedIn() {

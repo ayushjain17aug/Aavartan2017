@@ -65,11 +65,12 @@
         <Button
             android:id="@+id/registerbutton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_alignParentBottom="true"
-            android:background="#FFF9C4"
+            android:background="@null"
             android:text="REGISTER NOW!"
-            android:textColor="#000000"
+            android:textColor="#FFF9C4"
             android:textStyle="bold" />
     </RelativeLayout>
 

@@ -19,16 +19,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
+import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 
 import org.json.JSONArray;
@@ -39,7 +40,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * Created by User on 16/09/2016.
  */
@@ -49,10 +49,11 @@ public class MyEventsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<HashMap<String, String>> eventlist;
+    private ArrayList<MyEvent> eventlist;
     private EventsAdapter eventsAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private SQLiteHandler db;
+    private SQLiteHandler uesrDB;
+    private DatabaseHandler db;
     private User user;
     private TextView noEventsTextView;
     private static final String TAG = MyEventsActivity.class.getSimpleName();
@@ -77,13 +78,19 @@ public class MyEventsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        uesrDB = new SQLiteHandler(getApplicationContext());
+        user = uesrDB.getUser();
+
+        db = new DatabaseHandler(getApplicationContext());
+
         noEventsTextView = (TextView) findViewById(R.id.no_events_yet_textView);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        db = new SQLiteHandler(getApplicationContext());
-        user = db.getUser();
+        eventlist = db.getAllMyEvents();
+        eventsAdapter = new EventsAdapter(MyEventsActivity.this, eventlist);
+        recyclerView.setAdapter(eventsAdapter);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
         swipeRefreshLayout.setColorSchemeResources(App.SWIPE_REFRESH_COLORS);
@@ -123,41 +130,35 @@ public class MyEventsActivity extends AppCompatActivity {
                         updatedUser.setcount_event_registered(jsonArray.length());
                         sqLiteHandler.updateeventscount(updatedUser);
                         user = updatedUser;
-                        eventlist = new ArrayList<HashMap<String, String>>();
-                        //Log.d("ayush", "Got count");
+                        db.deleteAllMyEvents();
                         if (jsonArray.length() == 0)
                             noEventsTextView.setVisibility(View.VISIBLE);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            String event_name = jsonObject.getString("event_name");
-                            String event_date = jsonObject.getString("event_date");
-                                /*Log.d("ayush", "Got Json object");
-                                Log.d("ayush", event_name);
-                                Log.d("ayush", event_date);*/
-                            HashMap<String, String> eventsEntry = new HashMap<>();
-                            eventsEntry.put("event_name", event_name);
-                            eventsEntry.put("event_date", event_date);
-                            eventlist.add(i, eventsEntry);
-                            //Log.d("ayush", "hey buddy");
+                            MyEvent myEvent = new MyEvent(jsonObject.getInt("reg_id"),
+                                    jsonObject.getString("event_name"), jsonObject.getString("event_date"));
+                            db.addMyEvent(myEvent);
                         }
-                        //Log.d("ayush", "out of loop");
-                        //Log.d("ayush", String.valueOf(eventlist.size()));
+                        eventlist = db.getAllMyEvents();
                         eventsAdapter = new EventsAdapter(MyEventsActivity.this, eventlist);
                         recyclerView.setAdapter(eventsAdapter);
                     } else {
-                        Toast.makeText(MyEventsActivity.this, jsonResponse.getString("error_msg"), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    eventlist = db.getAllMyEvents();
+                    eventsAdapter = new EventsAdapter(MyEventsActivity.this, eventlist);
+                    recyclerView.setAdapter(eventsAdapter);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                eventlist = new ArrayList<HashMap<String, String>>();
+                eventlist = db.getAllMyEvents();
                 eventsAdapter = new EventsAdapter(MyEventsActivity.this, eventlist);
                 recyclerView.setAdapter(eventsAdapter);
-                Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection Error.",Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -183,16 +184,16 @@ public class MyEventsActivity extends AppCompatActivity {
                 break;
             default:
                 break;
-               }
+        }
         return super.onOptionsItemSelected(item);
     }
 
     class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.LeaderboardViewHolder> {
 
         private final TypedValue mTypedValue = new TypedValue();
-        ArrayList<HashMap<String, String>> eventslists;
+        ArrayList<MyEvent> eventslists;
 
-        public EventsAdapter(Context context, ArrayList<HashMap<String, String>> eventslists) {
+        public EventsAdapter(Context context, ArrayList<MyEvent> eventslists) {
             context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
             this.eventslists = eventslists;
         }
@@ -207,11 +208,10 @@ public class MyEventsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final LeaderboardViewHolder holder, final int position) {
-            holder.boundLeader = eventslists.get(position);
-            holder.leaderCard.setBackgroundColor(getResources().getColor(R.color.blue));
-            holder.event_name.setText(Html.fromHtml(holder.boundLeader.get("event_name")));
-            holder.event_date.setText(Html.fromHtml(holder.boundLeader.get("event_date")));
-            Log.d("ayush", holder.boundLeader.get("event_name"));
+            holder.boundMyEvent = eventslists.get(position);
+            holder.myEventCard.setBackgroundColor(getResources().getColor(R.color.blue));
+            holder.event_name.setText(Html.fromHtml(holder.boundMyEvent.getEventName()));
+            holder.event_date.setText(Html.fromHtml(holder.boundMyEvent.getEventDate()));
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -230,15 +230,15 @@ public class MyEventsActivity extends AppCompatActivity {
         public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
 
             public final View mView;
-            public final CardView leaderCard;
+            public final CardView myEventCard;
             public final TextView event_name;
             public final TextView event_date;
-            public HashMap<String, String> boundLeader;
+            public MyEvent boundMyEvent;
 
             public LeaderboardViewHolder(View itemView) {
                 super(itemView);
                 mView = itemView;
-                leaderCard = (CardView) itemView.findViewById(R.id.leaderboard_card);
+                myEventCard = (CardView) itemView.findViewById(R.id.leaderboard_card);
                 event_name = (TextView) itemView.findViewById(R.id.username_leaderboard);
                 event_date = (TextView) itemView.findViewById(R.id.user_level_leaderboard);
             }

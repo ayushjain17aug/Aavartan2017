@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -50,7 +49,7 @@ public class NotificationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_notification_main);
+        setContentView(R.layout.activity_notifications);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
@@ -58,7 +57,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
-        mToolbar.setTitle("Notification");
+        mToolbar.setTitle("Notifications");
         mToolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -148,7 +147,7 @@ public class NotificationsActivity extends AppCompatActivity {
                     } else {
                         Log.d("ayush", "error");
                         noNotificationTextView.setVisibility(View.VISIBLE);
-                        Toast.makeText(NotificationsActivity.this, jsonResponse.getString("error_msg"), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -162,7 +161,7 @@ public class NotificationsActivity extends AppCompatActivity {
                 mAdapter = new NotificationAdapter(notificationsList, NotificationsActivity.this);
                 recyclerView.setAdapter(mAdapter);
                 swipeRefreshLayout.setRefreshing(false);
-                Snackbar.make(findViewById(R.id.relativeLayout), "Internet connection error.", Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         }) {
@@ -215,7 +214,7 @@ public class NotificationsActivity extends AppCompatActivity {
                         recyclerView.setAdapter(mAdapter);
                     } else {
                         noNotificationTextView.setVisibility(View.VISIBLE);
-                        Toast.makeText(NotificationsActivity.this, jsonResponse.getString("error_msg"), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -224,6 +223,7 @@ public class NotificationsActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Snackbar.make(findViewById(R.id.relativeLayout),getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG).show();
                 DatabaseHandler db = new DatabaseHandler(NotificationsActivity.this);
                 notificationsList = db.getAllNotifications();
                 mAdapter = new NotificationAdapter(notificationsList, NotificationsActivity.this);

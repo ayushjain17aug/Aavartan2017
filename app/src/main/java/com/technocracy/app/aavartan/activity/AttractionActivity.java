@@ -35,7 +35,6 @@ import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.Eventkeys;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
-import com.technocracy.app.aavartan.helper.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +46,6 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
 
     private SessionManager sessionManager;
     private RecyclerView rCyclerView;
-    private VolleySingleton volleySinleton;
     private ProgressDialog pDialog;
     private RequestQueue requestQueue;
     private AttractionAdapter Adap;
@@ -139,7 +137,7 @@ public class AttractionActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Attractions Request Error: " + error.getMessage());
-                Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection not Present.", Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
                 attractionsList = db.getAllAttractions();

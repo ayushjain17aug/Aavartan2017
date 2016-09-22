@@ -8,9 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.technocracy.app.aavartan.api.Attraction;
-import com.technocracy.app.aavartan.api.Event;
 import com.technocracy.app.aavartan.api.Contact;
+import com.technocracy.app.aavartan.api.Event;
 import com.technocracy.app.aavartan.api.GalleryItem;
+import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.Notifications;
 import com.technocracy.app.aavartan.api.Schedule;
 
@@ -36,55 +37,64 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String NOTIFICATION_IMAGE_URL = "image_url";
     private static final String NOTIFICATION_CREATED_AT = "created_at";
 
-    // Notifications table name
+    // table name
     private static final String TABLE_ATTRACTIONS = "attractions";
-    // Notifications Table Columns names
+    // table columns names
     private static final String ATTRACTION_ID = "id";
     private static final String ATTRACTION_NAME = "name";
     private static final String ATTRACTION_DESCRIPTION = "description";
     private static final String ATTRACTION_IMAGE_URL = "image";
 
 
+    // table names
     private static final String TABLE_FUNEVENTS = "funEvents";
     private static final String TABLE_MANAGERIALEVENTS = "managerialEvents";
     private static final String TABLE_TECHNICALVENTS = "technicalEvents";
     private static final String TABLE_ROBOTICS = "robotics";
 
+    // table columns names
     private static final String EVENT_NAME = "eventname";
     private static final String EVENT_TYPE = "eventtype";
     private static final String EVENT_DESCRIPTION = "eventdescription";
     private static final String EVENT_ID = "eventid";
     private static final String EVENT_IMAGE_URL = "eventimageurl";
 
-    // Notifications table name
+    // table name
     private static final String TABLE_GALLERY = "gallery";
-    // Notifications Table Columns names
+    // table columns names
     private static final String GALLERY_ID = "id";
     private static final String GALLERY_TITLE = "title";
     private static final String GALLERY_RATIO = "ratio";
     private static final String GALLERY_IMAGE_URL = "image";
 
-    // Notifications table name
+    // table name
     private static final String TABLE_CONTACTS = "contacts";
-    // Notifications Table Columns names
+    // table columns names
     private static final String CONTACTS_ID = "id";
     private static final String CONTACTS_NAME = "name";
     private static final String CONTACTS_DESIGNATION = "designation";
     private static final String CONTACTS_IMAGE_URL = "image";
     private static final String CONTACTS_FACEBOOK_URL = "facebook";
 
-    // Notifications table name
+    // table name
     private static final String TABLE_SCHEDULE_DAY1 = "schedule_day1";
-    // Notifications Table Columns names
+    // table columns names
     private static final String SCHEDULE_DAY1_ID = "id";
     private static final String SCHEDULE_DAY1_EVENT = "event";
     private static final String SCHEDULE_DAY1_TIME = "time";
     private static final String SCHEDULE_DAY1_VENUE = "venue";
     private static final String SCHEDULE_DAY1_IMAGE_URL = "image";
 
-    // Notifications table name
+    // table name
+    private static final String TABLE_MY_EVENTS = "my_events";
+    // table columns names
+    private static final String MY_EVENTS_ID = "id";
+    private static final String MY_EVENTS_EVENT_NAME = "event_name";
+    private static final String MY_EVENTS_EVENT_DATE = "event_date";
+
+    // table name
     private static final String TABLE_SCHEDULE_DAY2 = "schedule_day2";
-    // Notifications Table Columns names
+    // table columns names
     private static final String SCHEDULE_DAY2_ID = "id";
     private static final String SCHEDULE_DAY2_EVENT = "event";
     private static final String SCHEDULE_DAY2_TIME = "time";
@@ -123,35 +133,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_SCHEDULE_DAY1_TABLE = "CREATE TABLE " + TABLE_SCHEDULE_DAY1 + "("
                 + SCHEDULE_DAY1_ID + " INTEGER PRIMARY KEY," + SCHEDULE_DAY1_EVENT + " TEXT,"
-                + SCHEDULE_DAY1_TIME + " TEXT," + SCHEDULE_DAY1_VENUE  + " TEXT,"
+                + SCHEDULE_DAY1_TIME + " TEXT," + SCHEDULE_DAY1_VENUE + " TEXT,"
                 + SCHEDULE_DAY1_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_SCHEDULE_DAY1_TABLE);
 
         String CREATE_SCHEDULE_DAY2_TABLE = "CREATE TABLE " + TABLE_SCHEDULE_DAY2 + "("
                 + SCHEDULE_DAY2_ID + " INTEGER PRIMARY KEY," + SCHEDULE_DAY2_EVENT + " TEXT,"
-                + SCHEDULE_DAY2_TIME + " TEXT," + SCHEDULE_DAY2_VENUE  + " TEXT,"
+                + SCHEDULE_DAY2_TIME + " TEXT," + SCHEDULE_DAY2_VENUE + " TEXT,"
                 + SCHEDULE_DAY2_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_SCHEDULE_DAY2_TABLE);
 
         String CREATE_FUNEVENTS_TABLE = "CREATE TABLE " + TABLE_FUNEVENTS + "("
-                + EVENT_ID + " INTEGER PRIMARY KEY," +  EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
+                + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
                 + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_FUNEVENTS_TABLE);
 
         String CREATE_MANAGERIALEVENTS_TABLE = "CREATE TABLE " + TABLE_MANAGERIALEVENTS + "("
-                + EVENT_ID + " INTEGER PRIMARY KEY," +  EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
+                + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
                 + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_MANAGERIALEVENTS_TABLE);
 
         String CREATE_TECHNICALEVENTS_TABLE = "CREATE TABLE " + TABLE_TECHNICALVENTS + "("
-                + EVENT_ID + " INTEGER PRIMARY KEY," +  EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
+                + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
                 + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_TECHNICALEVENTS_TABLE);
 
         String CREATE_ROBOTICS_TABLE = "CREATE TABLE " + TABLE_ROBOTICS + "("
-                + EVENT_ID + " INTEGER PRIMARY KEY," +  EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
+                + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
                 + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_ROBOTICS_TABLE);
+
+        String CREATE_MY_EVENTS_TABLE = "CREATE TABLE " + TABLE_MY_EVENTS + "("
+                + MY_EVENTS_ID + " INTEGER PRIMARY KEY," + MY_EVENTS_EVENT_NAME + " TEXT,"
+                + MY_EVENTS_EVENT_DATE+ " TEXT" + ")";
+        db.execSQL(CREATE_MY_EVENTS_TABLE);
     }
 
     // Upgrading database
@@ -165,11 +180,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MANAGERIALEVENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TECHNICALVENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROBOTICS);
-
-
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE_DAY1);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE_DAY2);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MY_EVENTS);
         // Create tables again
         onCreate(db);
     }
@@ -188,21 +202,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.e("Attraction:", "stored in db.");
     }
 
-
-    public void addEvents(Event event,String key) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(EVENT_ID, event.getEventId());
-        values.put(EVENT_NAME, event.getEventName());
-        values.put(EVENT_TYPE, event.getEventType());
-        values.put(EVENT_DESCRIPTION, event.getEventDescription());
-        values.put(EVENT_IMAGE_URL, event.getEventImgUrl());
-        // Inserting Row
-        db.insert(key, null, values);
-        db.close(); // Closing database connection
-        Log.e("Attraction:","stored in db.");
-    }
     public ArrayList<Attraction> getAllAttractions() {
         ArrayList<Attraction> attractionList = new ArrayList<Attraction>();
         String selectQuery = "SELECT  * FROM " + TABLE_ATTRACTIONS + " ORDER BY " + ATTRACTION_ID;
@@ -221,6 +220,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return attractionList;
     }
 
+    public void deleteAllAttractions() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_ATTRACTIONS);
+    }
+
+
+    public void addEvents(Event event, String key) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(EVENT_ID, event.getEventId());
+        values.put(EVENT_NAME, event.getEventName());
+        values.put(EVENT_TYPE, event.getEventType());
+        values.put(EVENT_DESCRIPTION, event.getEventDescription());
+        values.put(EVENT_IMAGE_URL, event.getEventImgUrl());
+        // Inserting Row
+        db.insert(key, null, values);
+        db.close(); // Closing database connection
+        Log.e("Event:", "stored in db.");
+    }
+
     public ArrayList<Event> getAllEvents(String key) {
         ArrayList<Event> eventList = new ArrayList<Event>();
         String selectQuery = "SELECT  * FROM " + key + " ORDER BY " + EVENT_ID;
@@ -231,22 +251,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Event event = new Event(cursor.getInt(0), cursor.getString(1),
-                        cursor.getString(2), cursor.getString(3),cursor.getString(4));
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
                 eventList.add(event);
             } while (cursor.moveToNext());
         }
 
         return eventList;
     }
-    public void deleteAllAttractions() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_ATTRACTIONS);
-    }
 
     public void deleteAllEvent(String key) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + key);
     }
+
 
     public void addGalleryItem(GalleryItem galleryItem) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -285,6 +302,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_GALLERY);
     }
 
+
     public void addContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -320,6 +338,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_CONTACTS);
     }
+
 
     public void addScheduleDay1Item(Schedule schedule) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -357,6 +376,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_SCHEDULE_DAY1);
     }
 
+
     public void addScheduleDay2Item(Schedule schedule) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -392,6 +412,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_SCHEDULE_DAY2);
     }
+
+
+    public void addMyEvent(MyEvent myEvent) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(MY_EVENTS_ID, myEvent.getId());
+        values.put(MY_EVENTS_EVENT_NAME, myEvent.getEventName());
+        values.put(MY_EVENTS_EVENT_DATE, myEvent.getEventDate());
+        // Inserting Row
+        db.insert(TABLE_MY_EVENTS, null, values);
+        db.close(); // Closing database connection
+        Log.e("my event:", "stored in db.");
+    }
+
+    public ArrayList<MyEvent> getAllMyEvents() {
+        ArrayList<MyEvent> myEventsList = new ArrayList<MyEvent>();
+        String selectQuery = "SELECT  * FROM " + TABLE_MY_EVENTS + " ORDER BY " + MY_EVENTS_ID;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                MyEvent myEvent = new MyEvent(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+                myEventsList.add(myEvent);
+            } while (cursor.moveToNext());
+        }
+        return myEventsList;
+    }
+
+    public void deleteAllMyEvents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_MY_EVENTS);
+    }
+
 
     public void addNotification(Notifications notification) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -509,9 +563,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
+
     public void dropDB() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTIFICATIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ATTRACTIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GALLERY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FUNEVENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MANAGERIALEVENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TECHNICALVENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROBOTICS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE_DAY1);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE_DAY2);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MY_EVENTS);
         onCreate(db);
     }
 }

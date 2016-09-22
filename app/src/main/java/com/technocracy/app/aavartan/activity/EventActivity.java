@@ -1,8 +1,6 @@
 package com.technocracy.app.aavartan.activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,15 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.adapter.EventsAdapter;
 import com.technocracy.app.aavartan.api.Event;
@@ -36,24 +30,18 @@ import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
-import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.Eventkeys;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
-import com.technocracy.app.aavartan.helper.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class EventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private VolleySingleton volleySinleton;
-    private RequestQueue requestQueue;
     private ArrayList<Event> eventsList;
     private String key1;
     private String key2;
@@ -74,7 +62,6 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         Bundle data = getIntent().getExtras();
         String title = data.getString("event_selected");
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(title);
@@ -93,7 +80,6 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLoggedIn()) {
@@ -145,9 +131,10 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         }
         rCyclerView = (RecyclerView) findViewById(R.id.rView);
         rCyclerView.setLayoutManager(new LinearLayoutManager(this));
+        getEvents();
+    }
 
-        //Checking if user is online or not
-
+    private void getEvents() {
         // Tag used to cancel the request
         String tag_string_req = "req_events";
         pDialog.setMessage("Loading ...");
@@ -158,7 +145,6 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
             @Override
             public void onResponse(String response) {
                 hideDialog();
-
                 try {
                     Log.e(EventActivity.class.getSimpleName(), "EVENT GOT RESPONSE");
                     db.deleteAllEvent(key1);
@@ -175,7 +161,6 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
                         Event events = new Event(event_id, event_name, event_type, event_description, event_img_url);
                         db.addEvents(events, key1);
                     }
-                    //Log.d("ayush","no error");
                     eventsList = db.getAllEvents(key1);
                     Recycler_Adap = new EventsAdapter(EventActivity.this, eventsList);
                     rCyclerView.setAdapter(Recycler_Adap);
@@ -185,7 +170,6 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
                     rCyclerView.setAdapter(Recycler_Adap);
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -195,7 +179,7 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
                 eventsList = db.getAllEvents(key1);
                 Recycler_Adap = new EventsAdapter(EventActivity.this, eventsList);
                 rCyclerView.setAdapter(Recycler_Adap);
-                Snackbar.make(findViewById(R.id.drawer_layout), "Internet Connection Error!", Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
             }

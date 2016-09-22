@@ -52,7 +52,7 @@ public class ViewPDF extends AppCompatActivity {
                 });
             } else {
                 lt.hide();
-                Snackbar.make(findViewById(R.id.rel), "Please connect to internet! ",Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.rel), getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         } catch (NullPointerException e) {
@@ -69,7 +69,7 @@ public class ViewPDF extends AppCompatActivity {
             final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(LinkToPDF));
             startActivity(intent);
         } else {
-            Snackbar.make(findViewById(R.id.rel), "Please connect to internet!! ",Snackbar.LENGTH_LONG)
+            Snackbar.make(findViewById(R.id.rel), getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
         }

@@ -4,13 +4,13 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@drawable/spaceblack"
+    android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-<include
-    layout="@layout/register_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <include
+        layout="@layout/register_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

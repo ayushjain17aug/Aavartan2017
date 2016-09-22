@@ -33,15 +33,14 @@ public class App {
     public static final String ROBOTICS_URL = "http://aavartan.org/appApi_2Ksixteen/Robotics.php";
     public static final String ATTRACTIONS_URL = "http://aavartan.org/appApi_2Ksixteen/Attraction.php";
 
-    public static final String SCHEDULE_DAY1_URL = "http://aavartan.org/devApiPHP/ScheduleDay1.php";
-    public static final String SCHEDULE_DAY2_URL = "http://aavartan.org/devApiPHP/ScheduleDay2.php";
+    public static final String SCHEDULE_DAY1_URL = "http://aavartan.org/appApi_2Ksixteen/3vScheduleDay1.php";
+    public static final String SCHEDULE_DAY2_URL = "http://aavartan.org/appApi_2Ksixteen/3vScheduleDay2.php";
 
     //public static final String SCHEDULE_DAY1_URL = "http://aavartan.org/appApi_2Ksixteen/ScheduleDay1.php";
     //public static final String SCHEDULE_DAY2_URL = "http://aavartan.org/appApi_2Ksixteen/ScheduleDay2.php";
 
     public static final String INITIATIVES_IMG_URL = "http://www.aavartan.org/images/52.JPG";
-    public static final String SPONSORS_URL = "http://aavartan.org/devApiPHP/sponsorsNew.php";
-    //public static final String SPONSORS_URL = "http://aavartan.org/appApi_2Ksixteen/sponsors.php";
+    public static final String SPONSORS_URL = "http://aavartan.org/appApi_2Ksixteen/3vSponsors.php";
 
 
     //Vigyaan

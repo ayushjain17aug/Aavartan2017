@@ -26,7 +26,6 @@ import android.widget.TextView;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.GalleryActivity;
-import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
@@ -39,7 +38,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private Boolean isFabOpen = true;
-    SessionManager sessionManager;
+    private SessionManager sessionManager;
     private String currentDateString;
     private SimpleDateFormat dateFormat;
     FloatingActionButton fab;
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         currentDateString = dateFormat.format(Calendar.getInstance().getTime());
         sessionManager = new SessionManager(getApplicationContext());
 
+        //new DatabaseHandler(getApplicationContext()).dropDB();
 
         if (sessionManager.isLoggedIn()) {
             sqLiteHandler = new SQLiteHandler(getApplicationContext());

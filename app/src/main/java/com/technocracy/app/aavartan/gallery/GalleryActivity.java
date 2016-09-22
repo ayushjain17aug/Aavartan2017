@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -41,9 +42,11 @@ import com.technocracy.app.aavartan.activity.SponsorsActivity;
 import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.activity.VigyaanActivity;
 import com.technocracy.app.aavartan.api.GalleryItem;
+import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
+import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
 import org.json.JSONArray;
@@ -83,6 +86,17 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        if (sessionManager.isLoggedIn()) {
+            SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
+            User user = sqLiteHandler.getUser();
+            View navHeaderView = navigationView.getHeaderView(0);
+            TextView username = (TextView) navHeaderView.findViewById(R.id.username);
+            TextView usermail = (TextView) navHeaderView.findViewById(R.id.usermail);
+            username.setText(user.getFirst_name());
+            usermail.setText(user.getEmail());
+        }
 
         galleryImageList = db.getAllGalleryItems();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view1);
@@ -139,7 +153,7 @@ public class GalleryActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onErrorResponse(VolleyError error) {
                 pDialog.dismiss();
-                Snackbar.make(findViewById(R.id.drawer_layout), "Internet Connection not present", Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 galleryImageList = db.getAllGalleryItems();
                 galleryRecyclerViewAdapter = new GalleryRecyclerViewAdapter(GalleryActivity.this, galleryImageList);

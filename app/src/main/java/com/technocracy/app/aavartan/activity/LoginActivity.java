@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -55,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if(!ConnectivityReceiver.isConnected())
-            Snackbar.make(findViewById(R.id.relativeLayout), "Please connect to Internet!",Snackbar.LENGTH_LONG)
+            Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -155,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                         db.addUser(user_id, first_name, last_name, email, phone, verified, college_name, member_since, count_event_registered);
                         registerToken(FirebaseInstanceId.getInstance().getToken(),String.valueOf(user_id));
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
-                        LoginActivity.this.startActivity(intent);
+                        startActivity(intent);
                         finish();
                     } else {
                         if (jsonResponse.getString("message")!=null)
@@ -182,11 +181,10 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                // Log.e(TAG, "Login Error: " + error.getMessage());
-                Snackbar.make(findViewById(R.id.relativeLayout), "Please try again!",Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.connection_error_try_again),Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
             }
@@ -242,7 +240,7 @@ public class LoginActivity extends AppCompatActivity {
                                 boolean error = jsonResponse.getBoolean("error");
                                 if (!error) {
                                     Log.d("ayush","no error");
-                                    Snackbar.make(findViewById(R.id.relativeLayout), "Please check your e-mail!",Snackbar.LENGTH_LONG)
+                                    Snackbar.make(findViewById(R.id.relativeLayout), "Please check your e-mail for resetting password.",Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
                                 }
                                 else {
@@ -260,8 +258,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             //Log.e(TAG, "Login Error: " + error.getMessage());
                             hideDialog();
-                            Snackbar.make(findViewById(R.id.relativeLayout), "Internet Connection Error.",Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+                            Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG).show();
                         }
                     }) {
                         @Override
@@ -276,9 +273,7 @@ public class LoginActivity extends AppCompatActivity {
                     AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
                 } else {
                     // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
-                            "Please enter email id in field!", Toast.LENGTH_LONG)
-                            .show();
+                    Snackbar.make(findViewById(R.id.relativeLayout), "Please enter your email address.",Snackbar.LENGTH_LONG).show();
                 }
             }
         });

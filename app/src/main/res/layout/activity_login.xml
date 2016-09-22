@@ -2,8 +2,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
     android:id="@+id/relativeLayout"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@drawable/spaceblack">
 
@@ -13,6 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/spaceblack"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout6"
         android:layout_width="wrap_content"
@@ -32,7 +33,6 @@
             android:hint="Email"
             android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
-
 
 
     <android.support.design.widget.TextInputLayout
@@ -83,9 +83,9 @@
         android:textSize="15dp" />
 
     <TextView
+        android:id="@+id/forgotpassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/forgotpassword"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="true"
@@ -99,26 +99,26 @@
 
     <Button
         android:id="@+id/bLogin"
-        android:layout_below="@+id/forgotpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textInputLayout5"
         android:layout_alignStart="@+id/textInputLayout5"
+        android:layout_below="@+id/forgotpassword"
         android:layout_centerInParent="true"
         android:layout_marginTop="25dp"
         android:background="#FFF9C4"
         android:text="Login"
-        android:textColor="@color/colorblack"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:textColor="@color/colorblack" />
 
     <TextView
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Credentials for both website and app are same"
-        android:id="@+id/textView11"
-        android:textStyle="italic"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="32dp"
+        android:text="Credentials for both website and app are same"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="italic" />
 
 </RelativeLayout>
