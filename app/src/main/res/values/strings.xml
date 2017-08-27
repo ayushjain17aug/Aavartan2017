@@ -52,5 +52,6 @@
     <string name="no_internet_error">Internet Connection not Present.</string>
     <string name="image_loading_failed">Failed to load image.</string>
     <string name="connection_error_try_again">Connection error. Please try again.</string>
+    <string name="Connection_Error">\"Connection Error! Please check your connection\"</string>
 
 </resources>

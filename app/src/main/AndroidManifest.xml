@@ -27,10 +27,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.technocracy.app.aavartan.gallery.GalleryActivity"
-            android:hardwareAccelerated="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
             android:name="com.technocracy.app.aavartan.activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -45,10 +41,6 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name="com.technocracy.app.aavartan.activity.MapsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.technocracy.app.aavartan.gallery.FullscreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -121,6 +113,11 @@
             android:name="com.technocracy.app.aavartan.activity.StayActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_stay"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="com.technocracy.app.aavartan.gallery.View.GalleryActivity"
+            android:screenOrientation="portrait"
+            android:label="Gallery"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name="com.technocracy.app.aavartan.activity.AttractionActivity"

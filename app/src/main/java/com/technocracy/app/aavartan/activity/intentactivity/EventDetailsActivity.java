@@ -31,7 +31,7 @@ import com.technocracy.app.aavartan.activity.SponsorsActivity;
 import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.activity.VigyaanActivity;
 import com.technocracy.app.aavartan.api.User;
-import com.technocracy.app.aavartan.gallery.GalleryActivity;
+import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;

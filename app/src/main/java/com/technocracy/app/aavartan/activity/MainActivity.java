@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.User;
-import com.technocracy.app.aavartan.gallery.GalleryActivity;
+import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 

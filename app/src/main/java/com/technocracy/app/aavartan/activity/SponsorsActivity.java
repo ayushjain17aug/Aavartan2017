@@ -27,7 +27,7 @@ import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.adapter.SectionedGridRecyclerViewAdapter;
 import com.technocracy.app.aavartan.adapter.SimpleAdapter;
 import com.technocracy.app.aavartan.api.User;
-import com.technocracy.app.aavartan.gallery.GalleryActivity;
+import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;

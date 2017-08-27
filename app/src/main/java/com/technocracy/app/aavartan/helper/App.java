@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 
 import com.technocracy.app.aavartan.R;
 
+import okhttp3.HttpUrl;
+
 
 /**
  * Created by MOHIT on 18-Sep-16.
@@ -44,7 +46,7 @@ public class App {
 
 
     //Vigyaan
-    public static final String ArchiPDF="http://aavartan.org/ps/archi.pdf";
+    public static final String ArchiPDF = "http://aavartan.org/ps/archi.pdf";
     public static final String BioMedPDF = "http://aavartan.org/ps/biomed.pdf";
     public static final String BioTechPDF = "http://aavartan.org/ps/biotech.pdf";
     public static final String ChemPDF = "http://www.aavartan.org/ps/chemical.pdf";
@@ -65,6 +67,11 @@ public class App {
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
 
     public static final int SWIPE_REFRESH_COLORS[] = {R.color.colorPrimary, R.color.colorAccent};
+
+
+    public static String Base_Url;//TODO : add urls
+    public static final String GALLERY = "";
+
 
     public static float getScreenWidth(Context context) {
         DisplayMetrics displaymetrics = new DisplayMetrics();

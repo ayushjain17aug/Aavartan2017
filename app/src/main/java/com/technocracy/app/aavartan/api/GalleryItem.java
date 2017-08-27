@@ -37,10 +37,6 @@ public class GalleryItem {
         return ratio;
     }
 
-    public void setRatio(double ratio) {
-        this.ratio = ratio;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -48,5 +44,4 @@ public class GalleryItem {
     public void setUrl(String url) {
         this.url = url;
     }
-
 }

@@ -27,7 +27,7 @@ import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.adapter.EventsAdapter;
 import com.technocracy.app.aavartan.api.Event;
 import com.technocracy.app.aavartan.api.User;
-import com.technocracy.app.aavartan.gallery.GalleryActivity;
+import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
@@ -312,4 +312,3 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
         }
     }
 }
-

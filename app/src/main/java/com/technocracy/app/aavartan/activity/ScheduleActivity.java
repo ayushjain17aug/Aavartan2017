@@ -22,7 +22,7 @@ import com.technocracy.app.aavartan.activity.tabs.SlidingTabLayout;
 import com.technocracy.app.aavartan.activity.tabs.Tab1;
 import com.technocracy.app.aavartan.activity.tabs.Tab2;
 import com.technocracy.app.aavartan.api.User;
-import com.technocracy.app.aavartan.gallery.GalleryActivity;
+import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
