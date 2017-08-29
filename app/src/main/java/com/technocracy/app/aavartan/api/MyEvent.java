@@ -1,8 +1,5 @@
 package com.technocracy.app.aavartan.api;
 
-/**
- * Created by MOHIT on 22-Sep-16.
- */
 public class MyEvent {
     private int id;
     private String eventName;

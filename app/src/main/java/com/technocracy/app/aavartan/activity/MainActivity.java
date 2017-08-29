@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.technocracy.app.aavartan.Event.View.EventActivity;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
@@ -286,22 +287,22 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_fun_events:
                 intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "Fun Events");
+                intent.putExtra("event_selected", "fun");
                 startActivity(intent);
                 break;
             case R.id.nav_managerial_events:
                 intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "Managerial Events");
+                intent.putExtra("event_selected", "manager");
                 startActivity(intent);
                 break;
             case R.id.nav_robotics:
                 intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "Robotics Events");
+                intent.putExtra("event_selected", "robo");
                 startActivity(intent);
                 break;
             case R.id.nav_technical_events:
                 intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "Technical Events");
+                intent.putExtra("event_selected", "tech");
                 startActivity(intent);
                 break;
             case R.id.nav_vigyaan:

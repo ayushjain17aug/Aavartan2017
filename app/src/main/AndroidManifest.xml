@@ -65,7 +65,7 @@
             android:label="@string/title_activity_schedule"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name="com.technocracy.app.aavartan.activity.EventActivity"
+            android:name="com.technocracy.app.aavartan.Event.View.EventActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity

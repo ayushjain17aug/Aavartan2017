@@ -38,18 +38,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-/**
- * Created by User on 16/09/2016.
- */
 
 public class MyEventsActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<MyEvent> eventlist;
+    private List<MyEvent> eventlist;
     private EventsAdapter eventsAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SQLiteHandler uesrDB;
@@ -191,9 +189,9 @@ public class MyEventsActivity extends AppCompatActivity {
     class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.LeaderboardViewHolder> {
 
         private final TypedValue mTypedValue = new TypedValue();
-        ArrayList<MyEvent> eventslists;
+        List<MyEvent> eventslists;
 
-        public EventsAdapter(Context context, ArrayList<MyEvent> eventslists) {
+        public EventsAdapter(Context context, List<MyEvent> eventslists) {
             context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
             this.eventslists = eventslists;
         }
@@ -245,4 +243,3 @@ public class MyEventsActivity extends AppCompatActivity {
         }
     }
 }
-

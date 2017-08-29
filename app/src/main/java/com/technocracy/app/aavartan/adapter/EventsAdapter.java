@@ -25,7 +25,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         this.eventsList = eventsList;
         this.context = context;
     }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_event, parent, false);
@@ -68,7 +67,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         public MyViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            txt = (TextView) itemView.findViewById(R.id.text1);
+            txt = (TextView) itemView.findViewById(R.id.event_name);
             img = (ImageView) itemView.findViewById(R.id.icon1);
         }
     }

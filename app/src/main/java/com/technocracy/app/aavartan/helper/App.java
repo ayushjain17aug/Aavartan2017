@@ -61,7 +61,6 @@ public class App {
     public static final String MCAPDF = "http://www.aavartan.org/ps/mca.pdf";
     public static final String EcellPDF = "http://www.aavartan.org/ps/e-cell.pdf";
     public static final String GoGreenPDF = "http://www.aavartan.org/ps/go_green.pdf";
-
     public static String LinkPDF;
     public static final int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
@@ -71,6 +70,7 @@ public class App {
 
     public static String Base_Url;//TODO : add urls
     public static final String GALLERY = "";
+    public static final String EVENT1 = "";
 
 
     public static float getScreenWidth(Context context) {

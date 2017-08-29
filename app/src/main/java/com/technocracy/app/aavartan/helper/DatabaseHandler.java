@@ -9,13 +9,15 @@ import android.util.Log;
 
 import com.technocracy.app.aavartan.api.Attraction;
 import com.technocracy.app.aavartan.api.Contact;
-import com.technocracy.app.aavartan.api.Event;
+//import com.technocracy.app.aavartan.api.Event;
+import com.technocracy.app.aavartan.Event.Model.Data.Event;
 import com.technocracy.app.aavartan.api.GalleryItem;
 import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.Notifications;
 import com.technocracy.app.aavartan.api.Schedule;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -46,11 +48,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String ATTRACTION_IMAGE_URL = "image";
 
 
-    // table names
-    private static final String TABLE_FUNEVENTS = "funEvents";
-    private static final String TABLE_MANAGERIALEVENTS = "managerialEvents";
-    private static final String TABLE_TECHNICALVENTS = "technicalEvents";
-    private static final String TABLE_ROBOTICS = "robotics";
+    // table names TODO: Add the particular events_set_Id for the tables
+    private static final String TABLE_FUNEVENTS = "fun";
+    private static final String TABLE_MANAGERIALEVENTS = "manager";
+    private static final String TABLE_TECHNICALVENTS = "tech";
+    private static final String TABLE_ROBOTICS = "robo";
 
     // table columns names
     private static final String EVENT_NAME = "eventname";
@@ -91,7 +93,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String MY_EVENTS_ID = "id";
     private static final String MY_EVENTS_EVENT_NAME = "event_name";
     private static final String MY_EVENTS_EVENT_DATE = "event_date";
-
+    private static final String EVENT_VENUE = "event_venue";
+    private static final String EVENT_TIME = "event_time";
+    private static final String EVENT_DATE = "event_date";
     // table name
     private static final String TABLE_SCHEDULE_DAY2 = "schedule_day2";
     // table columns names
@@ -100,6 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String SCHEDULE_DAY2_TIME = "time";
     private static final String SCHEDULE_DAY2_VENUE = "venue";
     private static final String SCHEDULE_DAY2_IMAGE_URL = "image";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -165,7 +170,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_MY_EVENTS_TABLE = "CREATE TABLE " + TABLE_MY_EVENTS + "("
                 + MY_EVENTS_ID + " INTEGER PRIMARY KEY," + MY_EVENTS_EVENT_NAME + " TEXT,"
-                + MY_EVENTS_EVENT_DATE+ " TEXT" + ")";
+                + MY_EVENTS_EVENT_DATE + " TEXT" + ")";
         db.execSQL(CREATE_MY_EVENTS_TABLE);
     }
 
@@ -231,18 +236,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(EVENT_ID, event.getEventId());
-        values.put(EVENT_NAME, event.getEventName());
-        values.put(EVENT_TYPE, event.getEventType());
-        values.put(EVENT_DESCRIPTION, event.getEventDescription());
-        values.put(EVENT_IMAGE_URL, event.getEventImgUrl());
+        values.put(EVENT_NAME, event.getName());
+        values.put(EVENT_TYPE, event.getType());
+        values.put(EVENT_DESCRIPTION, event.getDescription());
+        values.put(EVENT_IMAGE_URL, event.getImage_url());
+        values.put(EVENT_DATE, event.getDate());
+        values.put(EVENT_TIME, event.getTime());
+        values.put(EVENT_VENUE, event.getVenue());
         // Inserting Row
         db.insert(key, null, values);
         db.close(); // Closing database connection
         Log.e("Event:", "stored in db.");
     }
 
-    public ArrayList<Event> getAllEvents(String key) {
-        ArrayList<Event> eventList = new ArrayList<Event>();
+    public List<Event> getAllEvents(String key) {
+        List<Event> eventList = new ArrayList<Event>();
         String selectQuery = "SELECT  * FROM " + key + " ORDER BY " + EVENT_ID;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -250,12 +258,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Event event = new Event(cursor.getInt(0), cursor.getString(1),
-                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                Event event = new Event(cursor.getString(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
+                        cursor.getString(7));
                 eventList.add(event);
             } while (cursor.moveToNext());
         }
-
         return eventList;
     }
 
@@ -427,8 +435,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.e("my event:", "stored in db.");
     }
 
-    public ArrayList<MyEvent> getAllMyEvents() {
-        ArrayList<MyEvent> myEventsList = new ArrayList<MyEvent>();
+    public List<MyEvent> getAllMyEvents() {
+        List<MyEvent> myEventsList = new ArrayList<MyEvent>();
         String selectQuery = "SELECT  * FROM " + TABLE_MY_EVENTS + " ORDER BY " + MY_EVENTS_ID;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
