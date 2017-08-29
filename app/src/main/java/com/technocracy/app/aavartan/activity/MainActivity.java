@@ -85,139 +85,15 @@ public class MainActivity extends AppCompatActivity
 
         /*DatabaseHandler db = new DatabaseHandler(this);
         db.dropDB();*/
-
-        ImageView ulka = (ImageView) findViewById(R.id.ulka);
-        Animation ulka_anim = AnimationUtils.loadAnimation(getApplication(), R.anim.ulka_anim);
-        ulka_anim.setRepeatCount(Animation.INFINITE);
-        ulka_anim.setRepeatMode(Animation.INFINITE);
-        ulka.startAnimation(ulka_anim);
-        ImageView rocket = (ImageView) findViewById(R.id.rocket);
-        Animation rocket_anim = AnimationUtils.loadAnimation(getApplication(), R.anim.rocket);
-
-        rocket.startAnimation(rocket_anim);
-        ImageView revolve = (ImageView) findViewById(R.id.revolve);
-        Animation revolve_anim = AnimationUtils.loadAnimation(getApplication(), R.anim.revolve_anim);
-        revolve_anim.setRepeatCount(Animation.INFINITE);
-        revolve_anim.setRepeatMode(Animation.INFINITE);
-        revolve.startAnimation(revolve_anim);
-
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (isFabOpen) {
-                    FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab_1);
-                    Animation show_fab_1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab1_show);
-                    Animation hide_fab_1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab1_hide);
-                    fab1.startAnimation(show_fab_1);
-                    fab1.setClickable(true);
-
-                    fab1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            fab.callOnClick();
-                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                            MainActivity.this.startActivity(intent);
-                        }
-                    });
-                    FrameLayout.LayoutParams layoutParams1 = (FrameLayout.LayoutParams) fab1.getLayoutParams();
-                    layoutParams1.rightMargin += (int) (fab1.getWidth() * 1.5);
-                    fab1.setLayoutParams(layoutParams1);
-
-
-                    FloatingActionButton fab3 = (FloatingActionButton) findViewById(R.id.fab_3);
-                    Animation show_fab_3 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab3_show);
-                    Animation hide_fab_3 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab3_hide);
-                    fab3.startAnimation(show_fab_3);
-                    fab3.setClickable(true);
-                    fab3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            fab.callOnClick();
-                            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                            sharingIntent.setType("text/plain");
-                            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.technocracy.app.aavartan");
-                            startActivity(Intent.createChooser(sharingIntent, "Share app link using"));
-
-                        }
-                    });
-                    FrameLayout.LayoutParams layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
-                    layoutParams3.bottomMargin += (int) (fab3.getWidth() * 1.5);
-                    fab3.setLayoutParams(layoutParams3);
-
-
-                    FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab_2);
-                    Animation show_fab_2 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab2_show);
-                    Animation hide_fab_2 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab2_hide);
-                    fab2.startAnimation(show_fab_2);
-                    fab2.setClickable(true);
-                    fab2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            fab.callOnClick();
-                            /*Snackbar.make(view, "FAB2",Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();*/
-                            Intent toContacts = new Intent(MainActivity.this, ContactsActivity.class);
-                            startActivity(toContacts);
-                        }
-                    });
-
-                    FrameLayout.LayoutParams layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
-                    layoutParams2.rightMargin += fab2.getWidth() * 1;
-                    layoutParams2.bottomMargin += fab2.getWidth() * 1;
-                    fab2.setLayoutParams(layoutParams2);
-                    isFabOpen = false;
-                } else {
-                    FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab_1);
-                    Animation hide_fab_1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab1_hide);
-                    FrameLayout.LayoutParams layoutParams1 = (FrameLayout.LayoutParams) fab1.getLayoutParams();
-                    layoutParams1.rightMargin -= (int) (fab1.getWidth() * 1.5);
-                    fab1.setLayoutParams(layoutParams1);
-                    fab1.startAnimation(hide_fab_1);
-                    fab1.setClickable(false);
-
-                    FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab_2);
-                    Animation hide_fab_2 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab2_hide);
-                    FrameLayout.LayoutParams layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
-                    layoutParams2.rightMargin -= (int) (fab2.getWidth() * 1.0);
-                    layoutParams2.bottomMargin -= (int) (fab2.getWidth() * 1.0);
-                    fab2.setLayoutParams(layoutParams2);
-                    fab2.startAnimation(hide_fab_2);
-                    fab2.setClickable(false);
-
-
-                    FloatingActionButton fab3 = (FloatingActionButton) findViewById(R.id.fab_3);
-                    Animation hide_fab_3 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab3_hide);
-                    FrameLayout.LayoutParams layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
-                    layoutParams3.bottomMargin -= (int) (fab3.getWidth() * 1.5);
-                    fab3.setLayoutParams(layoutParams3);
-                    fab3.startAnimation(hide_fab_3);
-                    fab3.setClickable(false);
-                    isFabOpen = true;
-                }
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLoggedIn()) {
             SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
             User user = sqLiteHandler.getUser();
-            View navHeaderView = navigationView.getHeaderView(0);
-            TextView username = (TextView) navHeaderView.findViewById(R.id.username);
-            TextView usermail = (TextView) navHeaderView.findViewById(R.id.usermail);
-            username.setText(user.getFirst_name());
-            usermail.setText(user.getEmail());
         }
     }
 

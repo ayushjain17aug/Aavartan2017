@@ -7,39 +7,32 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-
-    <LinearLayout
-        android:id="@+id/main_activity_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
+            android:id="@+id/main_activity_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/spaceblack"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            android:titleTextColor="@color/white"
-            app:popupTheme="@style/AppTheme.AppBarOverlay" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <include
-            layout="@layout/app_bar_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/spaceblack"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                android:titleTextColor="@color/white"
+                app:popupTheme="@style/AppTheme.AppBarOverlay" />
 
-    </LinearLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/colorblack"
-        android:fitsSystemWindows="false"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/activity_main_drawer" />
-
+            <it.sephiroth.android.library.bottomnavigation.BottomNavigation
+                android:id="@+id/BottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:bbn_entries="@menu/bottombar_menu_items"
+                app:bbn_scrollEnabled="true"
+                app:bbn_badgeProvider="@string/bbn_badgeProvider"
+                app:layout_behavior="@string/bbn_phone_view_behavior"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>
