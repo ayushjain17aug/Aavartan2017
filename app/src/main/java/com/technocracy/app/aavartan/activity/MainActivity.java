@@ -3,6 +3,7 @@ package com.technocracy.app.aavartan.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -95,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
             SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
             User user = sqLiteHandler.getUser();
         }
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setItemBackgroundResource(R.color.white);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -105,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                         // do something here
                         return true;
                     case R.id.action_schedules:
-                        // do something here
                         return true;
                     case R.id.action_music:
                         Intent intent = new Intent(MainActivity.this, AttractionActivity.class);

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_favorites"
         android:enabled="true"
-        android:icon="@drawable/ic_account_box_24dp"
+        android:icon="@drawable/ic_dialog_alert"
         android:title="Home"
         app:showAsAction="ifRoom" />
     <item
@@ -16,7 +16,7 @@
     <item
         android:id="@+id/action_music"
         android:enabled="true"
-        android:icon="@drawable/ic_dialog_alert"
+        android:icon="@drawable/ic_account_box_24dp"
         android:title="Gome"
         app:showAsAction="ifRoom" />
 </menu>
