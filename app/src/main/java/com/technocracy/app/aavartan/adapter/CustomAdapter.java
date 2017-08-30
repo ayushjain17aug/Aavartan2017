@@ -13,9 +13,6 @@ import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.activity.intentactivity.ViewPDF;
 import com.technocracy.app.aavartan.helper.App;
 
-/**
- * Created by nsn on 8/25/2015.
- */
 public class CustomAdapter extends BaseAdapter {
 
     private final int[] movImgid;

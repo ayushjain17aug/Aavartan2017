@@ -1,8 +1,16 @@
 package com.technocracy.app.aavartan.Sponsors.View;
 
-/**
- * Created by Abhi on 29-Aug-17.
- */
+import com.technocracy.app.aavartan.Sponsors.Model.Data.Sponsor;
+
+import java.util.List;
 
 public interface SponsView {
+    void showProgressBar(boolean b);
+
+    void showSpons(List<Sponsor> sponsorList);
+
+    void showMessage(String string);
+
+    void showSponsFromDatabase();
+
 }

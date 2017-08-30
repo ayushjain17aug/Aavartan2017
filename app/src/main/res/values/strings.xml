@@ -53,5 +53,6 @@
     <string name="image_loading_failed">Failed to load image.</string>
     <string name="connection_error_try_again">Connection error. Please try again.</string>
     <string name="Connection_Error">\"Connection Error! Please check your connection\"</string>
+    <string name="title_activity_spons">SponsActivity</string>
 
 </resources>

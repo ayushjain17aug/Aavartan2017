@@ -104,7 +104,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(SponsorsActivity.class.getSimpleName(), "Attractions Request Error: " + error.getMessage());
+                Log.e(SponsorsActivity.class.getSimpleName(), "Sponsors Request Error: " + error.getMessage());
                 Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
@@ -145,7 +145,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
                         url3 = url;
                     }
                 }
-                mAdapter = new SimpleAdapter(SponsorsActivity.this, url0, url1, url2, url3);
+           //     mAdapter = new SimpleAdapter(SponsorsActivity.this, url0, url1, url2, url3);
                 sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
                 sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
                 sections.add(new SectionedGridRecyclerViewAdapter.Section(url0.length, "MEGAEVENT SPONSORS"));

@@ -11,22 +11,21 @@ import android.widget.ProgressBar;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.Sponsors.Model.Data.Sponsor;
 import com.technocracy.app.aavartan.helper.App;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Abhishek on 19-09-2016.
- */
 public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleViewHolder> {
 
 
     private static int COUNT;
     private final Context mContext;
     private final List<Integer> mItems;
+    private final int size1, size2, size3, size4;
     private int mCurrentItemId = 0;
-    String url0[], url1[], url2[], url3[];
+    private List<Sponsor> sponsorList[];
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
@@ -39,14 +38,15 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         }
     }
 
-    public SimpleAdapter(Context context, String[] url0, String url1[], String[] url2, String url3[]) {
+    public SimpleAdapter(Context context, List<Sponsor>[] sponsorList) {
         mContext = context;
-        COUNT =url0.length+ url1.length + url2.length + url3.length;
-        this.url0 = url0;
-        this.url1 = url1;
-        this.url2 = url2;
-        this.url3 = url3;
-        mItems = new ArrayList<Integer>(COUNT);
+        this.sponsorList = sponsorList;
+        size1 = sponsorList[0].size();
+        size2 = sponsorList[1].size();
+        size3 = sponsorList[2].size();
+        size4 = sponsorList[3].size();
+        COUNT = size1 + size2 + size3 + size4;
+        mItems = new ArrayList<>(COUNT);
         for (int i = 0; i < COUNT; i++) {
             addItem(i);
         }
@@ -59,38 +59,38 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
     @Override
     public void onBindViewHolder(final SimpleViewHolder holder, int position) {
-        String[] url = null;
-        if (position < url0.length)
-            url = url0;
-        if (position >= url0.length && position < url0.length+url1.length){
-            url = url1;position=position - url0.length;}
-        else if (position >= url1.length+url0.length && position < url1.length + url2.length+url0.length) {
-            url = url2;
-            position = position - url1.length-url0.length;
-        } else if ((position >= (url1.length + url2.length+url0.length)) && (position < (url1.length + url2.length + url3.length+url0.length))) {
-            url = url3;
-            position = position - url1.length - url2.length-url0.length;
+        int category = 0;
+        if (position < size1)
+            category = 0;
+        if (position >= size1 && position < size1 + size2) {
+            category = 1;
+            position = position - size1;
+        } else if (position >= size1 + size2 && position < size1 + size2 + size3) {
+            category = 2;
+            position = position - size1 + size2;
+        } else if (position >= (size1 + size2 + size3) && position < COUNT) {
+            category = 3;
+            position = position - (size1 + size2 + size3);
         }
         App.showProgressBar(holder.pBAr);
-
         int width = (int) App.getScreenWidth(mContext);
         holder.imageView.getLayoutParams().height = width / 2;
         holder.imageView.getLayoutParams().width = width;
         holder.imageView.requestLayout();
 
-        Picasso.with(mContext).load(url[position]).placeholder(R.drawable.aavartan_logo).into(holder.imageView, new Callback() {
-            @Override
-            public void onSuccess() {
-                App.hideProgressBar(holder.pBAr);
-            }
+        Picasso.with(mContext).load(sponsorList[category].get(position).getImage_url()).placeholder(R.drawable.aavartan_logo).
+                into(holder.imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        App.hideProgressBar(holder.pBAr);
+                    }
 
-            @Override
-            public void onError() {
-                App.hideProgressBar(holder.pBAr);
-            }
-        });
+                    @Override
+                    public void onError() {
+                        App.hideProgressBar(holder.pBAr);
+                    }
+                });
     }
-
 
     public void addItem(int position) {
         final int id = mCurrentItemId++;

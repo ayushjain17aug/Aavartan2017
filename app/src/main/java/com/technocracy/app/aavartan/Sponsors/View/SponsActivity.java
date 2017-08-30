@@ -4,28 +4,92 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.Sponsors.Model.Data.Sponsor;
+import com.technocracy.app.aavartan.Sponsors.Model.RetrofitSponsProvider;
+import com.technocracy.app.aavartan.Sponsors.Presenter.SponsPresenter;
+import com.technocracy.app.aavartan.Sponsors.Presenter.SponsPresenterImpl;
+import com.technocracy.app.aavartan.activity.SponsorsActivity;
+import com.technocracy.app.aavartan.adapter.SectionedGridRecyclerViewAdapter;
+import com.technocracy.app.aavartan.adapter.SimpleAdapter;
 
-public class SponsActivity extends AppCompatActivity {
+import java.io.LineNumberInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
+public class SponsActivity extends AppCompatActivity implements SponsView {
+
+    private ProgressBar progressBar;
+    private RecyclerView mRecyclerView;
+    private List<Sponsor> sponsorCategoryList[];
+    private SimpleAdapter mAdapter;
+    private ArrayList<SectionedGridRecyclerViewAdapter.Section> sections;
+    private SponsPresenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spons);
+        sponsorCategoryList = new List[4];
+        setContentView(R.layout.activity_sponsors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar_spons);
+        mRecyclerView = (RecyclerView) findViewById(R.id.spons_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        presenter =  new SponsPresenterImpl(new RetrofitSponsProvider(),this,this);
+        presenter.getSpons();
     }
 
+    @Override
+    public void showProgressBar(boolean b) {
+        if (b)
+            progressBar.setVisibility(View.VISIBLE);
+        else
+            progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSpons(List<Sponsor> sponsorList) {
+        for (int i = 0; i < sponsorList.size(); i++) {
+            if (sponsorList.get(i).getType().equals("1"))
+                sponsorCategoryList[0].add(sponsorList.get(i));
+            else if (sponsorList.get(i).getType().equals("2"))
+                sponsorCategoryList[1].add(sponsorList.get(i));
+            else if (sponsorList.get(i).getType().equals("3"))
+                sponsorCategoryList[2].add(sponsorList.get(i));
+            else
+                sponsorCategoryList[3].add(sponsorList.get(i));
+            mAdapter = new SimpleAdapter(SponsActivity.this, sponsorCategoryList);
+            sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size(), "MEGAEVENT SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size() +
+                    sponsorCategoryList[1].size(), "EVENT SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size() + sponsorCategoryList[1].size()
+                    + sponsorCategoryList[2].size(), "PARTNERS"));
+            SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
+            SectionedGridRecyclerViewAdapter mSectionedAdapter = new
+                    SectionedGridRecyclerViewAdapter(SponsActivity.this, R.layout.section, R.id.section_text, mRecyclerView, mAdapter);
+            mSectionedAdapter.setSections(sections.toArray(dummy));
+            mRecyclerView.setAdapter(mSectionedAdapter);
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(findViewById(R.id.spons_drawer_layout), message, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    @Override
+    public void showSponsFromDatabase() {
+
+    }
 }
