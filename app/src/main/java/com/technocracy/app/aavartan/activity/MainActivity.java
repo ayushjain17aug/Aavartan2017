@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.technocracy.app.aavartan.Event.View.EventActivity;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.Schedule;
+import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             User user = sqLiteHandler.getUser();
         }
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         bottomNavigationView.setItemBackgroundResource(R.color.white);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
