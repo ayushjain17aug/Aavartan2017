@@ -5,10 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +28,7 @@ import android.widget.TextView;
 
 import com.technocracy.app.aavartan.Event.View.EventActivity;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.api.Schedule;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
@@ -35,15 +40,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     private Boolean isFabOpen = true;
     private SessionManager sessionManager;
     private String currentDateString;
     private SimpleDateFormat dateFormat;
     FloatingActionButton fab;
     private SQLiteHandler sqLiteHandler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +85,6 @@ public class MainActivity extends AppCompatActivity
             }
 
         }
-
-        /*DatabaseHandler db = new DatabaseHandler(this);
-        db.dropDB();*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -95,6 +95,26 @@ public class MainActivity extends AppCompatActivity
             SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
             User user = sqLiteHandler.getUser();
         }
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_favorites:
+                        // do something here
+                        return true;
+                    case R.id.action_schedules:
+                        // do something here
+                        return true;
+                    case R.id.action_music:
+                        Intent intent = new Intent(MainActivity.this, AttractionActivity.class);
+                        startActivity(intent);
+                        return true;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -146,7 +166,7 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
 
-    @Override
+    /*@Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         Intent intent;
@@ -207,7 +227,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
 
     private boolean getTime(String notifTime) {
         try {
@@ -224,5 +244,4 @@ public class MainActivity extends AppCompatActivity
         }
         return false;
     }
-
 }
