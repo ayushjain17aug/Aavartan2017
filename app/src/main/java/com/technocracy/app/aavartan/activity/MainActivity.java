@@ -102,14 +102,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_favorites:
+                    case R.id.btn1:
                         // do something here
                         return true;
-                    case R.id.action_schedules:
+                    case R.id.btn2:
                         return true;
-                    case R.id.action_music:
+                    case R.id.btn3:
                         Intent intent = new Intent(MainActivity.this, AttractionActivity.class);
                         startActivity(intent);
+                        return true;
+                    case R.id.btn4:
+                        return true;
+                    case R.id.btn5:
                         return true;
                 }
                 return true;

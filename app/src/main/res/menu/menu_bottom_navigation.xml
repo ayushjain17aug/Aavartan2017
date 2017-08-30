@@ -2,19 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_favorites"
+        android:id="@+id/btn1"
         android:enabled="true"
         android:icon="@drawable/ic_dialog_alert"
         android:title="Home"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_schedules"
+        android:id="@+id/btn2"
         android:enabled="true"
         android:icon="@drawable/ic_friends"
         android:title="Rome"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_music"
+        android:id="@+id/btn3"
+        android:enabled="true"
+        android:icon="@drawable/ic_account_box_24dp"
+        android:title="Gome"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/btn4"
+        android:enabled="true"
+        android:icon="@drawable/ic_account_box_24dp"
+        android:title="Gome"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/btn5"
         android:enabled="true"
         android:icon="@drawable/ic_account_box_24dp"
         android:title="Gome"
