@@ -11,6 +11,4 @@ public interface SponsView {
 
     void showMessage(String string);
 
-    void showSponsFromDatabase();
-
 }

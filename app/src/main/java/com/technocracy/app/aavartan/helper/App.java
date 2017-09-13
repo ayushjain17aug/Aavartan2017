@@ -71,7 +71,7 @@ public class App {
     public static String Base_Url;//TODO : add urls
     public static final String GALLERY = "";
     public static final String EVENT1 = "";
-
+    public static final String SCHEDULE = "";
 
     public static float getScreenWidth(Context context) {
         DisplayMetrics displaymetrics = new DisplayMetrics();

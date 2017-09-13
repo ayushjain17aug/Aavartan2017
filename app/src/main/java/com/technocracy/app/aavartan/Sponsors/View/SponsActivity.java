@@ -1,7 +1,6 @@
 package com.technocracy.app.aavartan.Sponsors.View;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,14 +11,10 @@ import android.widget.ProgressBar;
 
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Sponsors.Model.Data.Sponsor;
-import com.technocracy.app.aavartan.Sponsors.Model.RetrofitSponsProvider;
+import com.technocracy.app.aavartan.Sponsors.Model.MockSponsProvider;
 import com.technocracy.app.aavartan.Sponsors.Presenter.SponsPresenter;
 import com.technocracy.app.aavartan.Sponsors.Presenter.SponsPresenterImpl;
-import com.technocracy.app.aavartan.activity.SponsorsActivity;
-import com.technocracy.app.aavartan.adapter.SectionedGridRecyclerViewAdapter;
-import com.technocracy.app.aavartan.adapter.SimpleAdapter;
 
-import java.io.LineNumberInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +22,11 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
 
     private ProgressBar progressBar;
     private RecyclerView mRecyclerView;
-    private List<Sponsor> sponsorCategoryList[];
+    private List<Sponsor>[] sponsorCategoryList;
     private SimpleAdapter mAdapter;
     private ArrayList<SectionedGridRecyclerViewAdapter.Section> sections;
     private SponsPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +34,12 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
         setContentView(R.layout.activity_sponsors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Sponsors");
         progressBar = (ProgressBar) findViewById(R.id.progress_bar_spons);
         mRecyclerView = (RecyclerView) findViewById(R.id.spons_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-        presenter =  new SponsPresenterImpl(new RetrofitSponsProvider(),this,this);
+        presenter = new SponsPresenterImpl(new MockSponsProvider(), this, this);
         presenter.getSpons();
     }
 
@@ -57,15 +53,21 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
 
     @Override
     public void showSpons(List<Sponsor> sponsorList) {
+        List<Sponsor> spons1 = new ArrayList<>(),spons2= new ArrayList<>(),spons3= new ArrayList<>(),spons4= new ArrayList<>();
         for (int i = 0; i < sponsorList.size(); i++) {
             if (sponsorList.get(i).getType().equals("1"))
-                sponsorCategoryList[0].add(sponsorList.get(i));
+                spons1.add(sponsorList.get(i));
             else if (sponsorList.get(i).getType().equals("2"))
-                sponsorCategoryList[1].add(sponsorList.get(i));
+                spons2.add(sponsorList.get(i));
             else if (sponsorList.get(i).getType().equals("3"))
-                sponsorCategoryList[2].add(sponsorList.get(i));
+                spons3.add(sponsorList.get(i));
             else
-                sponsorCategoryList[3].add(sponsorList.get(i));
+                spons4.add(sponsorList.get(i));
+            sponsorCategoryList[0]=spons1;
+            sponsorCategoryList[1]=spons2;
+            sponsorCategoryList[2]=spons3;
+            sponsorCategoryList[3]=spons4;
+
             mAdapter = new SimpleAdapter(SponsActivity.this, sponsorCategoryList);
             sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
             sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
@@ -86,10 +88,5 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
     public void showMessage(String message) {
         Snackbar.make(findViewById(R.id.spons_drawer_layout), message, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
-    }
-
-    @Override
-    public void showSponsFromDatabase() {
-
     }
 }

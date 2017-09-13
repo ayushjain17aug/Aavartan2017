@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/spaceblack"
+    android:background="@drawable/image"
     tools:openDrawer="start">
 
     <RelativeLayout
@@ -18,16 +18,24 @@
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/spaceblack"
+            android:backgroundTint="@color/lightback"
+            android:elevation="2dp"
             android:theme="@style/AppTheme.AppBarOverlay"
             app:popupTheme="@style/AppTheme.AppBarOverlay" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/title"
+            android:layout_below="@+id/toolbar1"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/event_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/toolbar1" />
+            android:layout_below="@+id/toolbar1"
+            android:backgroundTint="@color/lightback"
+            android:layout_marginTop="5dp"/>
         <!-- TODO: Update blank fragment layout -->
 
         <ProgressBar

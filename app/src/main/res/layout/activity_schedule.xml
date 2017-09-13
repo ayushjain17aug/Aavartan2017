@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/spaceblack"
+    android:background="@drawable/image"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -15,25 +15,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@drawable/image"
         tools:context="com.technocracy.app.aavartan.activity.ScheduleActivity">
 
-        <android.support.v7.widget.Toolbar
+        <!--<android.support.v7.widget.Toolbar
             android:id="@+id/toolbr"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/spaceblack"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
 
-        <com.technocracy.app.aavartan.activity.tabs.SlidingTabLayout
+        <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
+            android:elevation="2dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:tabTextColor="@color/colorPrimary"
+            app:tabSelectedTextColor="@color/title"
+            android:backgroundTint="@color/lightback"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightback"
+            android:layout_alignParentBottom="true"
+            app:itemIconTint="@drawable/nav_item_colors"
+            app:itemTextColor="@drawable/nav_item_colors"
+            app:menu="@menu/menu_bottom_navigation" />
 
     </LinearLayout>
 

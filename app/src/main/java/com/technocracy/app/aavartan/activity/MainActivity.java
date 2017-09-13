@@ -3,36 +3,31 @@ package com.technocracy.app.aavartan.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.technocracy.app.aavartan.Event.View.EventActivity;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
+import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
+import com.technocracy.app.aavartan.Event.View.EventListActivity;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.api.Schedule;
+import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
+import com.technocracy.app.aavartan.Sponsors.View.SponsActivity;
+import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 import com.technocracy.app.aavartan.api.User;
-import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
@@ -43,23 +38,26 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int ACTIVITY_NUM = 0;
     private Boolean isFabOpen = true;
     private SessionManager sessionManager;
     private String currentDateString;
     private SimpleDateFormat dateFormat;
     FloatingActionButton fab;
     private SQLiteHandler sqLiteHandler;
+    private Intent intent;
+    private String intent_name[] = {"Gallery", "Sponsors", "Contacts", "Attraction", "About Us", "Vigyaan"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setSubtitleTextColor(Color.WHITE);
+        // toolbar.setTitleTextColor(Color.WHITE);
+        // toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         currentDateString = dateFormat.format(Calendar.getInstance().getTime());
         sessionManager = new SessionManager(getApplicationContext());
@@ -80,18 +78,18 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     sessionManager.setLogin(false);
                                     sqLiteHandler.deleteUsers();
-                                    Snackbar.make(findViewById(R.id.main_activity_layout),"You have been logged out.",Snackbar.LENGTH_LONG).show();
+                                    Snackbar.make(findViewById(R.id.main_activity_layout), "You have been logged out.", Snackbar.LENGTH_LONG).show();
                                 }
                             }).show();
                 }
             }
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        // DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        //    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //drawer.setDrawerListener(toggle);
+        //toggle.syncState();
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLoggedIn()) {
             SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
@@ -99,50 +97,120 @@ public class MainActivity extends AppCompatActivity {
         }
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
-        bottomNavigationView.setItemBackgroundResource(R.color.white);
+        // bottomNavigationView.setItemBackgroundResource(R.color.white);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btn1:
-                        // do something here
-                        return true;
-                    case R.id.btn2:
-                        return true;
-                    case R.id.btn3:
-                        Intent intent = new Intent(MainActivity.this, AttractionActivity.class);
+                        intent = new Intent(MainActivity.this, MainActivity.class);
                         startActivity(intent);
-                        return true;
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                        break;
+                    case R.id.btn2:
+                        intent = new Intent(MainActivity.this, EventListActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                        break;
+                    case R.id.btn3:
+                        intent = new Intent(MainActivity.this, NavActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                        break;
                     case R.id.btn4:
-                        return true;
+                        intent = new Intent(MainActivity.this, AccountActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                        break;
                     case R.id.btn5:
-                        return true;
+                        intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                        break;
                 }
+                //   updateNavigationBarState(bottomNavigationView,item.getItemId());
                 return true;
             }
         });
+        BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
+            TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
+                    .listener(new OnBMClickListener() {
+                        @Override
+                        public void onBoomButtonClick(int index) {
+                            Intent intent2;
+                            if (index == 0) {
+                                intent2 = new Intent(MainActivity.this, GalleryActivity.class);
+                                startActivity(intent2);
+
+                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                            } else if (index == 1) {
+                                intent2 = new Intent(MainActivity.this, SponsActivity.class);
+                                startActivity(intent2);
+                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                            } else if (index == 2) {
+                                intent2 = new Intent(MainActivity.this, ContactsActivity.class);
+                                startActivity(intent2);
+                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                            } else if (index == 3) {
+                                intent2 = new Intent(MainActivity.this, AttractionActivity.class);
+                                startActivity(intent2);
+                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                            } else if (index == 4) {
+                                intent2 = new Intent(MainActivity.this, AboutUsActivity.class);
+                                startActivity(intent2);
+                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                            } else if (index == 5) {
+                                intent2 = new Intent(MainActivity.this, VigyaanActivity.class);
+                                startActivity(intent2);
+                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                            }
+                        }
+                    })
+                    .normalImageRes(R.drawable.ic_action_search)
+                    .normalText(intent_name[i])
+                    .rotateImage(true)
+                    .shadowEffect(true)
+                    .imagePadding(new Rect(0, 0, 0, 0))
+                    .textGravity(Gravity.CENTER)
+                    .rippleEffect(true);
+            bmb.addBuilder(builder);
+        }
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
+
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            new AlertDialog.Builder(this).setIcon(R.drawable.ic_dialog_alert).setTitle("Exit")
-                    .setMessage("Are you sure ?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Intent.ACTION_MAIN);
-                            intent.addCategory(Intent.CATEGORY_HOME);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }).setNegativeButton("No", null).show();
-        }
+
+        new AlertDialog.Builder(this).setIcon(R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure ?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("No", null).show();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -171,69 +239,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    /*@Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                break;
-            case R.id.nav_attractions:
-                intent = new Intent(this, AttractionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_gallery:
-                intent = new Intent(this, GalleryActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_fun_events:
-                intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "fun");
-                startActivity(intent);
-                break;
-            case R.id.nav_managerial_events:
-                intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "manager");
-                startActivity(intent);
-                break;
-            case R.id.nav_robotics:
-                intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "robo");
-                startActivity(intent);
-                break;
-            case R.id.nav_technical_events:
-                intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "tech");
-                startActivity(intent);
-                break;
-            case R.id.nav_vigyaan:
-                intent = new Intent(this, VigyaanActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_sponsors:
-                intent = new Intent(this, SponsorsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_initiatives:
-                intent = new Intent(this, InitiativesActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_schedule:
-                intent = new Intent(this, ScheduleActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_about_us:
-                intent = new Intent(this, AboutUsActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }*/
 
     private boolean getTime(String notifTime) {
         try {

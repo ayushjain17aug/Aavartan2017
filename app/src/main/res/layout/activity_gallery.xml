@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/gallery_rel_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/spaceblack"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:context="com.technocracy.app.aavartan.gallery.View.GalleryActivity">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/spaceblack"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Light">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/spaceblack"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </RelativeLayout>
+            app:titleTextColor="@color/title"
+            android:background="@drawable/image"
+            android:theme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
+    </android.support.design.widget.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <com.veinhorn.scrollgalleryview.ScrollGalleryView
+        android:id="@+id/scroll_gallery_view"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/colorblack"
-        android:fitsSystemWindows="false"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/activity_main_drawer" />
-</android.support.v4.widget.DrawerLayout>
+        android:background="#000" />
+
+</RelativeLayout>

@@ -7,14 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.technocracy.app.aavartan.api.Attraction;
+import com.technocracy.app.aavartan.Attraction.Model.Data.Attraction;
+import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
 import com.technocracy.app.aavartan.api.Contact;
 //import com.technocracy.app.aavartan.api.Event;
 import com.technocracy.app.aavartan.Event.Model.Data.Event;
 import com.technocracy.app.aavartan.api.GalleryItem;
 import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.Notifications;
-import com.technocracy.app.aavartan.api.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,23 +149,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_SCHEDULE_DAY2_TABLE);
 
         String CREATE_FUNEVENTS_TABLE = "CREATE TABLE " + TABLE_FUNEVENTS + "("
-                + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
-                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
+                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT" + ")";
         db.execSQL(CREATE_FUNEVENTS_TABLE);
 
         String CREATE_MANAGERIALEVENTS_TABLE = "CREATE TABLE " + TABLE_MANAGERIALEVENTS + "("
                 + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
-                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT,"+ EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT"  + ")";
         db.execSQL(CREATE_MANAGERIALEVENTS_TABLE);
 
         String CREATE_TECHNICALEVENTS_TABLE = "CREATE TABLE " + TABLE_TECHNICALVENTS + "("
                 + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
-                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT" + ")";
         db.execSQL(CREATE_TECHNICALEVENTS_TABLE);
 
         String CREATE_ROBOTICS_TABLE = "CREATE TABLE " + TABLE_ROBOTICS + "("
                 + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
-                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT" + ")";
         db.execSQL(CREATE_ROBOTICS_TABLE);
 
         String CREATE_MY_EVENTS_TABLE = "CREATE TABLE " + TABLE_MY_EVENTS + "("
@@ -363,7 +367,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.e("Contact :", "stored in db.");
     }
 
-    public ArrayList<Schedule> getScheduleDay1Items() {
+    public List<com.technocracy.app.aavartan.Schedule.Model.Data.Schedule> getScheduleDay1Items() {
         ArrayList<Schedule> scheduleDay1ArrayList = new ArrayList<Schedule>();
         String selectQuery = "SELECT * FROM " + TABLE_SCHEDULE_DAY1;
 

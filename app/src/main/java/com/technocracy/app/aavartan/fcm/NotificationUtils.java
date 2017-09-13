@@ -178,7 +178,7 @@ public class NotificationUtils {
     }
 
     /**
-     * Method checks if the app is in background or not
+     * Method checks if the app is in backgroundimg or not
      */
     public static boolean isAppIsInBackground(Context context) {
         boolean isInBackground = true;

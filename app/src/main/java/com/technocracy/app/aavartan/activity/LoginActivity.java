@@ -74,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
             User user = sqLiteHandler.getUser();
             Intent intent = new Intent(LoginActivity.this, UserActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
             finish();
         }
         etUsername = (EditText) findViewById(R.id.etUsername);
@@ -95,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent RegisterIntent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(RegisterIntent);
+                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
                 finish();
             }
         });
@@ -155,6 +159,8 @@ public class LoginActivity extends AppCompatActivity {
                         registerToken(FirebaseInstanceId.getInstance().getToken(), String.valueOf(user_id));
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
                         finish();
                     } else {
                         if (jsonResponse.has("message")) {

@@ -19,8 +19,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
 import com.technocracy.app.aavartan.Event.View.EventActivity;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;

@@ -55,4 +55,8 @@
     <string name="Connection_Error">\"Connection Error! Please check your connection\"</string>
     <string name="title_activity_spons">SponsActivity</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_event_list">EventListActivity</string>
+
 </resources>

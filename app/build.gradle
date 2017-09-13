@@ -5,8 +5,8 @@ android {
         config {
             keyAlias 'mohit'
             keyPassword 'technocracy2015'
-            storeFile file('C:/Users/divya/Documents/Android/Keystores/dextra.jks')
-            storeFile file('C:/Users/MOHIT/AndroidStudioProjects/OfficialKey.jks')
+            //storeFile file('C:/Users/divya/Documents/Android/Keystores/dextra.jks')
+            //storeFile file('C:/Users/MOHIT/AndroidStudioProjects/OfficialKey.jks')
             storePassword 'technocracy2015'
         }
     }
@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.technocracy.app.aavartan"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 24
         multiDexEnabled true
     }
     buildTypes {
@@ -29,6 +29,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
@@ -37,11 +39,8 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.veinhorn.scrollgalleryview:library:1.0.5'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.google.android.gms:play-services-maps:9.0.0'
@@ -49,7 +48,8 @@ dependencies {
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
     compile 'com.flaviofaria:kenburnsview:1.0.6'
     compile 'com.mcxiaoke.volley:library:1.0.19'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.nightonke:boommenu:2.1.0'
+    //compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

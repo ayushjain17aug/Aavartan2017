@@ -35,6 +35,9 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Schedule.View.ScheduleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -59,11 +62,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB5-D4zZKVzXnylxLy8eQ-WWg8J_1YsJRo" />
 
-        <activity
-            android:name=".activity.ScheduleActivity"
-            android:label="@string/title_activity_schedule"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Event.View.EventActivity"
             android:screenOrientation="portrait"
@@ -120,7 +118,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activity.AttractionActivity"
+            android:name=".Attraction.View.AttractionActivity"
             android:label="@string/title_activity_attraction"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -137,7 +135,15 @@
         <activity
             android:name=".Sponsors.View.SponsActivity"
             android:label="@string/title_activity_spons"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Event.View.EventListActivity"
+            android:label="@string/title_activity_event_list"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".activity.NavActivity" />
+        <activity android:name=".activity.TimingActivity" />
+        <activity android:name=".activity.AccountActivity"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

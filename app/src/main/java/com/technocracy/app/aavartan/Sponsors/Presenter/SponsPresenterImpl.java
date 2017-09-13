@@ -26,7 +26,7 @@ public class SponsPresenterImpl implements SponsPresenter {
             @Override
             public void onFailure() {
                 view.showProgressBar(false);
-                view.showSponsFromDatabase();
+                //  view.showSponsFromDatabase();
                 view.showMessage(context.getResources().getString(R.string.Connection_Error));
 
             }
@@ -38,7 +38,7 @@ public class SponsPresenterImpl implements SponsPresenter {
                     view.showSpons(body.getSponsorList());
                 } else {
                     view.showMessage(body.getMessage());
-                    view.showSponsFromDatabase();
+                    //  view.showSponsFromDatabase();
                 }
             }
         });

@@ -34,6 +34,8 @@ public class EventActivity extends AppCompatActivity implements EventView {
         super.onCreate(savedInstanceState);
         Bundle data = getIntent().getExtras();
         eventSetId = data.getString("event_selected");
+
+
         setContentView(R.layout.activity_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //toolbar.setTitle(eventSetId);
@@ -70,7 +72,7 @@ public class EventActivity extends AppCompatActivity implements EventView {
     public void showEvents(List<Event> body) {
         db.deleteAllEvent(eventSetId);
         for (int i = 0; i < body.size(); i++)
-            db.addEvents(body.get(i), eventSetId);
+           db.addEvents(body.get(i), eventSetId);
         adapter = new EventAdapter(this, body);
         recyclerView.setAdapter(adapter);
     }
@@ -80,4 +82,6 @@ public class EventActivity extends AppCompatActivity implements EventView {
         eventList = db.getAllEvents(eventSetId);
         adapter = new EventAdapter(this, eventList);
     }
+
+
 }

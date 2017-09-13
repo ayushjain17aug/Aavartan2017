@@ -90,8 +90,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             default:
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 }

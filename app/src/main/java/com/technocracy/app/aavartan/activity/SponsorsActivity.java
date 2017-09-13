@@ -23,10 +23,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
 import com.technocracy.app.aavartan.Event.View.EventActivity;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.adapter.SectionedGridRecyclerViewAdapter;
-import com.technocracy.app.aavartan.adapter.SimpleAdapter;
+import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
+import com.technocracy.app.aavartan.Sponsors.View.SectionedGridRecyclerViewAdapter;
+import com.technocracy.app.aavartan.Sponsors.View.SimpleAdapter;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
@@ -40,7 +42,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SponsorsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class SponsorsActivity extends AppCompatActivity  {
     private ProgressDialog pDialog;
     private RecyclerView mRecyclerView;
     private SimpleAdapter mAdapter;
@@ -58,7 +60,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
 
         sessionManager = new SessionManager(getApplicationContext());
         pDialog = new ProgressDialog(this);
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+       // mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -68,7 +70,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+       /* NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLoggedIn()) {
@@ -79,7 +81,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
             TextView usermail = (TextView) navHeaderView.findViewById(R.id.usermail);
             username.setText(user.getFirst_name());
             usermail.setText(user.getEmail());
-        }
+        }*/
 
         parseSponsors(sessionManager.getSponsorsData());
         getSponsors();
@@ -111,7 +113,6 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
                 parseSponsors(sessionManager.getSponsorsData());
             }
         });
-        // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
@@ -200,7 +201,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
     }
 
 
-    @Override
+    /*@Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         Intent intent;
@@ -270,7 +271,7 @@ public class SponsorsActivity extends AppCompatActivity implements NavigationVie
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
 
     private void showDialog() {
         if (!pDialog.isShowing())

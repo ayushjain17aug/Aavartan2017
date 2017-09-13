@@ -2,13 +2,18 @@ package com.technocracy.app.aavartan.gallery.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
 import com.technocracy.app.aavartan.gallery.Model.MockGalleryProvider;
+import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 import com.veinhorn.scrollgalleryview.MediaInfo;
 import com.veinhorn.scrollgalleryview.ScrollGalleryView;
 
@@ -16,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.technocracy.app.aavartan.gallery.Model.Data.Image;
-import com.technocracy.app.aavartan.gallery.Model.RetrofitGalleryProvider;
 import com.technocracy.app.aavartan.gallery.Presenter.GalleryPresenter;
 import com.technocracy.app.aavartan.gallery.Presenter.GalleryPresenterImpl;
 import com.technocracy.app.aavartan.helper.PicassoImageLoader;
@@ -28,11 +32,12 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView {
     private ProgressBar progressBar;
     private GalleryPresenter presenter;
     private ScrollGalleryView scrollGalleryView;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery1);
+        setContentView(R.layout.activity_gallery);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);

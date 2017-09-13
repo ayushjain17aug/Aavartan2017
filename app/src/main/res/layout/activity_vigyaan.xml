@@ -1,76 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/spaceblack"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    android:background="@drawable/image">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/spaceblack"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:popupTheme="@style/AppTheme.AppBarOverlay" />
+            android:backgroundTint="@color/lightback"
+            app:titleTextColor="@color/title"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/line"
+            android:background="@color/title"
+            android:layout_below="@+id/toolbar"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="80dp"
+            android:textColor="@color/lightback"
+            android:textStyle="bold"
+            android:text="Problem Statements"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:id="@+id/line1"
+            android:layout_marginLeft="72dp"
+            android:background="@color/title"
+            android:layout_below="@+id/textView"
+            android:layout_marginRight="70dp"/>
 
-        <RelativeLayout
-            android:layout_below="@+id/toolbar"
-            android:id="@+id/container_body"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        <android.support.v4.view.ViewPager
+            android:layout_below="@+id/line1"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:id="@+id/viewPager">
 
-            <GridView
-                android:id="@+id/gridView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+        </android.support.v4.view.ViewPager>
+     
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/sliderdots"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_below="@+id/viewPager">
 
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView"
-                android:layout_gravity="right|top"
-                android:layout_margin="5dp"
-                android:horizontalSpacing="5dp"
-                android:numColumns="auto_fit"
-                android:verticalSpacing="5dp" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="center_horizontal|top"
-                android:gravity="center_horizontal"
-                android:text=" Problem Statements"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/colorblack"
-        android:fitsSystemWindows="false"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/activity_main_drawer" />
-
-</android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

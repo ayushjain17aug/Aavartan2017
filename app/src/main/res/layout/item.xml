@@ -17,7 +17,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/aavartan_logo"
-        android:background="#4533B5E5" />
+         />
 
         <ProgressBar
             android:id="@+id/progressBar"

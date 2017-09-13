@@ -22,6 +22,7 @@
         android:shadowColor="#000"
         android:shadowDx="0"
         android:shadowDy="0"
+        android:background="@drawable/image"
         android:shadowRadius="25"
         android:textColor="#FBFBFB"
         android:textSize="28dp"
