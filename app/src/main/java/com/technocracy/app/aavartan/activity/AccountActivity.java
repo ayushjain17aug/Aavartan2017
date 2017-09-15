@@ -75,8 +75,13 @@ public class AccountActivity extends AppCompatActivity {
         });
 
         Menu menu=bottomNavigationView.getMenu();
-        MenuItem menuItem =menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            if(i==3)
+                item.setChecked(true);
+            else
+                item.setChecked(false);
+        }
     }
    /* private void updateNavigationBarState(BottomNavigationView bottomNavigationView,int actionId){
         Menu menu = bottomNavigationView.getMenu();

@@ -21,7 +21,6 @@ import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 
 public class EventListActivity extends AppCompatActivity {
 
-    private static final int ACTIVITY_NUM =1;
     private Intent intent;
     private RecyclerView recyclerView;
     @Override
@@ -78,18 +77,25 @@ public class EventListActivity extends AppCompatActivity {
                 return true;
             }
         });
-          Menu menu=bottomNavigationView.getMenu();
-          MenuItem menuItem =menu.getItem(ACTIVITY_NUM);
-          menuItem.setChecked(true);
+         Menu menu=bottomNavigationView.getMenu();
+
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            if(i==1)
+            item.setChecked(true);
+            else
+            item.setChecked(false);
+        }
+
 
     }
-   /* private void updateNavigationBarState(BottomNavigationView bottomNavigationView,int actionId){
+   private void updateNavigationBarState(BottomNavigationView bottomNavigationView,int actionId){
         Menu menu = bottomNavigationView.getMenu();
         for (int i = 0, size = menu.size(); i < size; i++) {
             MenuItem item = menu.getItem(i);
             item.setChecked(item.getItemId() == actionId);
         }
-    }*/
+    }
     @Override
     public void onBackPressed()
     {

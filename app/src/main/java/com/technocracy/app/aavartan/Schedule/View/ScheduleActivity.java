@@ -95,8 +95,13 @@ public class ScheduleActivity extends ActionBarActivity {
         });
 
         Menu menu=bottomNavigationView.getMenu();
-        MenuItem menuItem =menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            if(i==4)
+                item.setChecked(true);
+            else
+                item.setChecked(false);
+        }
         
         /*drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         try {
