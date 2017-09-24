@@ -1,5 +1,6 @@
 package com.technocracy.app.aavartan.Schedule.View.tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.technocracy.app.aavartan.Event.Model.Data.Event;
+import com.technocracy.app.aavartan.Event.View.EventDetailsActivity;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
 import com.technocracy.app.aavartan.Schedule.Model.MockScheduleProvider;
@@ -20,7 +23,6 @@ import com.technocracy.app.aavartan.Schedule.View.ScheduleAdapter;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleView;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Tab1 extends Fragment implements ScheduleView {
@@ -63,16 +65,24 @@ public class Tab1 extends Fragment implements ScheduleView {
     @Override
     public void showScheduleFromDatabase() {
         scheduleList = db.getScheduleDay1Items();
-        adapter = new ScheduleAdapter(getContext(), scheduleList);
+        adapter = new ScheduleAdapter(getContext(), scheduleList, presenter);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void showSchedule(List<Schedule> schedule) {
-        adapter = new ScheduleAdapter(getContext(), schedule);
+        adapter = new ScheduleAdapter(getContext(), schedule, presenter);
         for (Schedule x : schedule)
             db.addScheduleDay1Item(x);
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void showEventDetail(Event event) {
+        Intent i = new Intent(getContext(), EventDetailsActivity.class);
+        i.putExtra("id", event.getEventId());
+        i.putExtra("event_name", event.getName());
+        i.putExtra("event_description", event.getDescription());
+        startActivity(i);
+    }
 }

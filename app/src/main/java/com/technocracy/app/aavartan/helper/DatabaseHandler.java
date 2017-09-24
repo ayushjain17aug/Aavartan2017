@@ -333,7 +333,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                Schedule schedule = new Schedule(cursor.getInt(0), cursor.getString(1),
+                Schedule schedule = new Schedule(cursor.getString(0), cursor.getString(1),
                         cursor.getString(2), cursor.getString(3), cursor.getString(4));
                 scheduleDay1ArrayList.add(schedule);
             } while (cursor.moveToNext());
@@ -370,7 +370,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                Schedule schedule = new Schedule(cursor.getInt(0), cursor.getString(1),
+                Schedule schedule = new Schedule(cursor.getString(0), cursor.getString(1),
                         cursor.getString(2), cursor.getString(3), cursor.getString(4));
                 scheduleDay2ArrayList.add(schedule);
             } while (cursor.moveToNext());

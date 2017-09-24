@@ -3,13 +3,13 @@ package com.technocracy.app.aavartan.Schedule.Model.Data;
 
 public class Schedule {
 
-    private int id;
+    private String id;
     private String eventName;
     private String time;
     private String venue;
     private String imageUrl;
 
-    public Schedule(int id, String eventName, String time, String venue, String imageUrl) {
+    public Schedule(String id, String eventName, String time, String venue, String imageUrl) {
         this.id = id;
         this.eventName = eventName;
         this.time = time;
@@ -17,7 +17,7 @@ public class Schedule {
         this.imageUrl = imageUrl;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

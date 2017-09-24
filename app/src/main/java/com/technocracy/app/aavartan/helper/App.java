@@ -66,6 +66,7 @@ public class App {
     public static final String EVENT1 = "";
     public static final String SCHEDULE = "";
     public static final String CONTACT = "";
+    public static final String EVENT_BY_ID = "";//this is for schedule onClick item
     public static String LinkPDF;
     public static String Base_Url;//TODO : add urls
 

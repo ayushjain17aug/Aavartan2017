@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
+import com.technocracy.app.aavartan.Schedule.Presenter.SchedulePresenter;
 
 import java.util.List;
 
@@ -22,9 +23,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
     private final TypedValue mTypedValue = new TypedValue();
     private final List<Schedule> scheduleArrayList;
     private final Context mContext;
+    private View view;
+    private SchedulePresenter presenter;
 
-    public ScheduleAdapter(Context context, List<Schedule> scheduleArrayList) {
-
+    public ScheduleAdapter(Context context, List<Schedule> scheduleArrayList, SchedulePresenter presenter) {
+        this.presenter = presenter;
         mContext = context;
         mContext.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
         this.scheduleArrayList = scheduleArrayList;
@@ -32,7 +35,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
 
     @Override
     public LeaderboardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
         view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.single_row, parent, false);
         return new LeaderboardViewHolder(view);
@@ -50,12 +52,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
         Picasso.with(mContext)
                 .load(eventImageUrl).placeholder(R.drawable.ic_logo_small)
                 .into(holder.eventImage);
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String id = scheduleArrayList.get(position).getId();
+                presenter.getEventById(id);
             }
-
         });
     }
 
