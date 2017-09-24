@@ -8,11 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.technocracy.app.aavartan.Attraction.Model.Data.Attraction;
-import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
-import com.technocracy.app.aavartan.api.Contact;
-//import com.technocracy.app.aavartan.api.Event;
+import com.technocracy.app.aavartan.Contacts.Model.Data.Contact;
 import com.technocracy.app.aavartan.Event.Model.Data.Event;
-import com.technocracy.app.aavartan.api.GalleryItem;
+import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
 import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.Notifications;
 
@@ -250,7 +248,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(key, null, values);
         db.close(); // Closing database connection
-        Log.e("Event:", "stored in db.");
     }
 
     public List<Event> getAllEvents(String key) {
@@ -275,45 +272,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + key);
     }
-
-
-    public void addGalleryItem(GalleryItem galleryItem) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(GALLERY_ID, galleryItem.getId());
-        values.put(GALLERY_TITLE, galleryItem.getTitle());
-        values.put(GALLERY_RATIO, String.valueOf(galleryItem.getRatio()));
-        values.put(GALLERY_IMAGE_URL, galleryItem.getUrl());
-        // Inserting Row
-        db.insert(TABLE_GALLERY, null, values);
-        db.close(); // Closing database connection
-        Log.e("Gallery Item:", "stored in db.");
-    }
-
-    public ArrayList<GalleryItem> getAllGalleryItems() {
-        ArrayList<GalleryItem> galleryItemList = new ArrayList<GalleryItem>();
-        String selectQuery = "SELECT * FROM " + TABLE_GALLERY;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                GalleryItem galleryItem = new GalleryItem(cursor.getInt(0), cursor.getString(1),
-                        Double.parseDouble(cursor.getString(2)), cursor.getString(3));
-                galleryItemList.add(galleryItem);
-            } while (cursor.moveToNext());
-        }
-
-        return galleryItemList;
-    }
-
-    public void deleteAllGalleryItems() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_GALLERY);
-    }
-
 
     public void addContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();

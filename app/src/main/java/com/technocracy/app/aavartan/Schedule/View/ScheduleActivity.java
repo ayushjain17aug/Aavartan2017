@@ -5,10 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -16,19 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
 import com.technocracy.app.aavartan.Event.View.EventListActivity;
-import com.technocracy.app.aavartan.LoginFragment;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
-import com.technocracy.app.aavartan.Schedule.View.tabs.SlidingTabLayout;
 import com.technocracy.app.aavartan.Schedule.View.tabs.Tab1;
 import com.technocracy.app.aavartan.Schedule.View.tabs.Tab2;
 import com.technocracy.app.aavartan.SectionsPagerAdapter;
-import com.technocracy.app.aavartan.SignupFragment;
 import com.technocracy.app.aavartan.activity.AccountActivity;
 import com.technocracy.app.aavartan.activity.LoginActivity;
 import com.technocracy.app.aavartan.activity.MainActivity;
-import com.technocracy.app.aavartan.activity.NavActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
@@ -71,7 +63,7 @@ public class ScheduleActivity extends ActionBarActivity {
 
                         break;
                     case R.id.btn3:
-                        intent = new Intent(ScheduleActivity.this,NavActivity.class);
+                        intent = new Intent(ScheduleActivity.this, AttractionActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
 

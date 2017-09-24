@@ -3,7 +3,6 @@ package com.technocracy.app.aavartan.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,19 +14,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
+import com.technocracy.app.aavartan.Contacts.View.ContactsActivity;
 import com.technocracy.app.aavartan.Event.View.EventListActivity;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.Sponsors.View.SponsActivity;
+import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
-import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
@@ -39,14 +38,14 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private static final int ACTIVITY_NUM = 0;
+    FloatingActionButton fab;
     private Boolean isFabOpen = true;
     private SessionManager sessionManager;
     private String currentDateString;
     private SimpleDateFormat dateFormat;
-    FloatingActionButton fab;
     private SQLiteHandler sqLiteHandler;
     private Intent intent;
-    private String intent_name[] = {"Gallery", "Sponsors", "Contacts", "Attraction", "About Us", "Vigyaan"};
+    private String intent_name[] = {"Gallery", "Sponsors", "Contacts", "Team Android", "About Us", "Vigyaan"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,31 +104,31 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btn1:
                         intent = new Intent(MainActivity.this, MainActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                         break;
                     case R.id.btn2:
                         intent = new Intent(MainActivity.this, EventListActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                         break;
                     case R.id.btn3:
-                        intent = new Intent(MainActivity.this, NavActivity.class);
+                        intent = new Intent(MainActivity.this, AttractionActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                         break;
                     case R.id.btn4:
                         intent = new Intent(MainActivity.this, AccountActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                         break;
                     case R.id.btn5:
                         intent = new Intent(MainActivity.this, ScheduleActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                         break;
                 }
@@ -147,33 +146,34 @@ public class MainActivity extends AppCompatActivity {
                             if (index == 0) {
                                 intent2 = new Intent(MainActivity.this, GalleryActivity.class);
                                 startActivity(intent2);
-
-                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                             } else if (index == 1) {
                                 intent2 = new Intent(MainActivity.this, SponsActivity.class);
                                 startActivity(intent2);
-                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                             } else if (index == 2) {
                                 intent2 = new Intent(MainActivity.this, ContactsActivity.class);
+                                intent2.putExtra("contact_type", "1");
                                 startActivity(intent2);
-                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                             } else if (index == 3) {
-                                intent2 = new Intent(MainActivity.this, AttractionActivity.class);
+                                intent2 = new Intent(MainActivity.this, ContactsActivity.class);
+                                intent2.putExtra("contact_type", "2");
                                 startActivity(intent2);
-                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                             } else if (index == 4) {
                                 intent2 = new Intent(MainActivity.this, AboutUsActivity.class);
                                 startActivity(intent2);
-                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                             } else if (index == 5) {
                                 intent2 = new Intent(MainActivity.this, VigyaanActivity.class);
                                 startActivity(intent2);
-                                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                             }
                         }

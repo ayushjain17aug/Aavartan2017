@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.*;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,11 +16,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.Sponsors.Model.Data.Sponsor;
 import com.technocracy.app.aavartan.helper.App;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventTypeHolder> {
 
@@ -31,33 +25,14 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
     private int img[]={R.drawable.fun,R.drawable.man,R.drawable.tec,R.drawable.rob};
     private String events[]={"Fun","Managerial","Technical","Robotics"};
     private Intent intent;
-
-    public static class EventTypeHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public ProgressBar pBAr;
-        public TextView name;
-        public EventTypeHolder(View view) {
-            super(view);
-            name = (TextView)view.findViewById(R.id.event_type);
-            imageView = (ImageView) view.findViewById(R.id.event_set_img);
-
-
-            Animation anim = new AlphaAnimation(0.0f, 1.0f);
-            anim.setDuration(400); //You can manage the blinking time with this parameter
-            anim.setStartOffset(20);
-            anim.setRepeatMode(Animation.REVERSE);
-            anim.setRepeatCount(Animation.INFINITE);
-            name.startAnimation(anim); }
-
-
-    }
+    private View view;
 
     public EventSetAdapter(Context context) {
         mContext = context;
     }
 
     public EventTypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(mContext).inflate(R.layout.event_set_item, parent, false);
+        view = LayoutInflater.from(mContext).inflate(R.layout.event_set_item, parent, false);
         return new EventTypeHolder(view);
     }
 
@@ -81,7 +56,7 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
                     }
                 });
         holder.name.setText(events[position]);
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(position==0) {
@@ -115,8 +90,31 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return img.length;
+    }
+
+    public static class EventTypeHolder extends RecyclerView.ViewHolder {
+        public ImageView imageView;
+        public ProgressBar pBAr;
+        public TextView name;
+
+        public EventTypeHolder(View view) {
+            super(view);
+            name = (TextView) view.findViewById(R.id.event_type);
+            imageView = (ImageView) view.findViewById(R.id.event_set_img);
+
+
+            Animation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(400); //You can manage the blinking time with this parameter
+            anim.setStartOffset(20);
+            anim.setRepeatMode(Animation.REVERSE);
+            anim.setRepeatCount(Animation.INFINITE);
+            name.startAnimation(anim);
+        }
+
+
     }
 }

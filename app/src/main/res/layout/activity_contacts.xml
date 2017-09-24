@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/relativeLayout"
-    android:background="@drawable/spaceblack"
-    tools:context="com.technocracy.app.aavartan.activity.ContactsActivity">
+    android:background="@drawable/image"
+    tools:context="com.technocracy.app.aavartan.Contacts.View.ContactsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/spaceblack"
+        android:background="@null"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <GridView
-        android:layout_below="@+id/toolbar"
-        android:numColumns="2"
-        android:gravity="center"
+        android:id="@+id/contacts_gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/contacts_gridView"
-        />
+        android:layout_below="@+id/toolbar"
+        android:gravity="center"
+        android:numColumns="2" />
 
 </RelativeLayout>

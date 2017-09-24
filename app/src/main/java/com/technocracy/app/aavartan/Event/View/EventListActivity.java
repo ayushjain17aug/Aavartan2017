@@ -11,12 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
+import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.activity.AccountActivity;
-import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.activity.MainActivity;
-import com.technocracy.app.aavartan.activity.NavActivity;
-import com.technocracy.app.aavartan.activity.TimingActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 
 public class EventListActivity extends AppCompatActivity {
@@ -55,7 +54,7 @@ public class EventListActivity extends AppCompatActivity {
 
                         break;
                     case R.id.btn3:
-                        intent = new Intent(EventListActivity.this, NavActivity.class);
+                        intent = new Intent(EventListActivity.this, AttractionActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
 

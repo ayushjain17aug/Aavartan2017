@@ -1,17 +1,17 @@
 package com.technocracy.app.aavartan.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
 import com.technocracy.app.aavartan.Event.View.EventListActivity;
 import com.technocracy.app.aavartan.LoginFragment;
 import com.technocracy.app.aavartan.R;
@@ -22,9 +22,10 @@ import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 
 public class AccountActivity extends AppCompatActivity {
 
+    private static final int ACTIVITY_NUM = 3;
     private Intent intent;
     private Toolbar mtoolbar;
-    private static final int ACTIVITY_NUM =3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,7 @@ public class AccountActivity extends AppCompatActivity {
 
                         break;
                     case R.id.btn3:
-                        intent = new Intent(AccountActivity.this,NavActivity.class);
+                        intent = new Intent(AccountActivity.this, AttractionActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
 
@@ -107,7 +108,6 @@ public class AccountActivity extends AppCompatActivity {
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setText("Login");
-        // tabLayout.getTabAt(1).setText("AAVARTAN");
         tabLayout.getTabAt(1).setText("Signup");
     }
 }
