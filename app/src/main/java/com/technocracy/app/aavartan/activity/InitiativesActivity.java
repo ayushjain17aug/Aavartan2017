@@ -23,6 +23,7 @@ import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
 import com.technocracy.app.aavartan.Event.View.EventActivity;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
+import com.technocracy.app.aavartan.Sponsors.View.SponsActivity;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
@@ -157,7 +158,7 @@ public class InitiativesActivity extends AppCompatActivity implements Navigation
                 finish();
                 break;
             case R.id.nav_sponsors:
-                intent = new Intent(this, SponsorsActivity.class);
+                intent = new Intent(this, SponsActivity.class);
                 startActivity(intent);
                 finish();
                 break;

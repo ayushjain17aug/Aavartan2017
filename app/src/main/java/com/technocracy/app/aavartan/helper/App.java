@@ -8,8 +8,6 @@ import android.widget.ProgressBar;
 
 import com.technocracy.app.aavartan.R;
 
-import okhttp3.HttpUrl;
-
 
 /**
  * Created by MOHIT on 18-Sep-16.
@@ -61,17 +59,16 @@ public class App {
     public static final String MCAPDF = "http://www.aavartan.org/ps/mca.pdf";
     public static final String EcellPDF = "http://www.aavartan.org/ps/e-cell.pdf";
     public static final String GoGreenPDF = "http://www.aavartan.org/ps/go_green.pdf";
-    public static String LinkPDF;
     public static final int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
-
     public static final int SWIPE_REFRESH_COLORS[] = {R.color.colorPrimary, R.color.colorAccent};
-
-
-    public static String Base_Url;//TODO : add urls
     public static final String GALLERY = "";
     public static final String EVENT1 = "";
     public static final String SCHEDULE = "";
+    public static final String CONTACT = "";
+    public static final String EVENT_BY_ID = "";//this is for schedule onClick item
+    public static String LinkPDF;
+    public static String Base_Url;//TODO : add urls
 
     public static float getScreenWidth(Context context) {
         DisplayMetrics displaymetrics = new DisplayMetrics();

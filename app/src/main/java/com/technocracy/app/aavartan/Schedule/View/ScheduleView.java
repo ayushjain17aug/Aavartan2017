@@ -1,12 +1,9 @@
 package com.technocracy.app.aavartan.Schedule.View;
 
+import com.technocracy.app.aavartan.Event.Model.Data.Event;
 import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
 
 import java.util.List;
-
-/**
- * Created by Abhi on 01-Sep-17.
- */
 
 public interface ScheduleView {
     void showProgressBar(boolean b);
@@ -16,4 +13,6 @@ public interface ScheduleView {
     void showScheduleFromDatabase();
 
     void showSchedule(List<Schedule> schedule);
+
+    void showEventDetail(Event event);
 }

@@ -1,13 +1,11 @@
-package com.technocracy.app.aavartan.activity.intentactivity;
+package com.technocracy.app.aavartan.Event.View;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -19,19 +17,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.technocracy.app.aavartan.Event.View.EventActivity;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
-import com.technocracy.app.aavartan.activity.AboutUsActivity;
-import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
-import com.technocracy.app.aavartan.activity.InitiativesActivity;
 import com.technocracy.app.aavartan.activity.LoginActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
-import com.technocracy.app.aavartan.activity.SponsorsActivity;
 import com.technocracy.app.aavartan.activity.UserActivity;
-import com.technocracy.app.aavartan.activity.VigyaanActivity;
 import com.technocracy.app.aavartan.api.User;
-import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
@@ -43,16 +33,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EventDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class EventDetailsActivity extends AppCompatActivity {
 
+    SQLiteHandler sqLiteHandler;
+    User user;
     private TextView eventDetailsTextView;
     private String eventDetail;
     private String id;
     private DrawerLayout drawer;
     private Button registerEventButton;
     private Toolbar toolbar;
-    SQLiteHandler sqLiteHandler;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,28 +60,7 @@ public class EventDetailsActivity extends AppCompatActivity implements Navigatio
         toolbar.setTitle(title);
         toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        if (sessionManager.isLoggedIn()) {
-            sqLiteHandler = new SQLiteHandler(getApplicationContext());
-            user = sqLiteHandler.getUser();
-            View navHeaderView = navigationView.getHeaderView(0);
-            TextView username = (TextView) navHeaderView.findViewById(R.id.username);
-            TextView usermail = (TextView) navHeaderView.findViewById(R.id.usermail);
-            username.setText(user.getFirst_name());
-            usermail.setText(user.getEmail());
-        }
-
         eventDetailsTextView = (TextView) findViewById(R.id.event_details_textView);
         eventDetailsTextView.setText(eventDetail);
 
@@ -103,7 +72,7 @@ public class EventDetailsActivity extends AppCompatActivity implements Navigatio
             @Override
             public void onClick(View v) {
 
-               SessionManager sessionManager = new SessionManager(getApplicationContext());
+                SessionManager sessionManager = new SessionManager(getApplicationContext());
                 if (sessionManager.isLoggedIn()) {
                     sqLiteHandler = new SQLiteHandler(getApplicationContext());
                     user = sqLiteHandler.getUser();
@@ -125,81 +94,6 @@ public class EventDetailsActivity extends AppCompatActivity implements Navigatio
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                finish();
-                break;
-            case R.id.nav_attractions:
-                intent = new Intent(this, AttractionActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_gallery:
-                intent = new Intent(this, GalleryActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_fun_events:
-                intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "Fun Events");
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_managerial_events:
-                intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "Managerial Events");
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_robotics:
-                intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "Robotics Events");
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_technical_events:
-                intent = new Intent(this, EventActivity.class);
-                intent.putExtra("event_selected", "Technical Events");
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_vigyaan:
-                intent = new Intent(this, VigyaanActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_sponsors:
-                intent = new Intent(this, SponsorsActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_initiatives:
-                intent = new Intent(this, InitiativesActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_schedule:
-                intent = new Intent(this, ScheduleActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_about_us:
-                intent = new Intent(this, AboutUsActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            default:
-                break;
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
@@ -242,12 +136,12 @@ public class EventDetailsActivity extends AppCompatActivity implements Navigatio
                     boolean error = jsonResponse.getBoolean("error");
                     if (!error) {
 
-                        Snackbar.make(findViewById(R.id.drawer_layout), "Registration Successful!",Snackbar.LENGTH_LONG)
+                        Snackbar.make(findViewById(R.id.drawer_layout), "Registration Successful!", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        } else {
-                        Snackbar.make(findViewById(R.id.drawer_layout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG)
+                    } else {
+                        Snackbar.make(findViewById(R.id.drawer_layout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                         }
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -256,7 +150,7 @@ public class EventDetailsActivity extends AppCompatActivity implements Navigatio
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         }) {

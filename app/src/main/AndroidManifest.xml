@@ -79,7 +79,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activity.intentactivity.EventDetailsActivity"
+            android:name=".Event.View.EventDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -90,11 +90,6 @@
         <activity
             android:name=".activity.AboutUsActivity"
             android:label="@string/title_activity_about_us"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".activity.SponsorsActivity"
-            android:label="@string/title_activity_sponsors"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
@@ -130,7 +125,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activity.ContactsActivity"
+            android:name=".Contacts.View.ContactsActivity"
             android:label="@string/title_activity_contacts"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -142,8 +137,6 @@
             android:name=".Event.View.EventListActivity"
             android:label="@string/title_activity_event_list"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".activity.NavActivity" />
-        <activity android:name=".activity.TimingActivity" />
         <activity android:name=".activity.AccountActivity"
             android:windowSoftInputMode="adjustPan" />
     </application>

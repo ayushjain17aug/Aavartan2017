@@ -2,7 +2,9 @@ package com.technocracy.app.aavartan.Schedule.Model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.technocracy.app.aavartan.Event.Model.Data.Event;
 import com.technocracy.app.aavartan.Schedule.Api.ScheduleApi;
+import com.technocracy.app.aavartan.Schedule.EventByIdCallback;
 import com.technocracy.app.aavartan.Schedule.Model.Data.ScheduleData;
 import com.technocracy.app.aavartan.Schedule.ScheduleCallback;
 import com.technocracy.app.aavartan.helper.App;
@@ -49,5 +51,23 @@ public class RetrofitScheduleProvider implements ScheduleProvider {
             }
         });
 
+    }
+
+    @Override
+    public void getEventById(String eventId, final EventByIdCallback callback) {
+        api = retrofit.create(ScheduleApi.class);
+        Call<Event> call = api.getEventById(eventId);
+        call.enqueue(new retrofit2.Callback<Event>() {
+            @Override
+            public void onResponse(Call<Event> call, Response<Event> response) {
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Event> call, Throwable t) {
+                callback.onFailure();
+                t.printStackTrace();
+            }
+        });
     }
 }

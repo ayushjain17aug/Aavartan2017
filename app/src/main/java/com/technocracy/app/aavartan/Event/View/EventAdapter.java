@@ -1,21 +1,23 @@
 package com.technocracy.app.aavartan.Event.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.technocracy.app.aavartan.Event.Model.Data.Event;
 import com.technocracy.app.aavartan.R;
+
+import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
     private Context context;
     private List<Event> eventList;
+    private View view;
 
     public EventAdapter(Context context, List<Event> eventList) {
 //        Log.d("AAVARTAN17","IN ADAPTER CONSTRUCTOR");
@@ -25,16 +27,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        Log.d("AAVARTAN17","IN BIND VIEW HOLDER"+position);
-        Event event = eventList.get(position);
+        final Event event = eventList.get(position);
         holder.txt.setText(event.getName() + "\nDate : " + event.getDate() + "\nTime:" + event.getTime() +
                 "\nVenue:" + event.getVenue());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, EventDetailsActivity.class);
+                i.putExtra("id", event.getEventId());
+                i.putExtra("event_name", event.getName());
+                i.putExtra("event_description", event.getDescription());
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override

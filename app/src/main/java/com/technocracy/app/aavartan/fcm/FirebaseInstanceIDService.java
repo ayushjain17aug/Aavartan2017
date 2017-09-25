@@ -16,9 +16,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by User on 30/07/aavartan2016.
- */
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = FirebaseInstanceIDService.class.getSimpleName();
     @Override
@@ -53,7 +50,9 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
                     // JSON error
                     e.printStackTrace();
                     Log.e("FCM General Token","JSON Error : "+e.getMessage());
+                } catch (NullPointerException n) {
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override

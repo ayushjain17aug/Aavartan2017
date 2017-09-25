@@ -2,6 +2,8 @@ package com.technocracy.app.aavartan.Schedule.Presenter;
 
 import android.content.Context;
 
+import com.technocracy.app.aavartan.Event.Model.Data.Event;
+import com.technocracy.app.aavartan.Schedule.EventByIdCallback;
 import com.technocracy.app.aavartan.Schedule.Model.Data.ScheduleData;
 import com.technocracy.app.aavartan.Schedule.Model.ScheduleProvider;
 import com.technocracy.app.aavartan.Schedule.ScheduleCallback;
@@ -41,6 +43,24 @@ public class SchedulePresenterImpl implements SchedulePresenter {
             public void onFailure() {
                 view.showProgressBar(false);
                 view.showScheduleFromDatabase();
+            }
+        });
+    }
+
+    @Override
+    public void getEventById(String eventId) {
+        view.showProgressBar(true);
+        provider.getEventById(eventId, new EventByIdCallback() {
+            @Override
+            public void onSuccess(Event body) {
+                view.showProgressBar(false);
+                view.showEventDetail(body);
+            }
+
+            @Override
+            public void onFailure() {
+                view.showProgressBar(false);
+                view.showMessage("Internet Connection not present!");
             }
         });
     }
