@@ -88,20 +88,24 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
                     case R.id.btn1:
                         intent = new Intent(AttractionActivity.this, MainActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         return true;
                     case R.id.btn2:
                         intent = new Intent(AttractionActivity.this, EventListActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         return true;
                     case R.id.btn3:
                         return true;
                     case R.id.btn4:
                         intent = new Intent(AttractionActivity.this, AccountActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         return true;
                     case R.id.btn5:
                         intent = new Intent(AttractionActivity.this, ScheduleActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         return true;
                 }
                 return true;
