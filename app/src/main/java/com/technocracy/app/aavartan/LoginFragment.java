@@ -179,7 +179,6 @@ public class LoginFragment extends Fragment {
         // Tag used to cancel the request
 
         AlertDialog.Builder homeScreenDialog = new AlertDialog.Builder(getContext());
-
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -200,11 +199,13 @@ public class LoginFragment extends Fragment {
         homeScreenDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 final String emailids = emailid.getText().toString().trim();
+
+                Log.d("ayush",emailids);
                 if (!emailids.isEmpty()) {
                     // login user
                     String tag_string_req = "req_forgotPassword";
                     StringRequest strReq = new StringRequest(Request.Method.POST,
-                            "http://beta.aavartan.org/app.android.forgot", new Response.Listener<String>() {
+                            "https://beta.aavartan.org/app.android.forgot", new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Log.d("ayush", "Login Response: " + response.toString());
@@ -231,7 +232,7 @@ public class LoginFragment extends Fragment {
                         public void onErrorResponse(VolleyError error) {
                             Log.d("ayush", "Login Error: here error response " + error.getMessage());
                             hideDialog();
-                            Snackbar.make(getActivity().findViewById(R.id.login),"Error Occured.Please try again later!", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(getActivity().findViewById(R.id.login),"Please check your e-mail for resetting password.", Snackbar.LENGTH_LONG).show();
                         }
                     }) {
                         @Override
