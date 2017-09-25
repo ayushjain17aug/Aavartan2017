@@ -147,6 +147,7 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
         //}
         Intent intent1=new Intent(AttractionActivity.this,MainActivity.class);
         startActivity(intent1);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override

@@ -36,21 +36,11 @@ public class SignupFragment extends Fragment {
 
     }
 
-    @Override
+/*    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        phoneEditText = (EditText) getView().findViewById(R.id.phone);
-        collegeEditText = (EditText) getView().findViewById(R.id.college);
-        firstNameEditText = (EditText) getView().findViewById(R.id.first_name);
-        lastNameEditText = (EditText) getView().findViewById(R.id.last_name);
-        password0EditText = (EditText) getView().findViewById(R.id.password0);
-        password1EditText = (EditText) getView().findViewById(R.id.password1);
-        emailEditText = (EditText) getView().findViewById(R.id.email);
-        department = (EditText) getView().findViewById(R.id.department);
-        semester = (EditText) getView().findViewById(R.id.semester);
-        captcha = (EditText) getView().findViewById(R.id.captcha);
 
-    }
+    }*/
 
 
     @Override
@@ -59,6 +49,16 @@ public class SignupFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View v=inflater.inflate(R.layout.fragment_signup, container, false);
+        phoneEditText = (EditText)v.findViewById(R.id.phone);
+        collegeEditText = (EditText)v.findViewById(R.id.college);
+        firstNameEditText = (EditText)v.findViewById(R.id.first_name);
+        lastNameEditText = (EditText) v.findViewById(R.id.last_name);
+        password0EditText = (EditText) v.findViewById(R.id.password0);
+        password1EditText = (EditText) v.findViewById(R.id.password1);
+        emailEditText = (EditText) v.findViewById(R.id.email);
+        department = (EditText) v.findViewById(R.id.department);
+        semester = (EditText) v.findViewById(R.id.semester);
+        captcha = (EditText) v.findViewById(R.id.captcha);
         return v;
     }
 

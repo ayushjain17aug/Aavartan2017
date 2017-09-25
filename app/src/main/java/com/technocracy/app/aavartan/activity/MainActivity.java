@@ -51,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final Typewriter tv=(Typewriter)findViewById(R.id.typewriter);
+        tv.setText(" ");
+        tv.setCharacterDelay(150);
+        tv.animateText("IMAGINE IMPROVE IMPLEMENT");
+        final Typewriter tv1=(Typewriter)findViewById(R.id.typewriter1);
+        tv1.setText(" ");
+        tv1.setCharacterDelay(150);
+        tv1.animateText("ERA OF DIGITIZATION");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // toolbar.setTitleTextColor(Color.WHITE);
         // toolbar.setSubtitleTextColor(Color.WHITE);

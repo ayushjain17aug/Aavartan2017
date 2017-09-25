@@ -13,14 +13,14 @@
             android:id="@+id/main_activity_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/image"
+            android:background="@color/colorblack"
             android:orientation="vertical">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:backgroundTint="@color/lightback"
+                android:background="@drawable/image"
                 android:theme="@style/ThemeOverlay.AppCompat.Light"
                 app:titleTextColor="@color/title" />
             <View
@@ -41,22 +41,55 @@
         </RelativeLayout>
     </FrameLayout>
     <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_height="match_parent"
-        android:background="#000000"
+        android:background="@color/colorblack"
         android:layout_marginBottom="?attr/actionBarSize">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text"
+                android:gravity="center"
+                android:textColor="#80D8FF"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                android:text="AAVARTAN'17"
+                android:textSize="25dp" />
+            <com.technocracy.app.aavartan.activity.Typewriter
+                android:id="@+id/typewriter1"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:layout_below="@+id/text"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#80D8FF"
+                android:textSize="20dp"/>
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/gifImageView"
+            android:layout_marginLeft="50dp"
+            android:layout_centerVertical="true"
             android:layout_width="250dp"
+            android:layout_below="@+id/typewriter1"
             android:layout_height="250dp"
             android:layout_gravity="center"
-            android:layout_alignBottom="@+id/bmb"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/toolbar"
-            android:layout_toLeftOf="@+id/bottom_navigation"
             android:background="@drawable/giphy" />
+        <com.technocracy.app.aavartan.activity.Typewriter
+            android:id="@+id/typewriter"
+            android:layout_below="@+id/gifImageView"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#80D8FF"
+            android:textSize="20dp"/>
+        </RelativeLayout>
     </FrameLayout>
     <FrameLayout
         android:layout_width="match_parent"
