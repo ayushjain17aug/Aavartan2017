@@ -116,7 +116,7 @@ public class ScheduleActivity extends ActionBarActivity {
         //}
         Intent intent1=new Intent(ScheduleActivity.this,MainActivity.class);
         startActivity(intent1);
-        overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
     }
 

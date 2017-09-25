@@ -13,9 +13,9 @@
         android:title="Events" />
     <item
         android:id="@+id/btn3"
-        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:icon="@drawable/ic_blur_on_black_24dp"
         android:enabled="true"
-        android:title="Menu" />
+        android:title="Attractions" />
     <item
         android:id="@+id/btn4"
         android:icon="@drawable/ic_account_box_black_24dp"
