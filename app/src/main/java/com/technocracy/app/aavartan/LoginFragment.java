@@ -207,18 +207,18 @@ public class LoginFragment extends Fragment {
                             "http://beta.aavartan.org/app.android.forgot", new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            //Log.d(TAG, "Login Response: " + response.toString());
+                            Log.d("ayush", "Login Response: " + response.toString());
                             hideDialog();
                             try {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean error = jsonResponse.getBoolean("error");
                                 if (!error) {
                                     Log.d("ayush", "no error");
-                                    Snackbar.make(getView().findViewById(R.id.relativeLayout), "Please check your e-mail for resetting password.", Snackbar.LENGTH_LONG)
+                                    Snackbar.make(getView().findViewById(R.id.login), "Please check your e-mail for resetting password.", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
                                 } else {
                                     Log.d("ayush", "got error");
-                                    Snackbar.make(getView().findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
+                                    Snackbar.make(getView().findViewById(R.id.login), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
                                 }
                             } catch (JSONException e) {
@@ -229,9 +229,9 @@ public class LoginFragment extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            //Log.e(TAG, "Login Error: " + error.getMessage());
+                            Log.d("ayush", "Login Error: here error response " + error.getMessage());
                             hideDialog();
-                            Snackbar.make(getView().findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(getActivity().findViewById(R.id.login),"Error Occured.Please try again later!", Snackbar.LENGTH_LONG).show();
                         }
                     }) {
                         @Override
