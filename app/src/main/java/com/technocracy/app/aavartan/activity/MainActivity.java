@@ -115,31 +115,31 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.btn1:
                         intent = new Intent(MainActivity.this, MainActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                         break;
                     case R.id.btn2:
                         intent = new Intent(MainActivity.this, EventListActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                         break;
                     case R.id.btn3:
                         intent = new Intent(MainActivity.this, AttractionActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                         break;
                     case R.id.btn4:
                         intent = new Intent(MainActivity.this, AccountActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                         break;
                     case R.id.btn5:
                         intent = new Intent(MainActivity.this, ScheduleActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                         break;
                 }
