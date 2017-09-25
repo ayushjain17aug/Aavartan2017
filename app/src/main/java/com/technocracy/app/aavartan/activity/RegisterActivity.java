@@ -14,12 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
@@ -37,12 +39,12 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private ProgressDialog pDialog;
     private SessionManager session;
-    private TextView backToLogin;
     private EditText phoneEditText;
     private EditText collegeEditText;
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText password0EditText;
+    private ImageView captcha;
     private EditText password1EditText;
     private EditText emailEditText;
     private Button btnRegister;
@@ -50,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.fragment_signup);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,15 +73,12 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         }
 
-        backToLogin = (TextView) findViewById(R.id.backtologin);
-        backToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent RegisterIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                RegisterActivity.this.startActivity(RegisterIntent);
-                finish();
-            }
-        });
+        /*captcha = (ImageView) findViewById(R.id)
+        Picasso.with(getApplicationContext())
+                .load("https://beta.aavartan.org/captcha.show")
+                .resize(50, 50)
+                .centerCrop()
+                .into(imageView)*/
 
         phoneEditText = (EditText) findViewById(R.id.phone);
         collegeEditText = (EditText) findViewById(R.id.college);

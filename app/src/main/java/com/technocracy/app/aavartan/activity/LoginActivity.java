@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button bLogin;
-    private TextView tvRegister;
     private TextView forgotpassword;
     private ProgressDialog pDialog;
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -51,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.fragment_login);
 
         if (!ConnectivityReceiver.isConnected())
             Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
@@ -81,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         bLogin = (Button) findViewById(R.id.bLogin);
-        tvRegister = (TextView) findViewById(R.id.tvRegister);
         forgotpassword = (TextView) findViewById(R.id.forgotpassword);
 
         forgotpassword.setOnClickListener(new View.OnClickListener() {
@@ -92,17 +90,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        tvRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent RegisterIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(RegisterIntent);
-                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
-
-                finish();
-            }
-        });
-
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
         //new DatabaseHandler(getApplicationContext()).dropDB();
 
+
+
+
         if (sessionManager.isLoggedIn()) {
             sqLiteHandler = new SQLiteHandler(getApplicationContext());
             User user = sqLiteHandler.getUser();
