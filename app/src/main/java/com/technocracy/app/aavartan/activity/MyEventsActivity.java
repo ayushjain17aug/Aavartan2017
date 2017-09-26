@@ -123,6 +123,7 @@ public class MyEventsActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
+                        Log.d("ayush","success");
                         JSONArray enlist = jsonResponse.getJSONArray("eventList");
                         SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
                         User updatedUser = sqLiteHandler.getUser();
@@ -130,11 +131,13 @@ public class MyEventsActivity extends AppCompatActivity {
                         sqLiteHandler.updateeventscount(updatedUser);
                         user = updatedUser;
                         db.deleteAllMyEvents();
+                        Log.d("ayush","eventlist length : "+String.valueOf(enlist.length()));
                         if (enlist.length() == 0)
                             noEventsTextView.setVisibility(View.VISIBLE);
                         for (int i = 0; i < enlist.length(); i++) {
                             JSONObject jsonObject = enlist.getJSONObject(i);
                             JSONObject eventobject = jsonObject.getJSONObject("event");
+                            Log.d("ayush","id : "+eventobject.getString("event_name")+eventobject.getString("event_date"));
                             MyEvent myEvent = new MyEvent(jsonObject.getInt("id"),
                                     eventobject.getString("event_name"), eventobject.getString("event_date"));
                             db.addMyEvent(myEvent);
