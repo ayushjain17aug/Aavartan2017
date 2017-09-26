@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         if (sessionManager.isLoggedIn()) {
             sqLiteHandler = new SQLiteHandler(getApplicationContext());
             User user = sqLiteHandler.getUser();
-            if (user.getVerified() == 0) {
                 if (getTime(user.getMember_since())) {
                     sessionManager.setLogin(false);
                     sqLiteHandler.deleteUsers();
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }).show();
                 }
-            }
 
         }
         // DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

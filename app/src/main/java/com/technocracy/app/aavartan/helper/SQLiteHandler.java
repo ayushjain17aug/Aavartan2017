@@ -19,7 +19,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     // Database Name
     private static final String DATABASE_NAME = "android_api";
@@ -33,6 +33,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String LAST_NAME = "lname";
     private static final String EMAIL = "email";
     private static final String PHONE = "phone";
+    private static final String MEMBER_SINCE = "created_at";
     private static final String COLLEGE_NAME = "college";
     private static final String COUNT_EVENT_REGISTERED = "count_event_registered";
 
@@ -49,6 +50,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 + EMAIL + " TEXT UNIQUE,"
                 + PHONE + " TEXT,"
                 + COLLEGE_NAME + " TEXT,"
+                + MEMBER_SINCE + " TEXT,"
                 + COUNT_EVENT_REGISTERED + " INTEGER" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
@@ -68,7 +70,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(int user_id, String firstname, String lastname, String email,String phone,String college,int count_event_registered) {
+    public void addUser(int user_id, String firstname, String lastname, String email,String phone,String college,String member_since,int count_event_registered) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -78,6 +80,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(EMAIL, email); // Created At
         values.put(PHONE, phone);
         values.put(COLLEGE_NAME, college);
+        values.put(MEMBER_SINCE,member_since);
         values.put(COUNT_EVENT_REGISTERED, count_event_registered);
         // Inserting Row
         long id = db.insert(TABLE_LOGIN, null, values);
@@ -97,6 +100,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(EMAIL, user.getEmail());
         values.put(PHONE, user.getPhone());
         values.put(COLLEGE_NAME, user.getCollege());
+        values.put(MEMBER_SINCE, user.getMember_since());
         values.put(COUNT_EVENT_REGISTERED, user.getcount_event_registered());
 
         // updating row
@@ -123,7 +127,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             user.setEmail(cursor.getString(3));
             user.setPhone(cursor.getString(4));
             user.setCollege(cursor.getString(5));
-            user.setcount_event_registered(cursor.getInt(6));
+            user.setMember_since(cursor.getString(6));
+            user.setcount_event_registered(cursor.getInt(7));
             cursor.close();
         }
         db.close();

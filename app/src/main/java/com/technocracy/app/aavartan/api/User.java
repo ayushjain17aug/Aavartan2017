@@ -10,7 +10,6 @@ public class User{
     private String last_name;
     private String email;
     private String phone;
-    private int verified;
     private String college;
     private String member_since;
     private int count_event_registered;
@@ -26,7 +25,6 @@ public class User{
         this.last_name = last_name;
         this.email = email;
         this.phone = phone;
-        this.verified = verified;
         this.college = college;
         this.member_since = member_since;
         this.count_event_registered = count_event_registered;
@@ -71,13 +69,6 @@ public class User{
     public void setPhone(String phone){
         this.phone = phone;
     }
-    public int getVerified(){
-        return verified;
-    }
-
-    public void setVerified(int semester){
-        this.verified = semester;
-    }
 
     public String getCollege(){
         return college;
@@ -91,8 +82,8 @@ public class User{
         return member_since;
     }
 
-    public void setMember_since(String rollno){
-        this.member_since = rollno;
+    public void setMember_since(String member_since){
+        this.member_since = member_since;
     }
 
     public int getcount_event_registered(){
