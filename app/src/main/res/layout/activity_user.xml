@@ -1,83 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/spaceblack">
+    android:background="@drawable/image">
 
     <android.support.v7.widget.Toolbar
         android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        android:background="@drawable/spaceblack"
+        android:background="@drawable/image"
         android:titleTextColor="@color/white"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:popupTheme="@style/AppTheme.AppBarOverlay"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <Button
-            android:text="Log Out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button1"
-            android:background="@null"
-            android:layout_marginLeft="260dp" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="50dp"
         android:gravity="center_horizontal">
         <TextView
-            android:text="Welcome  "
+            android:text="Welcome"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:id="@+id/textView3"
-            android:textSize="20dp" />
+            android:textSize="30dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:id="@+id/first_name"
             android:textSize="20dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="25dp">
         <TextView
             android:text="Full Name : "
             android:layout_width="wrap_content"
             android:layout_marginLeft="60dp"
+            android:textColor="@color/title"
             android:layout_height="wrap_content"
             android:id="@+id/textView5"
             android:textSize="15dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:id="@+id/first"
             android:paddingRight="3dp"
             android:textSize="15dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:id="@+id/last" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:text="User Id : "
             android:layout_width="wrap_content"
             android:layout_marginLeft="60dp"
+            android:textColor="@color/title"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
             android:textSize="15dp" />
@@ -85,11 +78,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NITRR/AV-"
-            android:textColor="#c1fa13"/>
+            android:textColor="@color/lightback"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:id="@+id/user_id"
             android:textSize="15dp" />
 
@@ -97,18 +90,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:text="Login/Email : "
             android:layout_width="wrap_content"
             android:layout_marginLeft="60dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/title"
             android:id="@+id/textView6"
             android:textSize="15dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:id="@+id/email"
             android:maxLength="24"
             android:textSize="15dp" />
@@ -116,17 +110,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:text="Phone : "
             android:layout_width="wrap_content"
             android:layout_marginLeft="60dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/title"
             android:id="@+id/textView7"
             android:textSize="15dp" />
         <TextView
             android:layout_width="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:layout_height="wrap_content"
             android:id="@+id/phone"
             android:textSize="15dp" />
@@ -134,35 +129,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:text="College Name : "
             android:layout_width="wrap_content"
             android:layout_marginLeft="60dp"
+            android:textColor="@color/title"
             android:layout_height="wrap_content"
             android:id="@+id/textView8"
             android:textSize="15dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:id="@+id/college"
             android:textSize="15dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:text="Event Registered : "
             android:layout_width="wrap_content"
             android:layout_marginLeft="60dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/title"
             android:id="@+id/textView9"
             android:textSize="15dp" />
         <TextView
             android:layout_width="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:layout_height="wrap_content"
             android:id="@+id/event"
             android:textSize="15dp" />
@@ -170,17 +167,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:text="Member Since : "
             android:layout_width="wrap_content"
             android:layout_marginLeft="60dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/title"
             android:id="@+id/textView10"
             android:textSize="15dp" />
         <TextView
             android:layout_width="wrap_content"
-            android:textColor="#c1fa13"
+            android:textColor="@color/lightback"
             android:layout_height="wrap_content"
             android:id="@+id/member_since"
             android:textSize="15dp" />
@@ -198,23 +196,36 @@
 
         <Button
             android:text="My Events"
-            android:layout_width="150dp"
-            android:background="#FFF9C4"
+            android:layout_width="250dp"
+            android:background="@drawable/button_bg_rounded_corners"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorblack"
+            android:textColor="@color/colorPrimary"
             android:id="@+id/button2" />
-        <TextView
-            android:layout_width="5dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tt"
-            android:textSize="15dp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
         <Button
             android:text="Stay"
             android:layout_width="150dp"
-            android:background="#FFF9C4"
+            android:background="@drawable/button_bg_rounded_corners"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorblack"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/stay" />
+        <Button
+            android:text="Log Out"
+            android:textColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:id="@+id/button1"
+            android:layout_width="150dp"
+            android:background="@drawable/button_bg_rounded_corners"
+            android:gravity="center"/>
     </LinearLayout>
 
 </LinearLayout>
