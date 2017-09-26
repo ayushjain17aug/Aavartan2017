@@ -148,26 +148,14 @@ public class SignupFragment extends Fragment {
                 hideDialog();
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-                    boolean error = jsonResponse.getBoolean("error");
-                    Log.d("ayush", String.valueOf(error));
-                    if (!error) {
-                        Log.d("ayush", "No error");
-                        new AlertDialog.Builder(getActivity()).setIcon(R.drawable.ic_dialog_alert).setTitle("Verification")
-                                .setMessage("Please verify your account within one day from the verification link sent to your email.")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        LoginFragment fragment= new LoginFragment();
-                                        FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                                        fragmentTransaction.replace(R.id.container,fragment,"tag");
-                                        fragmentTransaction.addToBackStack(null);
-                                        fragmentTransaction.commit();
-                                    }
-                                }).show();
+                    boolean success = jsonResponse.getBoolean("success");
+                    Log.d("ayush", String.valueOf(success));
+                    if (success) {
+                        Snackbar.make(getActivity().findViewById(R.id.linear),"You have been registered successfully!",Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
 
                     } else {
-                        Snackbar.make(getView().findViewById(R.id.drawer_layout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG)
+                        Snackbar.make(getActivity().findViewById(R.id.linear),"Error! Please try after some time.",Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
                 } catch (JSONException e) {
@@ -179,7 +167,7 @@ public class SignupFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("ayush", "Registration Error: " + error.getMessage());
-                Snackbar.make(getView().findViewById(R.id.drawer_layout), getResources().getString(R.string.connection_error_try_again),Snackbar.LENGTH_LONG)
+                Snackbar.make(getActivity().findViewById(R.id.linear), getResources().getString(R.string.connection_error_try_again),Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
             }

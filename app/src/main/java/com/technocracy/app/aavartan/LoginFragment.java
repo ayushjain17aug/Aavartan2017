@@ -133,12 +133,9 @@ public class LoginFragment extends Fragment {
                         String phone = user.getString("mobile");
                         String member_since = user.getString("created_at");
                         String college_name = user.getString("college_name");
-                        String events = user.getString("events");
-
-                        Log.d("ayush",events);
-
                         JSONArray events_registered = jsonResponse.getJSONArray("events");
                         int count_event_registered=events_registered.length();
+
                         Log.d("ayush",String.valueOf(count_event_registered));
                         session = new SessionManager(getContext());
                         session.setLogin(true);
@@ -146,11 +143,8 @@ public class LoginFragment extends Fragment {
                         registerToken(FirebaseInstanceId.getInstance().getToken(), String.valueOf(user_id));
                         Intent i= new Intent(getActivity(),UserActivity.class);
                         getActivity().startActivity(i);
-
-
                     } else
                         {
-
                             Snackbar.make(getActivity().findViewById(R.id.login), message, Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }

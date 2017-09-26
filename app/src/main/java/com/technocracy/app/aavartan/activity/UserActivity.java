@@ -80,7 +80,7 @@ public class UserActivity extends AppCompatActivity {
                 sessionManager = new SessionManager(getApplicationContext());
                 sessionManager.setLogin(false);
                 sqLiteHandler.deleteUsers();
-                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                Intent intent = new Intent(UserActivity.this, AccountActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -138,6 +138,11 @@ public class UserActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(UserActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
 
