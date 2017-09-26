@@ -113,7 +113,7 @@ public class MyEventsActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing(true);
 
         StringRequest strReq = new StringRequest(Request.Method.GET,
-                "https://beta.aavartan.org/app.android.registered.events/38", new Response.Listener<String>() {
+                "https://beta.aavartan.org/app.android.registered.events/"+String.valueOf(user.getUser_id()), new Response.Listener<String>() {
                   //String.valueOf(user.getUser_id())
             @Override
             public void onResponse(String response) {
@@ -137,9 +137,10 @@ public class MyEventsActivity extends AppCompatActivity {
                         for (int i = 0; i < enlist.length(); i++) {
                             JSONObject jsonObject = enlist.getJSONObject(i);
                             JSONObject eventobject = jsonObject.getJSONObject("event");
-                            Log.d("ayush","id : "+eventobject.getString("event_name")+eventobject.getString("event_date"));
+                            Log.d("ayush","id : "+eventobject.getString("date"));
+                            Log.d("ayush","here nahi");
                             MyEvent myEvent = new MyEvent(jsonObject.getInt("id"),
-                                    eventobject.getString("event_name"), eventobject.getString("event_date"));
+                                    eventobject.getString("event_name"), eventobject.getString("date"));
                             db.addMyEvent(myEvent);
                         }
                         eventlist = db.getAllMyEvents();

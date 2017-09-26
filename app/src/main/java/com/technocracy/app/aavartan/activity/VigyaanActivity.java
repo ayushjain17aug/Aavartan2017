@@ -137,21 +137,6 @@ public class VigyaanActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_Login) {
-            SessionManager sessionManager = new SessionManager(getApplicationContext());
-            boolean userLoggedIn = sessionManager.isLoggedIn();
-            if (userLoggedIn) {
-                Intent intent = new Intent(VigyaanActivity.this, UserActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-
-            } else {
-                Intent intent = new Intent(VigyaanActivity.this, LoginActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-
-            }
-        }
         if (id == R.id.action_notification) {
             Intent intent = new Intent(VigyaanActivity.this, NotificationsActivity.class);
             startActivity(intent);

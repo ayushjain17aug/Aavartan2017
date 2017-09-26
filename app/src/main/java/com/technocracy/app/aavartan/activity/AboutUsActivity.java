@@ -31,21 +31,6 @@ public class AboutUsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_Login) {
-            SessionManager sessionManager = new SessionManager(getApplicationContext());
-            boolean userLoggedIn = sessionManager.isLoggedIn();
-            if (userLoggedIn) {
-                Intent intent = new Intent(AboutUsActivity.this, UserActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
-            } else {
-                Intent intent = new Intent(AboutUsActivity.this, LoginActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
-
-
-            }
-        }
         if (id == R.id.action_notification) {
             Intent intent = new Intent(this, NotificationsActivity.class);
             this.startActivity(intent);

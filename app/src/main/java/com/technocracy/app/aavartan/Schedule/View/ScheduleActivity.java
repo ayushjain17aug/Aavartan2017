@@ -131,21 +131,6 @@ public class ScheduleActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_Login) {
-            SessionManager sessionManager = new SessionManager(getApplicationContext());
-            boolean userLoggedIn = sessionManager.isLoggedIn();
-            if (userLoggedIn) {
-                Intent intent = new Intent(ScheduleActivity.this, UserActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
-
-            } else {
-                Intent intent = new Intent(ScheduleActivity.this, LoginActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-
-            }
-        }
         if (id == R.id.action_notification) {
             Intent intent = new Intent(ScheduleActivity.this, NotificationsActivity.class);
             startActivity(intent);

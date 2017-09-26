@@ -13,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/spaceblack"
+        android:background="@drawable/image"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:title="Notifications"
         android:titleTextColor="@color/white"
@@ -30,7 +30,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/spaceblack"
+            android:background="@drawable/image"
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

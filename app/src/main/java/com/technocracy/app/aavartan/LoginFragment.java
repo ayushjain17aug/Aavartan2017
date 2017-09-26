@@ -136,7 +136,7 @@ public class LoginFragment extends Fragment {
                         JSONArray events_registered = jsonResponse.getJSONArray("events");
                         int count_event_registered=events_registered.length();
 
-                        Log.d("ayush",String.valueOf(count_event_registered));
+                        Log.d("ayush","Events register  "+String.valueOf(count_event_registered));
                         session = new SessionManager(getContext());
                         session.setLogin(true);
                         db.addUser(user_id, first_name, last_name, email, phone,college_name,member_since,count_event_registered);
@@ -275,7 +275,7 @@ public class LoginFragment extends Fragment {
         Log.d("ayush",token);
 
         StringRequest strReq = new StringRequest(com.android.volley.Request.Method.POST,
-                App.REGISTER_FCM_TOKEN_URL, new Response.Listener<String>() {
+                "https://beta.aavartan.org/app.android.token", new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
