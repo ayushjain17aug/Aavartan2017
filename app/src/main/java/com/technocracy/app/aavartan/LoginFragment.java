@@ -231,8 +231,10 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.d("ayush", "Login Error: here error response " + error.getMessage());
-                            hideDialog();
+                            pDialog.setMessage("Processing Request...");
+                            showDialog();
                             Snackbar.make(getActivity().findViewById(R.id.login),"Please check your e-mail for resetting password.", Snackbar.LENGTH_LONG).show();
+                            hideDialog();
                         }
                     }) {
                         @Override
