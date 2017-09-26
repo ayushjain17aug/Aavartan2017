@@ -63,12 +63,17 @@ public class App {
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
     public static final int SWIPE_REFRESH_COLORS[] = {R.color.colorPrimary, R.color.colorAccent};
     public static final String GALLERY = "";
-    public static final String EVENT1 = "";
-    public static final String SCHEDULE = "";
+    public static final String EVENT = "app.android.event/";
+    public static final String SCHEDULE1 = "app.android.schedule/7";
     public static final String CONTACT = "";
     public static final String EVENT_BY_ID = "";//this is for schedule onClick item
+    public static final String SCHEDULE2 = "app.android.schedule/7";
+    public static final String FUN_EVENT = "app.android.events/1";
+    public static final String MANAGERIAL_EVENT = "app.android.events/1";
+    public static final String TECHNICAL_EVENT = "app.android.events/1";
+    public static final String ROBOTICS_EVENT = "app.android.events/1";
     public static String LinkPDF;
-    public static String Base_Url;//TODO : add urls
+    public static String Base_Url = "https://beta.aavartan.org/";//TODO : add urlshttps://beta.aavartan.org/app.android.schedule/7
 
     public static float getScreenWidth(Context context) {
         DisplayMetrics displaymetrics = new DisplayMetrics();

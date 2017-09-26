@@ -36,5 +36,4 @@ public class Schedule {
     public String getImageUrl() {
         return imageUrl;
     }
-
 }

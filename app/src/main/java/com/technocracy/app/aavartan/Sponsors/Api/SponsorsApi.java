@@ -7,6 +7,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface SponsorsApi {
-    @GET(App.EVENT1)
+    @GET(App.SPONSORS_URL)
     Call<SponsData> getSpons();
 }

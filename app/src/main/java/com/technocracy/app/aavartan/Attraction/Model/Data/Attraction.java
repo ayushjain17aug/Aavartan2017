@@ -11,16 +11,19 @@ public class Attraction {
         this.imgUrl = imgUrl;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public String getImgUrl(){
+
+    public String getImgUrl() {
         return imgUrl;
     }
 }

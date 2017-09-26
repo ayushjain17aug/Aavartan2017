@@ -1,9 +1,9 @@
 package com.technocracy.app.aavartan.Schedule.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,22 +12,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.technocracy.app.aavartan.Event.Model.Data.Event;
+import com.technocracy.app.aavartan.Event.View.EventDetailsActivity;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
-import com.technocracy.app.aavartan.Schedule.Presenter.SchedulePresenter;
 
 import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.LeaderboardViewHolder> {
 
     private final TypedValue mTypedValue = new TypedValue();
-    private final List<Schedule> scheduleArrayList;
+    private final List<Event> scheduleArrayList;
     private final Context mContext;
     private View view;
-    private SchedulePresenter presenter;
 
-    public ScheduleAdapter(Context context, List<Schedule> scheduleArrayList, SchedulePresenter presenter) {
-        this.presenter = presenter;
+    public ScheduleAdapter(Context context, List<Event> scheduleArrayList) {
         mContext = context;
         mContext.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
         this.scheduleArrayList = scheduleArrayList;
@@ -42,21 +40,25 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
 
     @Override
     public void onBindViewHolder(final LeaderboardViewHolder holder, final int position) {
-        holder.boundScheduleItem = scheduleArrayList.get(position);
+        Event event = scheduleArrayList.get(position);
         holder.scheduleCard.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
-        holder.eventNameTv.setText(Html.fromHtml(holder.boundScheduleItem.getEventName()));
-        holder.eventTimeTv.setText(Html.fromHtml(holder.boundScheduleItem.getTime()));
-        holder.eventVenueTv.setText(Html.fromHtml(holder.boundScheduleItem.getVenue()));
+        holder.eventNameTv.setText((event.getName()));
+        holder.eventTimeTv.setText(event.getTime());
+        holder.eventVenueTv.setText(event.getVenue());
+        String eventImageUrl = event.getImage_url();
 
-        String eventImageUrl = holder.boundScheduleItem.getImageUrl();
         Picasso.with(mContext)
                 .load(eventImageUrl).placeholder(R.drawable.ic_logo_small)
                 .into(holder.eventImage);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = scheduleArrayList.get(position).getId();
-                presenter.getEventById(id);
+                Event event = scheduleArrayList.get(position);
+                Intent i = new Intent(mContext, EventDetailsActivity.class);
+                i.putExtra("id", event.getEventId());
+                i.putExtra("event_name", event.getName());
+                i.putExtra("event_description", event.getDescription());
+                mContext.startActivity(i);
             }
         });
     }
@@ -74,7 +76,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
         public final TextView eventTimeTv;
         public final TextView eventVenueTv;
         public final ImageView eventImage;
-        public Schedule boundScheduleItem;
 
         public LeaderboardViewHolder(View itemView) {
             super(itemView);

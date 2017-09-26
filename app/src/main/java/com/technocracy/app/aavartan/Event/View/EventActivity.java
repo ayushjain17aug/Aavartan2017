@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.technocracy.app.aavartan.Event.Model.Data.Event;
-import com.technocracy.app.aavartan.Event.Model.MockEventProvider;
+import com.technocracy.app.aavartan.Event.Model.RetrofitEventProvider;
 import com.technocracy.app.aavartan.Event.Presenter.EventPresenter;
 import com.technocracy.app.aavartan.Event.Presenter.EventPresenterImpl;
 import com.technocracy.app.aavartan.R;
@@ -26,6 +26,7 @@ public class EventActivity extends AppCompatActivity implements EventView {
     private EventAdapter adapter;
     private EventPresenter presenter;
     private String eventSetId;
+    private String toolbarTitle = "";
     private List<Event> eventList;
 
     @Override
@@ -33,18 +34,32 @@ public class EventActivity extends AppCompatActivity implements EventView {
         super.onCreate(savedInstanceState);
         Bundle data = getIntent().getExtras();
         eventSetId = data.getString("event_selected");
-
-
+        if (eventSetId.equals("1")) {
+            eventSetId = "fun";
+            toolbarTitle = "   Fun";
+        }
+        else if (eventSetId.equals("2")) {
+            eventSetId = "manager";
+            toolbarTitle = "   Managerial";
+        }
+        else if (eventSetId.equals("3")) {
+            eventSetId = "tech";
+            toolbarTitle = "  Technical";
+        }
+        else {
+            eventSetId = "robo";
+            toolbarTitle = "   Robotics";
+        }
+        Log.d("event_set_id", eventSetId);
         setContentView(R.layout.activity_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(toolbarTitle);
+
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle(eventSetId);
-//        toolbar.setSubtitleTextColor(Color.WHITE);
-      //  setSupportActionBar(toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar_event);
         recyclerView = (RecyclerView) findViewById(R.id.event_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        presenter = new EventPresenterImpl(this, new MockEventProvider(), this);
+        presenter = new EventPresenterImpl(this, new RetrofitEventProvider(), this);
         db = new DatabaseHandler(getApplicationContext());
         //TODO : take the event set id from the intent and accordingly call the api.....
 
@@ -82,6 +97,4 @@ public class EventActivity extends AppCompatActivity implements EventView {
         eventList = db.getAllEvents(eventSetId);
         adapter = new EventAdapter(this, eventList);
     }
-
-
 }

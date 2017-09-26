@@ -53,13 +53,14 @@ public class ScheduleActivity extends ActionBarActivity {
                     case R.id.btn1:
                         intent = new Intent(ScheduleActivity.this, MainActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
 
                         break;
                     case R.id.btn2:
                         intent = new Intent(ScheduleActivity.this, EventListActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
                         break;
                     case R.id.btn3:
                         intent = new Intent(ScheduleActivity.this, AttractionActivity.class);
@@ -156,8 +157,9 @@ public class ScheduleActivity extends ActionBarActivity {
     private void setUpViewPager()
     {
         SectionsPagerAdapter adapter=new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Tab1());
-        adapter.addFragment(new Tab2());
+        Tab1 tab1 = new Tab1(this);
+        adapter.addFragment(tab1);
+        adapter.addFragment(new Tab2(this));
         ViewPager viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);

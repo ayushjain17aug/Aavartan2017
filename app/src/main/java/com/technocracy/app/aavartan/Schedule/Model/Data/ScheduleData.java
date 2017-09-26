@@ -1,5 +1,7 @@
 package com.technocracy.app.aavartan.Schedule.Model.Data;
 
+import com.technocracy.app.aavartan.Event.Model.Data.Event;
+
 import java.util.List;
 
 /**
@@ -9,12 +11,12 @@ import java.util.List;
 public class ScheduleData {
     private boolean success;
     private String message;
-    private List<Schedule> schedule;
+    private List<Event> eventList;
 
-    public ScheduleData(boolean success, String message, List<Schedule> schedule) {
+    public ScheduleData(boolean success, String message, List<Event> schedule) {
         this.success = success;
         this.message = message;
-        this.schedule = schedule;
+        this.eventList = schedule;
     }
 
     public boolean isSuccess() {
@@ -25,7 +27,7 @@ public class ScheduleData {
         return message;
     }
 
-    public List<Schedule> getSchedule() {
-        return schedule;
+    public List<Event> getSchedule() {
+        return eventList;
     }
 }

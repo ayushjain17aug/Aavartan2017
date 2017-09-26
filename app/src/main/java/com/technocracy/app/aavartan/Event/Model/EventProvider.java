@@ -4,5 +4,11 @@ import com.technocracy.app.aavartan.Event.EventCallback;
 
 public interface EventProvider {
 
-    void getEvents(String eventSetId, EventCallback callback);
+    void getFunEvent(EventCallback callback);
+
+    void getManagerialEvent(EventCallback callback);
+
+    void getTechEvent(EventCallback callback);
+
+    void getRoboEvent(EventCallback callback);
 }
