@@ -111,6 +111,15 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
                 return true;
             }
         });
+        Menu menu = bottomNavigationView.getMenu();
+
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            if (i == 2)
+                item.setChecked(true);
+            else
+                item.setChecked(false);
+        }
 
     }
 
