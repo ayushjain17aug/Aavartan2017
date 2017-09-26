@@ -115,16 +115,16 @@ public class SignupFragment extends Fragment {
                             if(phone.length()==10){
                                 registerUser(first_name, last_name,college,email,phone , password0, password1, captchastr);
                             }else{
-                                Snackbar.make(getView().findViewById(R.id.drawer_layout),"Enter a valid 10 digit phone number.",Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(getActivity().findViewById(R.id.linear),"Enter a valid 10 digit phone number.",Snackbar.LENGTH_LONG).show();
                             }
                         }else{
-                            Snackbar.make(getView().findViewById(R.id.drawer_layout),"Password should be atleast 6 character long.",Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(getActivity().findViewById(R.id.linear),"Password should be atleast 6 character long.",Snackbar.LENGTH_LONG).show();
                         }
                     }else{
-                        Snackbar.make(getView().findViewById(R.id.drawer_layout),"Passwords are not same.",Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(getActivity().findViewById(R.id.linear),"Passwords are not same.",Snackbar.LENGTH_LONG).show();
                     }
                 }else{
-                    Snackbar.make(getView().findViewById(R.id.drawer_layout),"All fields are necessary.",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().findViewById(R.id.linear),"All fields are necessary.",Snackbar.LENGTH_LONG).show();
                 }
             }
         });
