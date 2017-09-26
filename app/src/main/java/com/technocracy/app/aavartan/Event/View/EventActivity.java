@@ -44,9 +44,10 @@ public class EventActivity extends AppCompatActivity implements EventView {
         
         setContentView(R.layout.activity_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitle(eventSetId);
-//        toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle(eventSetId);
+//        toolbar.setSubtitleTextColor(Color.WHITE);
+      //  setSupportActionBar(toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar_event);
         recyclerView = (RecyclerView) findViewById(R.id.event_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

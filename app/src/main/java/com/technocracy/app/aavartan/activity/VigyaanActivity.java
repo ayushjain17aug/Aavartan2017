@@ -47,12 +47,11 @@ public class VigyaanActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         sliderDotspanel = (LinearLayout) findViewById(R.id.sliderdots);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
 
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new MyTimerTask(), 1800, 1800);
+//        Timer timer = new Timer();
+  //      timer.scheduleAtFixedRate(new MyTimerTask(), 1800, 1800);
 
         dotscount = viewPagerAdapter.getCount();
         dots = new ImageView[dotscount];
@@ -162,7 +161,7 @@ public class VigyaanActivity extends AppCompatActivity {
         return false;
     }
 
-    public class MyTimerTask extends TimerTask {
+    /*public class MyTimerTask extends TimerTask {
 
 
         @Override
@@ -204,5 +203,5 @@ public class VigyaanActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 }

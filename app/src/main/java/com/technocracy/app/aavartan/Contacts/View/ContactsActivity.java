@@ -50,9 +50,9 @@ public class ContactsActivity extends AppCompatActivity implements ContactView {
         else
             toolbarTitle = "Team Android";
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
+      //  toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(toolbarTitle);
-        toolbar.setSubtitleTextColor(Color.WHITE);
+    //    toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -19,7 +19,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "android_api";
@@ -33,9 +33,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String LAST_NAME = "lname";
     private static final String EMAIL = "email";
     private static final String PHONE = "phone";
-    private static final String VERIFIED = "verified";
     private static final String COLLEGE_NAME = "college";
-    private static final String MEMBER_SINCE = "member_since";
     private static final String COUNT_EVENT_REGISTERED = "count_event_registered";
 
     public SQLiteHandler(Context context) {
@@ -49,9 +47,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 + USER_ID + " INTEGER PRIMARY KEY," + FIRST_NAME + " TEXT,"
                 + LAST_NAME + " TEXT,"
                 + EMAIL + " TEXT UNIQUE,"
-                + PHONE + " TEXT," + VERIFIED + " INTEGER,"
+                + PHONE + " TEXT,"
                 + COLLEGE_NAME + " TEXT,"
-                + MEMBER_SINCE + " TEXT,"
                 + COUNT_EVENT_REGISTERED + " INTEGER" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
@@ -71,7 +68,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(int user_id, String firstname, String lastname, String email,String phone,int verified,String college,String member_since,int count_event_registered) {
+    public void addUser(int user_id, String firstname, String lastname, String email,String phone,String college,int count_event_registered) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -80,9 +77,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(LAST_NAME, lastname); // Email
         values.put(EMAIL, email); // Created At
         values.put(PHONE, phone);
-        values.put(VERIFIED, verified);
         values.put(COLLEGE_NAME, college);
-        values.put(MEMBER_SINCE, member_since);
         values.put(COUNT_EVENT_REGISTERED, count_event_registered);
         // Inserting Row
         long id = db.insert(TABLE_LOGIN, null, values);
@@ -101,9 +96,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(LAST_NAME, user.getLast_name());
         values.put(EMAIL, user.getEmail());
         values.put(PHONE, user.getPhone());
-        values.put(VERIFIED, user.getVerified());
         values.put(COLLEGE_NAME, user.getCollege());
-        values.put(MEMBER_SINCE, user.getMember_since());
         values.put(COUNT_EVENT_REGISTERED, user.getcount_event_registered());
 
         // updating row
@@ -129,10 +122,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             user.setLast_name(cursor.getString(2));
             user.setEmail(cursor.getString(3));
             user.setPhone(cursor.getString(4));
-            user.setVerified(cursor.getInt(5));
-            user.setCollege(cursor.getString(6));
-            user.setMember_since(cursor.getString(7));
-            user.setcount_event_registered(cursor.getInt(8));
+            user.setCollege(cursor.getString(5));
+            user.setcount_event_registered(cursor.getInt(6));
             cursor.close();
         }
         db.close();

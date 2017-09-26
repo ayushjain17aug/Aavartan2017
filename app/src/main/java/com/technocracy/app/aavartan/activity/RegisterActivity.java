@@ -180,7 +180,8 @@ public class RegisterActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 hideDialog();
             }
-        }) {
+        })
+         {
             @Override
             protected Map<String, String> getParams() {
                 // Posting params to register url
