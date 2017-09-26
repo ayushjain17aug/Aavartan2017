@@ -157,7 +157,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // Log.e(TAG, "Login Error: " + error.getMessage());
-                Snackbar.make(getActivity().findViewById(R.id.relativeLayout), getResources().getString(R.string.connection_error_try_again), Snackbar.LENGTH_LONG)
+                Snackbar.make(getActivity().findViewById(R.id.login), getResources().getString(R.string.connection_error_try_again), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
             }
