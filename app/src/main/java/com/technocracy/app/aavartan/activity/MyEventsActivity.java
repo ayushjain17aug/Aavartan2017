@@ -24,6 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.JsonArray;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.User;
@@ -111,30 +112,31 @@ public class MyEventsActivity extends AppCompatActivity {
         String tag_string_req = "req_login";
         swipeRefreshLayout.setRefreshing(true);
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                App.MY_EVENTS_URL, new Response.Listener<String>() {
-
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                "https://beta.aavartan.org/app.android.registered.events/38", new Response.Listener<String>() {
+                  //String.valueOf(user.getUser_id())
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "MyEvents Response: " + response.toString());
+                Log.d("ayush", "MyEvents Response: " + response.toString());
                 swipeRefreshLayout.setRefreshing(false);
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-                    JSONArray jsonArray = jsonResponse.getJSONArray("myEvents");
-                    boolean error = jsonResponse.getBoolean("error");
-                    if (!error) {
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        JSONArray enlist = jsonResponse.getJSONArray("eventList");
                         SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
                         User updatedUser = sqLiteHandler.getUser();
-                        updatedUser.setcount_event_registered(jsonArray.length());
+                        updatedUser.setcount_event_registered(enlist.length());
                         sqLiteHandler.updateeventscount(updatedUser);
                         user = updatedUser;
                         db.deleteAllMyEvents();
-                        if (jsonArray.length() == 0)
+                        if (enlist.length() == 0)
                             noEventsTextView.setVisibility(View.VISIBLE);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            MyEvent myEvent = new MyEvent(jsonObject.getInt("reg_id"),
-                                    jsonObject.getString("event_name"), jsonObject.getString("event_date"));
+                        for (int i = 0; i < enlist.length(); i++) {
+                            JSONObject jsonObject = enlist.getJSONObject(i);
+                            JSONObject eventobject = jsonObject.getJSONObject("event");
+                            MyEvent myEvent = new MyEvent(jsonObject.getInt("id"),
+                                    eventobject.getString("event_name"), eventobject.getString("event_date"));
                             db.addMyEvent(myEvent);
                         }
                         eventlist = db.getAllMyEvents();
@@ -160,15 +162,7 @@ public class MyEventsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", userID);
-                return params;
-            }
-        };
+        });
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
