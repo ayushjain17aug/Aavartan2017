@@ -10,7 +10,6 @@ import android.util.Log;
 import com.technocracy.app.aavartan.Attraction.Model.Data.Attraction;
 import com.technocracy.app.aavartan.Contacts.Model.Data.Contact;
 import com.technocracy.app.aavartan.Event.Model.Data.Event;
-import com.technocracy.app.aavartan.Schedule.Model.Data.Schedule;
 import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.Notifications;
 
@@ -78,13 +77,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // table name
     private static final String TABLE_SCHEDULE_DAY1 = "schedule_day1";
-    // table columns names
-    private static final String SCHEDULE_DAY1_ID = "id";
-    private static final String SCHEDULE_DAY1_EVENT = "event";
-    private static final String SCHEDULE_DAY1_TIME = "time";
-    private static final String SCHEDULE_DAY1_VENUE = "venue";
-    private static final String SCHEDULE_DAY1_IMAGE_URL = "image";
-
     // table name
     private static final String TABLE_MY_EVENTS = "my_events";
     // table columns names
@@ -96,16 +88,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String EVENT_DATE = "event_date";
     // table name
     private static final String TABLE_SCHEDULE_DAY2 = "schedule_day2";
-    // table columns names
-    private static final String SCHEDULE_DAY2_ID = "id";
-    private static final String SCHEDULE_DAY2_EVENT = "event";
-    private static final String SCHEDULE_DAY2_TIME = "time";
-    private static final String SCHEDULE_DAY2_VENUE = "venue";
-    private static final String SCHEDULE_DAY2_IMAGE_URL = "image";
-
-
+    Context context;
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     // Creating Tables
@@ -135,39 +121,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_CONTACTS_TABLE);
 
         String CREATE_SCHEDULE_DAY1_TABLE = "CREATE TABLE " + TABLE_SCHEDULE_DAY1 + "("
-                + SCHEDULE_DAY1_ID + " INTEGER PRIMARY KEY," + SCHEDULE_DAY1_EVENT + " TEXT,"
-                + SCHEDULE_DAY1_TIME + " TEXT," + SCHEDULE_DAY1_VENUE + " TEXT,"
-                + SCHEDULE_DAY1_IMAGE_URL + " TEXT" + ")";
+                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_SCHEDULE_DAY1_TABLE);
 
         String CREATE_SCHEDULE_DAY2_TABLE = "CREATE TABLE " + TABLE_SCHEDULE_DAY2 + "("
-                + SCHEDULE_DAY2_ID + " INTEGER PRIMARY KEY," + SCHEDULE_DAY2_EVENT + " TEXT,"
-                + SCHEDULE_DAY2_TIME + " TEXT," + SCHEDULE_DAY2_VENUE + " TEXT,"
-                + SCHEDULE_DAY2_IMAGE_URL + " TEXT" + ")";
+                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_SCHEDULE_DAY2_TABLE);
 
         String CREATE_FUNEVENTS_TABLE = "CREATE TABLE " + TABLE_FUNEVENTS + "("
-                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
-                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT," + EVENT_DATE + " TEXT,"
-                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT" + ")";
+                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_FUNEVENTS_TABLE);
 
         String CREATE_MANAGERIALEVENTS_TABLE = "CREATE TABLE " + TABLE_MANAGERIALEVENTS + "("
-                + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
-                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT,"+ EVENT_DATE + " TEXT,"
-                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT"  + ")";
+                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_MANAGERIALEVENTS_TABLE);
 
         String CREATE_TECHNICALEVENTS_TABLE = "CREATE TABLE " + TABLE_TECHNICALVENTS + "("
-                + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
-                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT," + EVENT_DATE + " TEXT,"
-                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT" + ")";
+                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_TECHNICALEVENTS_TABLE);
 
         String CREATE_ROBOTICS_TABLE = "CREATE TABLE " + TABLE_ROBOTICS + "("
-                + EVENT_ID + " INTEGER PRIMARY KEY," + EVENT_NAME + " TEXT," + EVENT_TYPE + " TEXT,"
-                + EVENT_DESCRIPTION + " TEXT," + EVENT_IMAGE_URL + " TEXT," + EVENT_DATE + " TEXT,"
-                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT" + ")";
+                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
+                + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_ROBOTICS_TABLE);
 
         String CREATE_MY_EVENTS_TABLE = "CREATE TABLE " + TABLE_MY_EVENTS + "("
@@ -239,12 +225,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(EVENT_ID, event.getEventId());
         values.put(EVENT_NAME, event.getName());
-        values.put(EVENT_TYPE, event.getType());
         values.put(EVENT_DESCRIPTION, event.getDescription());
-        values.put(EVENT_IMAGE_URL, event.getImage_url());
+        values.put(EVENT_TYPE, event.getType());
         values.put(EVENT_DATE, event.getDate());
         values.put(EVENT_TIME, event.getTime());
         values.put(EVENT_VENUE, event.getVenue());
+        values.put(EVENT_IMAGE_URL, event.getImage_url());
         // Inserting Row
         db.insert(key, null, values);
         db.close(); // Closing database connection
@@ -261,7 +247,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 Event event = new Event(cursor.getString(0), cursor.getString(1),
                         cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
-                        cursor.getString(7));
+                        cursor.getString(7), "", "");
                 eventList.add(event);
             } while (cursor.moveToNext());
         }
@@ -310,35 +296,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public void addScheduleDay1Item(Schedule schedule) {
+    public void addScheduleDay1Item(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(SCHEDULE_DAY1_ID, schedule.getId());
-        values.put(SCHEDULE_DAY1_EVENT, schedule.getEventName());
-        values.put(SCHEDULE_DAY1_TIME, schedule.getTime());
-        values.put(SCHEDULE_DAY1_VENUE, schedule.getVenue());
-        values.put(SCHEDULE_DAY1_IMAGE_URL, schedule.getImageUrl());
+        values.put(EVENT_ID, event.getEventId());
+        values.put(EVENT_NAME, event.getName());
+        values.put(EVENT_DESCRIPTION, event.getDescription());
+        values.put(EVENT_TYPE, event.getType());
+        values.put(EVENT_DATE, event.getDate());
+        values.put(EVENT_TIME, event.getTime());
+        values.put(EVENT_VENUE, event.getVenue());
+        values.put(EVENT_IMAGE_URL, event.getImage_url());
         // Inserting Row
         db.insert(TABLE_SCHEDULE_DAY1, null, values);
-        db.close(); // Closing database connection
-        Log.e("Contact :", "stored in db.");
+        db.close();
     }
 
-    public List<com.technocracy.app.aavartan.Schedule.Model.Data.Schedule> getScheduleDay1Items() {
-        ArrayList<Schedule> scheduleDay1ArrayList = new ArrayList<Schedule>();
-        String selectQuery = "SELECT * FROM " + TABLE_SCHEDULE_DAY1;
+    public List<Event> getScheduleDay1Items() {
+
+        List<Event> eventList = new ArrayList<Event>();
+        String selectQuery = "SELECT  * FROM " + TABLE_SCHEDULE_DAY1;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+
         if (cursor.moveToFirst()) {
             do {
-                Schedule schedule = new Schedule(cursor.getString(0), cursor.getString(1),
-                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
-                scheduleDay1ArrayList.add(schedule);
+                Event event = new Event(cursor.getString(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
+                        cursor.getString(7), "", "");
+                eventList.add(event);
             } while (cursor.moveToNext());
         }
-        return scheduleDay1ArrayList;
+        return eventList;
     }
 
     public void deleteScheduleDay1() {
@@ -347,35 +338,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public void addScheduleDay2Item(Schedule schedule) {
+    public void addScheduleDay2Item(Event event) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(SCHEDULE_DAY2_ID, schedule.getId());
-        values.put(SCHEDULE_DAY2_EVENT, schedule.getEventName());
-        values.put(SCHEDULE_DAY2_TIME, schedule.getTime());
-        values.put(SCHEDULE_DAY2_VENUE, schedule.getVenue());
-        values.put(SCHEDULE_DAY2_IMAGE_URL, schedule.getImageUrl());
+        values.put(EVENT_ID, event.getEventId());
+        values.put(EVENT_NAME, event.getName());
+        values.put(EVENT_DESCRIPTION, event.getDescription());
+        values.put(EVENT_TYPE, event.getType());
+        values.put(EVENT_DATE, event.getDate());
+        values.put(EVENT_TIME, event.getTime());
+        values.put(EVENT_VENUE, event.getVenue());
+        values.put(EVENT_IMAGE_URL, event.getImage_url());
         // Inserting Row
         db.insert(TABLE_SCHEDULE_DAY2, null, values);
-        db.close(); // Closing database connection
-        Log.e("Contact :", "stored in db.");
+        db.close();
     }
 
-    public ArrayList<Schedule> getScheduleDay2Items() {
-        ArrayList<Schedule> scheduleDay2ArrayList = new ArrayList<Schedule>();
-        String selectQuery = "SELECT * FROM " + TABLE_SCHEDULE_DAY2;
+    public List<Event> getScheduleDay2Items() {
+        List<Event> eventList = new ArrayList<Event>();
+        String selectQuery = "SELECT  * FROM " + TABLE_SCHEDULE_DAY2;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+
         if (cursor.moveToFirst()) {
             do {
-                Schedule schedule = new Schedule(cursor.getString(0), cursor.getString(1),
-                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
-                scheduleDay2ArrayList.add(schedule);
+                Event event = new Event(cursor.getString(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
+                        cursor.getString(7), "", "");
+                eventList.add(event);
             } while (cursor.moveToNext());
         }
-        return scheduleDay2ArrayList;
+        return eventList;
     }
 
     public void deleteScheduleDay2() {

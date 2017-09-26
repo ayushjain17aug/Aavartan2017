@@ -2,9 +2,7 @@ package com.technocracy.app.aavartan.Schedule.Model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.technocracy.app.aavartan.Event.Model.Data.Event;
 import com.technocracy.app.aavartan.Schedule.Api.ScheduleApi;
-import com.technocracy.app.aavartan.Schedule.EventByIdCallback;
 import com.technocracy.app.aavartan.Schedule.Model.Data.ScheduleData;
 import com.technocracy.app.aavartan.Schedule.ScheduleCallback;
 import com.technocracy.app.aavartan.helper.App;
@@ -35,9 +33,10 @@ public class RetrofitScheduleProvider implements ScheduleProvider {
 
 
     @Override
-    public void getSchedule(String day, final ScheduleCallback callback) {
+    public void getSchedule1(final ScheduleCallback callback) {
+
         api = retrofit.create(ScheduleApi.class);
-        Call<ScheduleData> call = api.getSchedule(day);
+        Call<ScheduleData> call = api.getSchedule1();
         call.enqueue(new retrofit2.Callback<ScheduleData>() {
             @Override
             public void onResponse(Call<ScheduleData> call, Response<ScheduleData> response) {
@@ -50,21 +49,20 @@ public class RetrofitScheduleProvider implements ScheduleProvider {
                 t.printStackTrace();
             }
         });
-
     }
 
     @Override
-    public void getEventById(String eventId, final EventByIdCallback callback) {
+    public void getSchedule2(final ScheduleCallback callback) {
         api = retrofit.create(ScheduleApi.class);
-        Call<Event> call = api.getEventById(eventId);
-        call.enqueue(new retrofit2.Callback<Event>() {
+        Call<ScheduleData> call = api.getSchedule2();
+        call.enqueue(new retrofit2.Callback<ScheduleData>() {
             @Override
-            public void onResponse(Call<Event> call, Response<Event> response) {
+            public void onResponse(Call<ScheduleData> call, Response<ScheduleData> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<Event> call, Throwable t) {
+            public void onFailure(Call<ScheduleData> call, Throwable t) {
                 callback.onFailure();
                 t.printStackTrace();
             }

@@ -23,25 +23,90 @@ public class EventPresenterImpl implements EventPresenter {
     @Override
     public void getEvents(String eventSetId) {
         view.showProgressBar(true);
-        provider.getEvents(eventSetId, new EventCallback() {
-            @Override
-            public void onFailure() {
-                view.showProgressBar(false);
-                view.showEventsFromDatabase();
-                view.showMessage(context.getResources().getString(R.string.Connection_Error));
-
-            }
-
-            @Override
-            public void onSuccess(EventData body) {
-                view.showProgressBar(false);
-                if (body.isSuccess()) {
-                    view.showEvents(body.getEventList());
-                } else {
+        if (eventSetId.equals("1")) {
+            provider.getFunEvent(new EventCallback() {
+                @Override
+                public void onFailure() {
+                    view.showProgressBar(false);
                     view.showEventsFromDatabase();
-                    view.showMessage(body.getMessage());
+                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(EventData body) {
+                    view.showProgressBar(false);
+                    if (body.isSuccess()) {
+                        view.showEvents(body.getEventList());
+                    } else {
+                        //  view.showEventsFromDatabase();
+                        view.showMessage(body.getMessage());
+                    }
+                }
+            });
+        } else if (eventSetId.equals("2")) {
+            provider.getManagerialEvent(new EventCallback() {
+                @Override
+                public void onFailure() {
+                    view.showProgressBar(false);
+                    // view.showEventsFromDatabase();
+                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+
+                }
+
+                @Override
+                public void onSuccess(EventData body) {
+                    view.showProgressBar(false);
+                    if (body.isSuccess()) {
+                        view.showEvents(body.getEventList());
+                    } else {
+                        //   view.showEventsFromDatabase();
+                        view.showMessage(body.getMessage());
+                    }
+                }
+            });
+        } else if (eventSetId.equals("1")) {
+            provider.getTechEvent(new EventCallback() {
+                @Override
+                public void onFailure() {
+                    view.showProgressBar(false);
+//                    view.showEventsFromDatabase();
+                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+
+                }
+
+                @Override
+                public void onSuccess(EventData body) {
+                    view.showProgressBar(false);
+                    if (body.isSuccess()) {
+                        view.showEvents(body.getEventList());
+                    } else {
+//                        view.showEventsFromDatabase();
+                        view.showMessage(body.getMessage());
+                    }
+                }
+            });
+        } else {
+            provider.getRoboEvent(new EventCallback() {
+                @Override
+                public void onFailure() {
+                    view.showProgressBar(false);
+//                    view.showEventsFromDatabase();
+                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+
+                }
+
+                @Override
+                public void onSuccess(EventData body) {
+                    view.showProgressBar(false);
+                    if (body.isSuccess()) {
+                        view.showEvents(body.getEventList());
+                    } else {
+//                        view.showEventsFromDatabase();
+                        view.showMessage(body.getMessage());
+                    }
+                }
+            });
+        }
     }
 }

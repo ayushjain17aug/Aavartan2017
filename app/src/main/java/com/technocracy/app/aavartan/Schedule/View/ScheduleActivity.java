@@ -117,7 +117,6 @@ public class ScheduleActivity extends ActionBarActivity {
         Intent intent1=new Intent(ScheduleActivity.this,MainActivity.class);
         startActivity(intent1);
         overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
-
     }
 
     @Override
@@ -157,8 +156,9 @@ public class ScheduleActivity extends ActionBarActivity {
     private void setUpViewPager()
     {
         SectionsPagerAdapter adapter=new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Tab1());
-        adapter.addFragment(new Tab2());
+        Tab1 tab1 = new Tab1(this);
+        adapter.addFragment(tab1);
+        adapter.addFragment(new Tab2(this));
         ViewPager viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);

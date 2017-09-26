@@ -2,16 +2,11 @@ package com.technocracy.app.aavartan.Schedule.Presenter;
 
 import android.content.Context;
 
-import com.technocracy.app.aavartan.Event.Model.Data.Event;
-import com.technocracy.app.aavartan.Schedule.EventByIdCallback;
+import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.Model.Data.ScheduleData;
 import com.technocracy.app.aavartan.Schedule.Model.ScheduleProvider;
 import com.technocracy.app.aavartan.Schedule.ScheduleCallback;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleView;
-
-/**
- * Created by Abhi on 01-Sep-17.
- */
 
 public class SchedulePresenterImpl implements SchedulePresenter {
     private ScheduleProvider provider;
@@ -27,41 +22,46 @@ public class SchedulePresenterImpl implements SchedulePresenter {
     @Override
     public void getSchedule(String day) {
         view.showProgressBar(true);
-        provider.getSchedule(day, new ScheduleCallback() {
-            @Override
-            public void onSuccess(ScheduleData body) {
-                view.showProgressBar(false);
-                if (body.isSuccess()) {
-                    view.showSchedule(body.getSchedule());
-                } else {
-                    view.showScheduleFromDatabase();
-                    view.showMessage(body.getMessage());
+        if (day.equals("7")) {
+            provider.getSchedule1(new ScheduleCallback() {
+                @Override
+                public void onSuccess(ScheduleData body) {
+                    view.showProgressBar(false);
+                    if (body.isSuccess()) {
+                        view.showSchedule(body.getSchedule());
+                    } else {
+                        view.showScheduleFromDatabase();
+                        view.showMessage(body.getMessage() + "In Success False!");
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure() {
-                view.showProgressBar(false);
-                view.showScheduleFromDatabase();
-            }
-        });
-    }
+                @Override
+                public void onFailure() {
+                    view.showProgressBar(false);
+                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+                    view.showScheduleFromDatabase();
+                }
+            });
+        } else {
+            provider.getSchedule2(new ScheduleCallback() {
+                @Override
+                public void onSuccess(ScheduleData body) {
+                    view.showProgressBar(false);
+                    if (body.isSuccess()) {
+                        view.showSchedule(body.getSchedule());
+                    } else {
+                        view.showScheduleFromDatabase();
+                        view.showMessage(body.getMessage());
+                    }
+                }
 
-    @Override
-    public void getEventById(String eventId) {
-        view.showProgressBar(true);
-        provider.getEventById(eventId, new EventByIdCallback() {
-            @Override
-            public void onSuccess(Event body) {
-                view.showProgressBar(false);
-                view.showEventDetail(body);
-            }
-
-            @Override
-            public void onFailure() {
-                view.showProgressBar(false);
-                view.showMessage("Internet Connection not present!");
-            }
-        });
+                @Override
+                public void onFailure() {
+                    view.showProgressBar(false);
+                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+                    view.showScheduleFromDatabase();
+                }
+            });
+        }
     }
 }

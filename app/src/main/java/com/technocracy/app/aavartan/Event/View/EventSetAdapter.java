@@ -61,28 +61,28 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
             public void onClick(View view) {
                 if(position==0) {
                     intent = new Intent(mContext, EventActivity.class);
-                    intent.putExtra("event_selected", "fun");
+                    intent.putExtra("event_selected", "1");
                     mContext.startActivity(intent);
                     ((Activity) mContext).overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
                 }
                 else if(position==1)
                 {
                     intent = new Intent(mContext, EventActivity.class);
-                    intent.putExtra("event_selected", "manager");
+                    intent.putExtra("event_selected", "2");
                     mContext.startActivity(intent);
                     ((Activity) mContext).overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
                 }
                 else if(position==2)
                 {
                     intent = new Intent(mContext, EventActivity.class);
-                    intent.putExtra("event_selected", "tech");
+                    intent.putExtra("event_selected", "3");
                     mContext.startActivity(intent);
                     ((Activity) mContext).overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
                 }
                 else if(position==3)
                 {
                     intent = new Intent(mContext, EventActivity.class);
-                    intent.putExtra("event_selected", "robo");
+                    intent.putExtra("event_selected", "4");
                     mContext.startActivity(intent);
                     ((Activity) mContext).overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
 

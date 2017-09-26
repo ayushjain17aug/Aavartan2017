@@ -7,6 +7,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface AttractionApi {
-    @GET(App.EVENT1)
+    @GET(App.EVENT)
     Call<AttractionData> getAttraction();
 }
