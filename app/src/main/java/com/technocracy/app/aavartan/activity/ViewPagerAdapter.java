@@ -21,7 +21,7 @@ public class ViewPagerAdapter extends PagerAdapter{
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer[] images = {R.drawable.ar, R.drawable.biomedical, R.drawable.bio, R.drawable.chemical, R.drawable.civil1, R.drawable.cse1, R.drawable.electrical, R.drawable.elex, R.drawable.it1, R.drawable.me, R.drawable.meta, R.drawable.mining1, R.drawable.mca, R.drawable.img1, R.drawable.go_green1};
+    private Integer[] images = {R.drawable.ar, R.drawable.biomedical, R.drawable.bio, R.drawable.chemical, R.drawable.civil1, R.drawable.cse1, R.drawable.electrical, R.drawable.elex, R.drawable.it_1, R.drawable.me, R.drawable.meta, R.drawable.mining1, R.drawable.mca, R.drawable.img1, R.drawable.go_green1};
     private String[]  names = {"Architecture", "Bio Med", "Bio Tech", "Chemical", "Civil", "CSE", "Electrical", "Elex", "IT", "Mechanical", "Metallurgy", "Mining", "MCA", "E-Cell", "Go Green"};
 
     public ViewPagerAdapter(Context context) {

@@ -107,12 +107,12 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
             imageView = (ImageView) view.findViewById(R.id.event_set_img);
 
 
-            Animation anim = new AlphaAnimation(0.0f, 1.0f);
+         /*   Animation anim = new AlphaAnimation(0.0f, 1.0f);
             anim.setDuration(400); //You can manage the blinking time with this parameter
             anim.setStartOffset(20);
             anim.setRepeatMode(Animation.REVERSE);
             anim.setRepeatCount(Animation.INFINITE);
-            name.startAnimation(anim);
+            name.startAnimation(anim);*/
         }
 
 
