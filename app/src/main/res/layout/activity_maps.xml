@@ -8,14 +8,15 @@
     android:fitsSystemWindows="true"
     tools:context="com.technocracy.app.aavartan.activity.LoginActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/image"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            android:titleTextColor="@color/title"
-            app:popupTheme="@style/AppTheme.AppBarOverlay" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:title="Notifications"
+        app:titleTextColor="@color/title"
+        android:backgroundTint="@color/lightback"
+        app:popupTheme="@style/AppTheme.AppBarOverlay" />
 
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

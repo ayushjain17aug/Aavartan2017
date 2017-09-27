@@ -59,11 +59,7 @@ public class NotificationsActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
       //  mToolbar.setTitleTextColor(Color.);
         mToolbar.setTitle("Notifications");
-
         setSupportActionBar(mToolbar);
-         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         noNotificationTextView = (TextView) findViewById(R.id.noNotificationsTextView);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);

@@ -20,6 +20,8 @@ public class AboutUsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("About Us");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -35,6 +37,10 @@ public class AboutUsActivity extends AppCompatActivity {
             Intent intent = new Intent(this, NotificationsActivity.class);
             this.startActivity(intent);
             overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+        }
+        if (id == R.id.map) {
+            Intent intent = new Intent(AboutUsActivity.this, MapsActivity.class);
+            AboutUsActivity.this.startActivity(intent);
         }
         return false;
     }

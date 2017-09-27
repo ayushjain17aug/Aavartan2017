@@ -35,6 +35,8 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView {
         setContentView(R.layout.activity_gallery);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
      //   presenter = new GalleryPresenterImpl(this, new RetrofitGalleryProvider(), this);
         presenter = new GalleryPresenterImpl(this, new RetrofitGalleryProvider(), this);
@@ -80,9 +82,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView {
     }
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
-        super.onBackPressed();
+        Intent intent = new Intent(GalleryActivity.this, MainActivity.class);
+        GalleryActivity.this.startActivity(intent);
     }
 }

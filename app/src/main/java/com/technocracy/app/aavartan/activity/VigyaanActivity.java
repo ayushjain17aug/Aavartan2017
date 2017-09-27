@@ -19,7 +19,7 @@ import com.technocracy.app.aavartan.helper.SessionManager;
 public class VigyaanActivity extends AppCompatActivity {
 
     public static String[] prgmNameList = {"Architecture", "Bio Med", "Bio Tech", "Chemical", "Civil", "CSE", "Electrical", "Elex", "IT", "Mechanical", "Metallurgy", "Mining", "MCA", "E-Cell", "Go Green"};
-    public static int[] movImgs = {R.drawable.archi1, R.drawable.biomed1, R.drawable.biotech1, R.drawable.chemical1, R.drawable.civil1, R.drawable.cse1, R.drawable.electrical1, R.drawable.etc1, R.drawable.it1, R.drawable.mech1, R.drawable.meta1, R.drawable.mining1, R.drawable.mca1, R.drawable.ecell1, R.drawable.gogreen1};
+    public static int[] movImgs = {R.drawable.archi1, R.drawable.biomedical, R.drawable.bio, R.drawable.chemical, R.drawable.civil1, R.drawable.cse1, R.drawable.electrical, R.drawable.elex, R.drawable.it1, R.drawable.mech1, R.drawable.meta1, R.drawable.mining1, R.drawable.mca1, R.drawable.ecell1, R.drawable.gogreen1};
     ViewPager viewPager;
     LinearLayout sliderDotspanel;
     private Toolbar mToolbar;

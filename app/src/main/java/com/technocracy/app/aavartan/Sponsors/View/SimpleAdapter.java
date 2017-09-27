@@ -70,7 +70,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         holder.imageView.getLayoutParams().width = width;
         holder.imageView.requestLayout();
 
-        Picasso.with(mContext).load(App.Base_Url + sponsorList[category].get(position).getImage_url()).placeholder(R.drawable.aavartan_logo).
+        Picasso.with(mContext).load(App.Base_Url + sponsorList[category].get(position).getImage_url()).placeholder(R.drawable.avartan_logo100).
                 into(holder.imageView, new Callback() {
                     @Override
                     public void onSuccess() {
