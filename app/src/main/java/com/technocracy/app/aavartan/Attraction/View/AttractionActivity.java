@@ -54,7 +54,7 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
-        bottomNavigationView.setItemBackgroundResource(R.color.white);
+        bottomNavigationView.setItemBackgroundResource(R.color.lightback);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
