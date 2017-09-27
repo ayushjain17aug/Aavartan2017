@@ -41,7 +41,7 @@
                 android:layout_below="@+id/imageView3"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:text="Stay @Rs 300 Per Night"
+                android:text="Accommodation"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
