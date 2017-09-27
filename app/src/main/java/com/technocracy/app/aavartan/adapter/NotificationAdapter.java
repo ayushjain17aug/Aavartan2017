@@ -2,6 +2,7 @@ package com.technocracy.app.aavartan.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,10 +65,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.message.setText(notifications.getMessage());
 
         holder.notificationImage.setImageDrawable(null);
-
+        Log.d("ayush",notifications.getCreatedAt());
         setNotificationTime(holder.createdAt, notifications.getCreatedAt());
         String notificationImageUrl = notifications.getImageUrl();
-        if (notificationImageUrl != null) {
+        if (notificationImageUrl != null && notificationImageUrl.length()>4) {
             Picasso.with(mContext)
                     .load(notificationImageUrl)
                     .into(holder.notificationImage);

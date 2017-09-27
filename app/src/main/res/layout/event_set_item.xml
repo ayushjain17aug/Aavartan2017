@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:backgroundTint="@color/lightback"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:elevation="3dp"
         card_view:cardCornerRadius="6dp">
 
@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/event_set_img"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="300dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:scaleType="fitXY"

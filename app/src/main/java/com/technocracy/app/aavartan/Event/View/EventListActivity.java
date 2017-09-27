@@ -16,6 +16,7 @@ import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.activity.AccountActivity;
 import com.technocracy.app.aavartan.activity.MainActivity;
+import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 
 public class EventListActivity extends AppCompatActivity {
@@ -99,5 +100,21 @@ public class EventListActivity extends AppCompatActivity {
         Intent intent1 = new Intent(EventListActivity.this, MainActivity.class);
         startActivity(intent1);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbarbutton, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_notification) {
+            Intent intent = new Intent(EventListActivity.this, NotificationsActivity.class);
+            EventListActivity.this.startActivity(intent);
+        }
+        return false;
     }
 }

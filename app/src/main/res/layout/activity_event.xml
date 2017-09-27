@@ -18,25 +18,24 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/title"
             android:backgroundTint="@color/lightback"
-            android:elevation="2dp"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:popupTheme="@style/AppTheme.AppBarOverlay"
-            app:titleTextColor="@color/title" />
+            android:theme="@style/ThemeOverlay.AppCompat.Light">
+        </android.support.v7.widget.Toolbar>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/toolbar"
-            android:background="@color/title" />
+            android:background="@color/title"
+            android:id="@+id/view" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/event_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="@color/lightback" />
+            android:backgroundTint="@color/lightback"
+            android:layout_below="@+id/view" />
         <!-- TODO: Update blank fragment layout -->
 
         <ProgressBar
@@ -47,17 +46,4 @@
             android:visibility="gone" />
 
     </RelativeLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/colorblack"
-        android:fitsSystemWindows="false"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/activity_main_drawer" />
-
 </android.support.v4.widget.DrawerLayout>
