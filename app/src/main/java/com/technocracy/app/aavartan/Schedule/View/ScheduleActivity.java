@@ -20,6 +20,7 @@ import com.technocracy.app.aavartan.Schedule.View.tabs.Tab2;
 import com.technocracy.app.aavartan.SectionsPagerAdapter;
 import com.technocracy.app.aavartan.activity.AccountActivity;
 import com.technocracy.app.aavartan.activity.MainActivity;
+import com.technocracy.app.aavartan.activity.MapsActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 
@@ -129,7 +130,10 @@ public class ScheduleActivity extends ActionBarActivity {
             Intent intent = new Intent(ScheduleActivity.this, NotificationsActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-
+        }
+        if (id == R.id.map) {
+            Intent intent = new Intent(ScheduleActivity.this, MapsActivity.class);
+            ScheduleActivity.this.startActivity(intent);
         }
         return false;
     }

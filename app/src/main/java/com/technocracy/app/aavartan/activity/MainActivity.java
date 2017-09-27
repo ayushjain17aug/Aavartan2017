@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteHandler sqLiteHandler;
     private Intent intent;
     private String intent_name[] = {"Gallery", "Sponsors", "Contacts", "Team Android", "About Us", "Vigyaan"};
-    private int icons[] = {R.drawable.ic_menu_gallery, R.drawable.context_spons, R.drawable.ic_account_box_24dp,
-            R.drawable.ic_menu_slideshow, R.drawable.ic_accessible_black_24dp, R.drawable.ic_profile};
+    private int icons[] = {R.drawable.ic_menu_gallery, R.drawable.sponsor, R.drawable.ic_account_box_24dp,
+            R.drawable.ic_group_black_24dp, R.drawable.about_us, R.drawable.vigyaan};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,6 +217,10 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_notification) {
             Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
+            MainActivity.this.startActivity(intent);
+        }
+        if (id == R.id.map) {
+            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
             MainActivity.this.startActivity(intent);
         }
         return false;
