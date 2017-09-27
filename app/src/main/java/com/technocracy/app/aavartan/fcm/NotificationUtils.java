@@ -74,7 +74,7 @@ public class NotificationUtils {
                 if (bitmap != null) {
                     showBigNotification(bitmap, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
                 } else {
-                    Bitmap bitmap2 = getBitmapFromURL("https://beta.aavartan.org/assets/main/img/aavartan-logo.png");
+                    Bitmap bitmap2 = getBitmapFromURL(imageUrl);
                     showBigNotification(bitmap2, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
                 }
             }
@@ -139,7 +139,7 @@ public class NotificationUtils {
                 .setSound(alarmSound)
                 .setStyle(bigPictureStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
-                .setSmallIcon(R.drawable.ic_logo)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(Html.fromHtml(message))
                 .build();

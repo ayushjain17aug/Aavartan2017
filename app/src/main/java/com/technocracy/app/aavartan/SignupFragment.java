@@ -161,6 +161,8 @@ public class SignupFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                Snackbar.make(getActivity().findViewById(R.id.linear),"Error! Please try after some time.",Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         }, new Response.ErrorListener() {
 

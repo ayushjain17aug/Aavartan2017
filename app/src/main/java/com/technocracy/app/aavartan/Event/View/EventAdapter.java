@@ -35,8 +35,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        Log.d("AAVARTAN17","IN BIND VIEW HOLDER"+position);
         final Event event = eventList.get(position);
-        holder.txt.setText(event.getName() + "\nDate : " + event.getDate() + "\nTime:" + event.getTime() +
-                "\nVenue:" + event.getVenue());
+        String time = event.getTime();
+        String venue= event.getVenue();
+        String date = event.getDate();
+        if(time==null)
+            time = " 9:00AM-5:15PM ";
+        if(venue==null)
+            venue = " NIT Raipur";
+        if (date==null)
+            date = " 7-8 Oct";
+
+        holder.txt.setText(event.getName() + "\nDate : " + date + "\nTime:" + time +
+                "\nVenue:" + venue);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
