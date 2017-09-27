@@ -43,7 +43,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignRight="@+id/typewriter1"
                 android:layout_marginBottom="70dp"
-                app:bmb_buttonEnum="textInsideCircle"
+                app:bmb_buttonEnum="textOutsideCircle"
                 app:bmb_buttonPlaceEnum="buttonPlace_sc_6_4"
                 app:bmb_normalColor="#80D8FF"
                 app:bmb_piecePlaceEnum="piecePlace_dot_6_3" />
@@ -105,7 +105,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/lightback"
+                android:background="#000000"
                 android:theme="@style/ThemeOverlay.AppCompat.Light"
                 app:titleTextColor="#00FFFFFF" />
             <View

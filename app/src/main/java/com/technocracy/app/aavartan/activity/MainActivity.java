@@ -219,6 +219,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
             MainActivity.this.startActivity(intent);
         }
+        if (id == R.id.map) {
+            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            MainActivity.this.startActivity(intent);
+        }
         return false;
     }
 
