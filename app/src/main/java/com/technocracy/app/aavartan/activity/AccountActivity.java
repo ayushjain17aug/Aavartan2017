@@ -123,4 +123,6 @@ public class AccountActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setText("Login");
         tabLayout.getTabAt(1).setText("Signup");
     }
+
+
 }

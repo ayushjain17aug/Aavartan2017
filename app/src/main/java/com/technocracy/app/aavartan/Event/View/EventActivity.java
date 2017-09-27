@@ -1,5 +1,6 @@
 package com.technocracy.app.aavartan.Event.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -15,6 +18,8 @@ import com.technocracy.app.aavartan.Event.Model.RetrofitEventProvider;
 import com.technocracy.app.aavartan.Event.Presenter.EventPresenter;
 import com.technocracy.app.aavartan.Event.Presenter.EventPresenterImpl;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.activity.MainActivity;
+import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 
 import java.util.List;
@@ -96,5 +101,21 @@ public class EventActivity extends AppCompatActivity implements EventView {
     public void showEventsFromDatabase() {
         eventList = db.getAllEvents(eventSetId);
         adapter = new EventAdapter(this, eventList);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbarbutton, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_notification) {
+            Intent intent = new Intent(EventActivity.this, NotificationsActivity.class);
+            EventActivity.this.startActivity(intent);
+        }
+        return false;
     }
 }
