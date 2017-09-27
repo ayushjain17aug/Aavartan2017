@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormat;
     private SQLiteHandler sqLiteHandler;
     private Intent intent;
-    private String intent_name[] = {"Gallery", "Sponsors", "Contacts", "Team Android", "About Us", "Vigyaan"};
+    private String intent_name[] = {"Gallery", "Sponsors", "Contacts", "App Team", "About Us", "Vigyaan"};
     private int icons[] = {R.drawable.ic_menu_gallery, R.drawable.sponsor, R.drawable.ic_account_box_24dp,
             R.drawable.ic_group_black_24dp, R.drawable.about_us, R.drawable.vigyaan};
 
@@ -177,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                     .shadowEffect(true)
                     .imagePadding(new Rect(2, 2, 2, 2))
                     .textGravity(Gravity.CENTER)
-                    .rippleEffect(true).normalColor(R.color.white);
+                    .rippleEffect(true).normalColor(R.color.white).textGravity(Gravity.CENTER).textSize(15).maxLines(2);
             bmb.addBuilder(builder);
         }
 
