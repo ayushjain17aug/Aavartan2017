@@ -61,12 +61,7 @@ public class EventActivity extends AppCompatActivity implements EventView {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         presenter = new EventPresenterImpl(this, new RetrofitEventProvider(), this);
         db = new DatabaseHandler(getApplicationContext());
-        //TODO : take the event set id from the intent and accordingly call the api.....
-
-        //eventSetId="fun";
-        Log.d("AAVARTAN17", eventSetId);
         presenter.getEvents(eventSetId);
-//        Log.d("AAVARTAN17","IN ON CREATE EVENT");
     }
 
     @Override

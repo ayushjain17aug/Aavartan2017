@@ -1,7 +1,6 @@
 package com.technocracy.app.aavartan.Event.View;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -11,39 +10,32 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.technocracy.app.aavartan.Event.Model.RetrofitEventProvider;
+import com.technocracy.app.aavartan.Event.Presenter.EventPresenter;
+import com.technocracy.app.aavartan.Event.Presenter.EventPresenterImpl;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.activity.LoginActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.api.User;
-import com.technocracy.app.aavartan.helper.App;
-import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class EventDetailsActivity extends AppCompatActivity {
+public class EventDetailsActivity extends AppCompatActivity implements RegisterEventView {
 
     SQLiteHandler sqLiteHandler;
     User user;
     private TextView eventDetailsTextView;
     private String eventDetail;
-    private String id;
+    private String event_id;
     private DrawerLayout drawer;
     private Button registerEventButton;
     private Toolbar toolbar;
-
+    private EventPresenter presenter;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +44,10 @@ public class EventDetailsActivity extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         eventDetail = data.getString("event_description");
         String title = data.getString("event_name");
-        id = "" + data.getInt("id");
-
-
+        event_id = "" + data.getInt("id");
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(title);
-        toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         eventDetailsTextView = (TextView) findViewById(R.id.event_details_textView);
@@ -71,16 +60,15 @@ public class EventDetailsActivity extends AppCompatActivity {
         registerEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 SessionManager sessionManager = new SessionManager(getApplicationContext());
                 if (sessionManager.isLoggedIn()) {
                     sqLiteHandler = new SQLiteHandler(getApplicationContext());
                     user = sqLiteHandler.getUser();
                     final String user_id = String.valueOf(user.getUser_id());
-                    registerEvent(id, user_id);
+                    presenter = new EventPresenterImpl(EventDetailsActivity.this, new RetrofitEventProvider(), EventDetailsActivity.this);
+                    presenter.registerEvent(user_id, event_id);
                 } else {
-                    Snackbar.make(v, "Please Login First", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    showMessage("Please login first!");
                 }
             }
         });
@@ -123,6 +111,20 @@ public class EventDetailsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void showProgressBar(boolean b) {
+        if (b)
+            progressBar.setVisibility(View.VISIBLE);
+        else
+            progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(findViewById(R.id.drawer_layout), message, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+/*
     public void registerEvent(final String id, final String user_id) {
         String tag_string_req = "req_registerEvent";
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -165,7 +167,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         };
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
+    }*/
 }
 

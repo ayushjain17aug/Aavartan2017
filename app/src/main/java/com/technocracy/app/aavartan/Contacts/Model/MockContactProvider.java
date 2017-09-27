@@ -17,7 +17,7 @@ public class MockContactProvider implements ContactProvider {
     private ContactData mockContactData;
 
     @Override
-    public void getContact(String type, final ContactCallback callback) {
+    public void getContact(final ContactCallback callback) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

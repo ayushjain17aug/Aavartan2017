@@ -15,14 +15,9 @@ import android.widget.LinearLayout;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 
 public class VigyaanActivity extends AppCompatActivity {
 
-    //DrawerLayout drawer;
-    //GridView gv;
     public static String[] prgmNameList = {"Architecture", "Bio Med", "Bio Tech", "Chemical", "Civil", "CSE", "Electrical", "Elex", "IT", "Mechanical", "Metallurgy", "Mining", "MCA", "E-Cell", "Go Green"};
     public static int[] movImgs = {R.drawable.archi1, R.drawable.biomed1, R.drawable.biotech1, R.drawable.chemical1, R.drawable.civil1, R.drawable.cse1, R.drawable.electrical1, R.drawable.etc1, R.drawable.it1, R.drawable.mech1, R.drawable.meta1, R.drawable.mining1, R.drawable.mca1, R.drawable.ecell1, R.drawable.gogreen1};
     ViewPager viewPager;
@@ -41,7 +36,6 @@ public class VigyaanActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
-//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("Vigyaan");
         setSupportActionBar(mToolbar);
@@ -51,7 +45,7 @@ public class VigyaanActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
 
 //        Timer timer = new Timer();
-  //      timer.scheduleAtFixedRate(new MyTimerTask(), 1800, 1800);
+        //      timer.scheduleAtFixedRate(new MyTimerTask(), 1800, 1800);
 
         dotscount = viewPagerAdapter.getCount();
         dots = new ImageView[dotscount];
@@ -88,49 +82,17 @@ public class VigyaanActivity extends AppCompatActivity {
 
             }
         });
-
-
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-  /*      try {
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
-        } catch (NullPointerException e) {
-        }
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        if (sessionManager.isLoggedIn()) {
-            SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
-            User user = sqLiteHandler.getUser();
-            View navHeaderView = navigationView.getHeaderView(0);
-            TextView username = (TextView) navHeaderView.findViewById(R.id.username);
-            TextView usermail = (TextView) navHeaderView.findViewById(R.id.usermail);
-            username.setText(user.getFirst_name());
-            usermail.setText(user.getEmail());
-        }*/
-        //gv = (GridView) findViewById(R.id.gridView1);
-        //gv.setAdapter(new CustomAdapter(VigyaanActivity.this, prgmNameList, movImgs));
     }
 
     @Override
     public void onBackPressed() {
-        //if (drawer.isDrawerOpen(GravityCompat.START)) {
-        //  drawer.closeDrawer(GravityCompat.START);
-        // } else {
-        //   super.onBackPressed();
         Intent intent1 = new Intent(VigyaanActivity.this, MainActivity.class);
         startActivity(intent1);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbarbutton, menu);
+        //getMenuInflater().inflate(R.menu.actionbarbutton, menu);
         return true;
     }
 

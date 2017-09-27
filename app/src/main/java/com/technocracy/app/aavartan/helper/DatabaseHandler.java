@@ -39,10 +39,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // table name
     private static final String TABLE_ATTRACTIONS = "attractions";
     // table columns names
-    private static final String ATTRACTION_ID = "id";
     private static final String ATTRACTION_NAME = "name";
     private static final String ATTRACTION_DESCRIPTION = "description";
     private static final String ATTRACTION_IMAGE_URL = "image";
+    private static final String ATTRACTION_DATE = "date";
+    private static final String ATTRACTION_VENUE = "venue";
 
 
     // table names TODO: Add the particular events_set_Id for the tables
@@ -89,6 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // table name
     private static final String TABLE_SCHEDULE_DAY2 = "schedule_day2";
     Context context;
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -105,8 +107,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
 
         String CREATE_ATTRACTIONS_TABLE = "CREATE TABLE " + TABLE_ATTRACTIONS + "("
-                + ATTRACTION_ID + " INTEGER PRIMARY KEY," + ATTRACTION_NAME + " TEXT,"
-                + ATTRACTION_DESCRIPTION + " TEXT," + ATTRACTION_IMAGE_URL + " TEXT" + ")";
+                + ATTRACTION_NAME + " TEXT," + ATTRACTION_DATE + " TEXT," +
+                ATTRACTION_VENUE + " TEXT," +
+                ATTRACTION_DESCRIPTION + " TEXT," + ATTRACTION_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_ATTRACTIONS_TABLE);
 
         String CREATE_GALLERY_TABLE = "CREATE TABLE " + TABLE_GALLERY + "("
@@ -115,7 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_GALLERY_TABLE);
 
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
-                + CONTACTS_ID + " INTEGER PRIMARY KEY," + CONTACTS_NAME + " TEXT,"
+                + CONTACTS_ID + " INTEGER," + CONTACTS_NAME + " TEXT,"
                 + CONTACTS_DESIGNATION + " TEXT," + CONTACTS_IMAGE_URL + " TEXT,"
                 + CONTACTS_FACEBOOK_URL + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
@@ -133,25 +136,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_SCHEDULE_DAY2_TABLE);
 
         String CREATE_FUNEVENTS_TABLE = "CREATE TABLE " + TABLE_FUNEVENTS + "("
-                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_ID + " INTEGER," + EVENT_NAME + " TEXT,"
                 + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
                 + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_FUNEVENTS_TABLE);
 
         String CREATE_MANAGERIALEVENTS_TABLE = "CREATE TABLE " + TABLE_MANAGERIALEVENTS + "("
-                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_ID + "  INTEGER," + EVENT_NAME + " TEXT,"
                 + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
                 + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_MANAGERIALEVENTS_TABLE);
 
         String CREATE_TECHNICALEVENTS_TABLE = "CREATE TABLE " + TABLE_TECHNICALVENTS + "("
-                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_ID + "  INTEGER," + EVENT_NAME + " TEXT,"
                 + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
                 + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_TECHNICALEVENTS_TABLE);
 
         String CREATE_ROBOTICS_TABLE = "CREATE TABLE " + TABLE_ROBOTICS + "("
-                + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
+                + EVENT_ID + " INTEGER," + EVENT_NAME + " TEXT,"
                 + EVENT_DESCRIPTION + " TEXT," + EVENT_TYPE + " TEXT," + EVENT_DATE + " TEXT,"
                 + EVENT_TIME + " TEXT," + EVENT_VENUE + " TEXT," + EVENT_IMAGE_URL + " TEXT" + ")";
         db.execSQL(CREATE_ROBOTICS_TABLE);
@@ -185,8 +188,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(ATTRACTION_ID, attraction.getId());
         values.put(ATTRACTION_NAME, attraction.getName());
+        values.put(ATTRACTION_DATE, attraction.getDate());
+        values.put(ATTRACTION_VENUE, attraction.getVenue());
         values.put(ATTRACTION_DESCRIPTION, attraction.getDescription());
         values.put(ATTRACTION_IMAGE_URL, attraction.getImgUrl());
         // Inserting Row
@@ -197,15 +201,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public ArrayList<Attraction> getAllAttractions() {
         ArrayList<Attraction> attractionList = new ArrayList<Attraction>();
-        String selectQuery = "SELECT  * FROM " + TABLE_ATTRACTIONS + " ORDER BY " + ATTRACTION_ID;
+        String selectQuery = "SELECT  * FROM " + TABLE_ATTRACTIONS;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Attraction attraction = new Attraction(cursor.getInt(0), cursor.getString(1),
-                        cursor.getString(2), cursor.getString(3));
+                Attraction attraction = new Attraction(cursor.getString(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
                 attractionList.add(attraction);
             } while (cursor.moveToNext());
         }
@@ -245,7 +249,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Event event = new Event(cursor.getString(0), cursor.getString(1),
+                Event event = new Event(cursor.getInt(0), cursor.getString(1),
                         cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
                         cursor.getString(7), "", "");
                 eventList.add(event);
@@ -323,7 +327,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Event event = new Event(cursor.getString(0), cursor.getString(1),
+                Event event = new Event(cursor.getInt(0), cursor.getString(1),
                         cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
                         cursor.getString(7), "", "");
                 eventList.add(event);
@@ -365,7 +369,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Event event = new Event(cursor.getString(0), cursor.getString(1),
+                Event event = new Event(cursor.getInt(0), cursor.getString(1),
                         cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
                         cursor.getString(7), "", "");
                 eventList.add(event);

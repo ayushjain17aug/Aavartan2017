@@ -16,7 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
-import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
+import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
 import com.technocracy.app.aavartan.Contacts.View.ContactsActivity;
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteHandler sqLiteHandler;
     private Intent intent;
     private String intent_name[] = {"Gallery", "Sponsors", "Contacts", "Team Android", "About Us", "Vigyaan"};
+    private int icons[] = {R.drawable.ic_menu_gallery, R.drawable.context_spons, R.drawable.ic_account_box_24dp,
+            R.drawable.ic_menu_slideshow, R.drawable.ic_accessible_black_24dp, R.drawable.ic_profile};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,11 +97,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        // DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        //    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //drawer.setDrawerListener(toggle);
-        //toggle.syncState();
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLoggedIn()) {
             SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
@@ -107,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
         }
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
-        // bottomNavigationView.setItemBackgroundResource(R.color.white);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -149,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         });
         BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-            TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
+            TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
                     .listener(new OnBMClickListener() {
                         @Override
                         public void onBoomButtonClick(int index) {
@@ -189,13 +185,13 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     })
-                    .normalImageRes(R.drawable.ic_action_search)
+                    .normalImageRes(icons[i])
                     .normalText(intent_name[i])
                     .rotateImage(true)
                     .shadowEffect(true)
-                    .imagePadding(new Rect(0, 0, 0, 0))
+                    .imagePadding(new Rect(2, 2, 2, 2))
                     .textGravity(Gravity.CENTER)
-                    .rippleEffect(true);
+                    .rippleEffect(true).normalColor(R.color.white);
             bmb.addBuilder(builder);
         }
 

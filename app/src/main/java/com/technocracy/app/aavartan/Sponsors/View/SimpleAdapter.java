@@ -28,17 +28,6 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     private int mCurrentItemId = 0;
     private List<Sponsor> sponsorList[];
 
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public ProgressBar pBAr;
-
-        public SimpleViewHolder(View view) {
-            super(view);
-            imageView = (ImageView) view.findViewById(R.id.spons);
-            pBAr = (ProgressBar) view.findViewById(R.id.progressBar);
-        }
-    }
-
     public SimpleAdapter(Context context, List<Sponsor>[] sponsorList) {
         mContext = context;
         this.sponsorList = sponsorList;
@@ -81,7 +70,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         holder.imageView.getLayoutParams().width = width;
         holder.imageView.requestLayout();
 
-        Picasso.with(mContext).load(sponsorList[category].get(position).getImage_url()).placeholder(R.drawable.aavartan_logo).
+        Picasso.with(mContext).load(App.Base_Url + sponsorList[category].get(position).getImage_url()).placeholder(R.drawable.aavartan_logo).
                 into(holder.imageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -109,5 +98,16 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     @Override
     public int getItemCount() {
         return mItems.size();
+    }
+
+    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
+        public ImageView imageView;
+        public ProgressBar pBAr;
+
+        public SimpleViewHolder(View view) {
+            super(view);
+            imageView = (ImageView) view.findViewById(R.id.spons);
+            pBAr = (ProgressBar) view.findViewById(R.id.progressBar);
+        }
     }
 }

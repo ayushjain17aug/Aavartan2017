@@ -20,8 +20,8 @@ import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
 
 public class ViewPDF extends AppCompatActivity {
 
-    private Toolbar mToolbar;
     WebView mWebView;
+    private Toolbar mToolbar;
     private ProgressDialog lt;
     private String LinkToPDF;
 
@@ -34,6 +34,8 @@ public class ViewPDF extends AppCompatActivity {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
         mToolbar = (Toolbar) findViewById(R.id.mtoolbar);
+        mToolbar.setTitle("Problem Statement");
+        mToolbar.setTitleTextColor(this.getResources().getColor(R.color.title));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         LinkToPDF = App.LinkPDF;

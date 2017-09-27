@@ -4,8 +4,11 @@ import android.content.Context;
 
 import com.technocracy.app.aavartan.Event.EventCallback;
 import com.technocracy.app.aavartan.Event.Model.Data.EventData;
+import com.technocracy.app.aavartan.Event.Model.Data.RegisterData;
 import com.technocracy.app.aavartan.Event.Model.EventProvider;
+import com.technocracy.app.aavartan.Event.RegisterEventCallback;
 import com.technocracy.app.aavartan.Event.View.EventView;
+import com.technocracy.app.aavartan.Event.View.RegisterEventView;
 import com.technocracy.app.aavartan.R;
 
 public class EventPresenterImpl implements EventPresenter {
@@ -13,9 +16,16 @@ public class EventPresenterImpl implements EventPresenter {
     private EventView view;
     private EventProvider provider;
     private Context context;
+    private RegisterEventView view2;
 
     public EventPresenterImpl(EventView view, EventProvider provider, Context context) {
         this.view = view;
+        this.provider = provider;
+        this.context = context;
+    }
+
+    public EventPresenterImpl(RegisterEventView view, EventProvider provider, Context context) {
+        this.view2 = view;
         this.provider = provider;
         this.context = context;
     }
@@ -108,5 +118,26 @@ public class EventPresenterImpl implements EventPresenter {
                 }
             });
         }
+    }
+
+    @Override
+    public void registerEvent(String userId, String eventId) {
+        view2.showProgressBar(true);
+        provider.registerEvent(userId, eventId, new RegisterEventCallback() {
+            @Override
+            public void onSuccess(RegisterData body) {
+                view2.showProgressBar(false);
+                if (body.isSuccess())
+                    view2.showMessage(body.getMessage());
+                else
+                    view2.showMessage(body.getMessage());
+            }
+
+            @Override
+            public void onFailure() {
+                view2.showProgressBar(false);
+                view2.showMessage(context.getResources().getString(R.string.Connection_Error));
+            }
+        });
     }
 }

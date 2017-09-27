@@ -5,6 +5,7 @@ import android.os.Handler;
 import com.technocracy.app.aavartan.Event.EventCallback;
 import com.technocracy.app.aavartan.Event.Model.Data.Event;
 import com.technocracy.app.aavartan.Event.Model.Data.EventData;
+import com.technocracy.app.aavartan.Event.RegisterEventCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,23 +26,6 @@ public class MockEventProvider implements EventProvider {
     private EventData getMockEventData() {
         List<Event> eventList = new ArrayList<>();
         String type ="fun",image_url="urls.com";
-        eventList.add(new Event("1", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("2", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("3", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("4", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("5", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("6", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("7", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("8", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("9", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("10", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("11", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("12", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("13", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("14", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("15", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("16", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
-        eventList.add(new Event("17", type, "Horoscope Aavartan17", "This is the best event!!", "7th Oct 2017", "9:30 a.m.", "E-Hall", image_url, "", ""));
         mockData = new EventData(true, "Success!", eventList);
         return mockData;
     }
@@ -63,6 +47,11 @@ public class MockEventProvider implements EventProvider {
 
     @Override
     public void getRoboEvent(EventCallback callback) {
+
+    }
+
+    @Override
+    public void registerEvent(String userId, String eventId, RegisterEventCallback callback) {
 
     }
 }

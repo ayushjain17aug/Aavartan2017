@@ -33,9 +33,9 @@ public class RetrofitContactProvider implements ContactProvider {
     }
 
     @Override
-    public void getContact(String type, final ContactCallback callback) {
+    public void getContact(final ContactCallback callback) {
         api = retrofit.create(ContactApi.class);
-        retrofit2.Call<ContactData> call = api.getContacts(type);
+        retrofit2.Call<ContactData> call = api.getContacts();
         call.enqueue(new retrofit2.Callback<ContactData>() {
             @Override
             public void onResponse(Call<ContactData> call, Response<ContactData> response) {

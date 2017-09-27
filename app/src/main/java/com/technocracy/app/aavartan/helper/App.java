@@ -31,7 +31,7 @@ public class App {
     public static final String FUN_EVENTS_URL = "http://aavartan.org/appApi_2Ksixteen/FunEvents.php";
     public static final String MANAGERIAL_EVENTS_URL = "http://aavartan.org/appApi_2Ksixteen/ManagerialEvents.php";
     public static final String ROBOTICS_URL = "http://aavartan.org/appApi_2Ksixteen/Robotics.php";
-    public static final String ATTRACTIONS_URL = "http://aavartan.org/appApi_2Ksixteen/Attraction.php";
+    public static final String ATTRACTIONS_URL = "app.android.attractions";
 
     public static final String SCHEDULE_DAY1_URL = "http://aavartan.org/appApi_2Ksixteen/3vScheduleDay1.php";
     public static final String SCHEDULE_DAY2_URL = "http://aavartan.org/appApi_2Ksixteen/3vScheduleDay2.php";
@@ -40,38 +40,41 @@ public class App {
     //public static final String SCHEDULE_DAY2_URL = "http://aavartan.org/appApi_2Ksixteen/ScheduleDay2.php";
 
     public static final String INITIATIVES_IMG_URL = "http://www.aavartan.org/images/52.JPG";
-    public static final String SPONSORS_URL = "http://aavartan.org/appApi_2Ksixteen/3vSponsors.php";
 
 
     //Vigyaan
-    public static final String ArchiPDF = "http://aavartan.org/ps/archi.pdf";
-    public static final String BioMedPDF = "http://aavartan.org/ps/biomed.pdf";
-    public static final String BioTechPDF = "http://aavartan.org/ps/biotech.pdf";
-    public static final String ChemPDF = "http://www.aavartan.org/ps/chemical.pdf";
-    public static final String CivilPDF = "http://www.aavartan.org/ps/civil.pdf";
-    public static final String CSEPDF = "http://www.aavartan.org/ps/cse.pdf";
-    public static final String ElecPDF = "http://www.aavartan.org/ps/electrical.pdf";
-    public static final String ElexPDF = "http://www.aavartan.org/ps/electronics.pdf";
-    public static final String ITPDF = "http://www.aavartan.org/ps/it.pdf";
-    public static final String MechPDF = "http://www.aavartan.org/ps/mechanical.pdf";
-    public static final String MetaPDF = "http://www.aavartan.org/ps/meta.pdf";
-    public static final String MiningPDF = "http://www.aavartan.org/ps/mining.pdf";
-    public static final String MCAPDF = "http://www.aavartan.org/ps/mca.pdf";
-    public static final String EcellPDF = "http://www.aavartan.org/ps/e-cell.pdf";
-    public static final String GoGreenPDF = "http://www.aavartan.org/ps/go_green.pdf";
+    public static final String ArchiPDF = "https://aavartan.org/vigyaan-assets/archi.pdf";
+    public static final String BioMedPDF = "https://aavartan.org/vigyaan-assets/biomedical.pdf";
+    public static final String BioTechPDF = "https://aavartan.org/vigyaan-assets/biotech.PDF";
+    public static final String ChemPDF = "https://aavartan.org/vigyaan-assets/chemical.pdf";
+    public static final String CivilPDF = "https://aavartan.org/vigyaan-assets/civil.pdf";
+    public static final String CSEPDF = "https://aavartan.org/vigyaan-assets/cse.pdf";
+    public static final String ElecPDF = "https://aavartan.org/vigyaan-assets/electrical.pdf";
+    public static final String ElexPDF = "https://aavartan.org/vigyaan-assets/etc.pdf";
+    public static final String ITPDF = "https://aavartan.org/vigyaan-assets/it.pdf";
+    public static final String MechPDF = "https://aavartan.org/vigyaan-assets/mechanical.pdf";
+    public static final String MetaPDF = "https://aavartan.org/vigyaan-assets/meta.pdf";
+    public static final String MiningPDF = "https://aavartan.org/vigyaan-assets/mining.pdf";
+    public static final String MCAPDF = "https://aavartan.org/vigyaan-assets/mca.pdf";
+    public static final String EcellPDF = "https://aavartan.org/vigyaan-assets/ecell.pdf";
+    public static final String GoGreenPDF = "https://aavartan.org/vigyaan-assets/green.pdf";
+
+
     public static final int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
     public static final int SWIPE_REFRESH_COLORS[] = {R.color.colorPrimary, R.color.colorAccent};
-    public static final String GALLERY = "";
+    public static final String GALLERY = "app.android.gallery";
     public static final String EVENT = "app.android.event/";
     public static final String SCHEDULE1 = "app.android.schedule/7";
-    public static final String CONTACT = "";
+    public static final String CONTACT = "app.android.contacts";
     public static final String EVENT_BY_ID = "";//this is for schedule onClick item
     public static final String SCHEDULE2 = "app.android.schedule/7";
     public static final String FUN_EVENT = "app.android.events/1";
     public static final String MANAGERIAL_EVENT = "app.android.events/1";
     public static final String TECHNICAL_EVENT = "app.android.events/1";
     public static final String ROBOTICS_EVENT = "app.android.events/1";
+    public static final String SPONSORS_URL = "app.android.sponsors";
+    public static final String EVENT_REGISTER = "";
     public static String LinkPDF;
     public static String Base_Url = "https://beta.aavartan.org/";//TODO : add urlshttps://beta.aavartan.org/app.android.schedule/7
 
@@ -91,5 +94,4 @@ public class App {
                 || progressBar.getVisibility() != View.INVISIBLE)
             progressBar.setVisibility(View.GONE);
     }
-
 }
