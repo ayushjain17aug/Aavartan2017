@@ -9,6 +9,9 @@ android {
             //storeFile file('C:/Users/MOHIT/AndroidStudioProjects/OfficialKey.jks')
             storePassword 'technocracy2015'
         }
+        lintOptions {
+            checkReleaseBuilds false
+        }
     }
     compileSdkVersion 24
     buildToolsVersion '25.0.0'

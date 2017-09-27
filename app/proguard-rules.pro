@@ -16,3 +16,7 @@
 #   public *;
 #}
 -dontwarn com.squareup.okhttp.**
+-dontwarn okio.**
+-dontwarn retrofit2.Platform$Java8
+-dontwarn uk.**
+
