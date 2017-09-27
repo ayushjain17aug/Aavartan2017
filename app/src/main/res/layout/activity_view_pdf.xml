@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rel"
-    android:background="@drawable/spaceblack"
+    android:background="@drawable/image"
     tools:context="com.technocracy.app.aavartan.activity.intentactivity.ViewPDF">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/mtoolbar"
-        android:background="@drawable/spaceblack"
+        android:background="@drawable/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -36,7 +36,7 @@
             android:id="@+id/dwnld"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/spaceblack"
+            android:background="@drawable/image"
             android:onClick="download"
             android:text="DOWNLOAD PDF"
             android:textStyle="bold" />

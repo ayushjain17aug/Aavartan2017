@@ -56,12 +56,12 @@ public class NotificationsActivity extends AppCompatActivity {
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitleTextColor(Color.WHITE);
+      //  mToolbar.setTitleTextColor(Color.);
         mToolbar.setTitle("Notifications");
-        mToolbar.setSubtitleTextColor(Color.WHITE);
+
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      //  getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         noNotificationTextView = (TextView) findViewById(R.id.noNotificationsTextView);
 

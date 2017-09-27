@@ -53,13 +53,13 @@ public class ScheduleActivity extends ActionBarActivity {
                     case R.id.btn1:
                         intent = new Intent(ScheduleActivity.this, MainActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
                         break;
                     case R.id.btn2:
                         intent = new Intent(ScheduleActivity.this, EventListActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
                         break;
                     case R.id.btn3:
