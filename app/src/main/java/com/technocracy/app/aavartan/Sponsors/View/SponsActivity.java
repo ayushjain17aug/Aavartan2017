@@ -35,8 +35,6 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Sponsors");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar_spons);
         mRecyclerView = (RecyclerView) findViewById(R.id.spons_recycler_view);
         mRecyclerView.setHasFixedSize(true);

@@ -8,13 +8,13 @@
     <color name="primary_text_default_material_dark">#E0F2F1</color>
     <color name="secondary_text">#E0F2F1</color>
     <color name="icons">#00ffee</color>
-    <color name="divider">#E0F2F1</color>
+    <color name="divider">#ffffff</color>
     <color name="colorblack">#000000</color>
     <color name="white">#ffffff</color>
     <color name="colorsecondary">#000000</color>
     <color name="primary_material_dark_1">#4a7e4c</color>
     <color name="primary_dark_material_dark">#000000</color>
-    <color name="accent_material_dark">#80D8FF</color>
+    <color name="accent_material_dark">#E0F2F1</color>
     <color name="background_material_dark">#216e1b</color>
     <color name="foreground_material_dark">#000000</color>
     <color name="colorBackground">#f5eeee</color>
