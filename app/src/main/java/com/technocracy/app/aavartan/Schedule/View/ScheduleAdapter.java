@@ -40,29 +40,17 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
     }
 
     @Override
-    public void onBindViewHolder(final LeaderboardViewHolder holder, final int position) {
+    public void onBindViewHolder(LeaderboardViewHolder holder, int position) {
         Event event = scheduleArrayList.get(position);
         holder.scheduleCard.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
         holder.eventNameTv.setText(event.getName());
-        Log.d("abhi", "" + event.getTime() + " " + event.getVenue());
         holder.eventTimeTv.setText(event.getTime() + "");
         holder.eventVenueTv.setText(event.getVenue() + "");
         String eventImageUrl = event.getImage_url();
-
+        Log.d("abhi", "" + event.getName() + " " + event.getVenue());
         Picasso.with(mContext)
                 .load(eventImageUrl).placeholder(R.drawable.ic_logo_small)
                 .into(holder.eventImage);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Event event = scheduleArrayList.get(position);
-                Intent i = new Intent(mContext, EventDetailsActivity.class);
-                i.putExtra("id", event.getEventId());
-                i.putExtra("event_name", event.getName());
-                i.putExtra("event_description", event.getDescription());
-                mContext.startActivity(i);
-            }
-        });
     }
 
     @Override
@@ -71,7 +59,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
     }
 
     public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
-
         public final View mView;
         public final CardView scheduleCard;
         public final TextView eventNameTv;
@@ -87,6 +74,19 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
             eventTimeTv = (TextView) itemView.findViewById(R.id.ListTime);
             eventVenueTv = (TextView) itemView.findViewById(R.id.ListVenue);
             eventImage = (ImageView) itemView.findViewById(R.id.eventsImage);
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    Intent i = new Intent(mContext, EventDetailsActivity.class);
+                    Event event = scheduleArrayList.get(pos);
+                    i.putExtra("id", event.getEventId());
+                    i.putExtra("event_name", event.getName());
+                    i.putExtra("event_description", event.getDescription());
+                    Log.d("abhi", "" + event.getName() + " " + event.getVenue());
+                    mContext.startActivity(i);
+                }
+            });
         }
     }
 }

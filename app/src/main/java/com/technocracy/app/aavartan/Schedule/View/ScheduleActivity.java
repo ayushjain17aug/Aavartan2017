@@ -19,12 +19,9 @@ import com.technocracy.app.aavartan.Schedule.View.tabs.Tab1;
 import com.technocracy.app.aavartan.Schedule.View.tabs.Tab2;
 import com.technocracy.app.aavartan.SectionsPagerAdapter;
 import com.technocracy.app.aavartan.activity.AccountActivity;
-import com.technocracy.app.aavartan.activity.LoginActivity;
 import com.technocracy.app.aavartan.activity.MainActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
-import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
-import com.technocracy.app.aavartan.helper.SessionManager;
 
 public class ScheduleActivity extends ActionBarActivity {
 
@@ -39,9 +36,6 @@ public class ScheduleActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        //toolbar = (Toolbar) findViewById(R.id.toolbr);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         setUpViewPager();
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);

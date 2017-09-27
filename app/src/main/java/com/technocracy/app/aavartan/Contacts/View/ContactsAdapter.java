@@ -21,14 +21,14 @@ import com.technocracy.app.aavartan.Contacts.Model.Data.Contact;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.helper.App;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ContactsAdapter extends BaseAdapter {
-    private ArrayList<Contact> contactList;
+    private List<Contact> contactList;
     private LayoutInflater inflater = null;
     private Context context;
 
-    public ContactsAdapter(ArrayList<Contact> contactList, Context context) {
+    public ContactsAdapter(List<Contact> contactList, Context context) {
         this.contactList = contactList;
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

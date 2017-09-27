@@ -22,26 +22,23 @@ import com.technocracy.app.aavartan.Event.View.EventListActivity;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.activity.AccountActivity;
-import com.technocracy.app.aavartan.activity.LoginActivity;
 import com.technocracy.app.aavartan.activity.MainActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
-import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.Eventkeys;
-import com.technocracy.app.aavartan.helper.SessionManager;
 
 import java.util.List;
 
 public class AttractionActivity extends AppCompatActivity implements Eventkeys.Attractions, AttractionView {
 
-    private SessionManager sessionManager;
     private RecyclerView rCyclerView;
     private AttractionAdapter Adap;
     private DatabaseHandler db;
     private ProgressBar progressBar;
     private AttractionPresenter presenter;
     private Intent intent;
+    private List<Attraction> attractionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,28 +46,12 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
         setContentView(R.layout.activity_attraction);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
-       // toolbar.setTitleTextColor(Color.WHITE);
-      //  toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Attractions");
-     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-     //   getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-    //    drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-     //   ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-    //    drawer.setDrawerListener(toggle);
-     //   toggle.syncState();
-
         db = new DatabaseHandler(getApplicationContext());
         rCyclerView = (RecyclerView) findViewById(R.id.rView);
         rCyclerView.setLayoutManager(new LinearLayoutManager(this));
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar_attraction);
-        //Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
-//        rCyclerView.setAdapter(Adap);
-        presenter = new AttractionPresenterImpl(new RetrofitAttractionProvider(), this, this);
-        presenter.getAttractions();
-
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         bottomNavigationView.setItemBackgroundResource(R.color.white);
@@ -113,7 +94,8 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
             else
                 item.setChecked(false);
         }
-
+        presenter = new AttractionPresenterImpl(new RetrofitAttractionProvider(), this, this);
+        presenter.getAttractions();
     }
 
     @Override
@@ -135,11 +117,6 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
 
     @Override
     public void onBackPressed() {
-        //if (drawer.isDrawerOpen(GravityCompat.START)) {
-          //  drawer.closeDrawer(GravityCompat.START);
-        //} //else {
-            //super.onBackPressed();
-        //}
         Intent intent1=new Intent(AttractionActivity.this,MainActivity.class);
         startActivity(intent1);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -155,7 +132,7 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
 
     @Override
     public void showAttractionsFromDatabase() {
-        List<Attraction> attractionList = db.getAllAttractions();
+        attractionList = db.getAllAttractions();
         Adap = new AttractionAdapter(this, attractionList);
         rCyclerView.setAdapter(Adap);
     }
@@ -167,8 +144,9 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
     }
 
     @Override
-    public void showAttractions(List<Attraction> attractionList) {
+    public void showAttractions(List<Attraction> AttractionList) {
         db.deleteAllAttractions();
+        attractionList = AttractionList;
         for(Attraction i:attractionList)
             db.addAttraction(i);
         Adap = new AttractionAdapter(this, attractionList);

@@ -79,10 +79,10 @@ public class Tab2 extends Fragment implements ScheduleView {
     @Override
     public void showSchedule(List<Event> schedule) {
         db.deleteScheduleDay2();
+        scheduleList = schedule;
         adapter = new ScheduleAdapter(getActivity(), schedule);
         for (Event x : schedule)
             db.addScheduleDay2Item(x);
         recyclerView.setAdapter(adapter);
     }
-
 }

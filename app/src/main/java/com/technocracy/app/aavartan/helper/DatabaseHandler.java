@@ -88,6 +88,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // table name
     private static final String TABLE_SCHEDULE_DAY2 = "schedule_day2";
     Context context;
+    private List<Contact> appTeamContacts;
+    private String TABLE_APP_TEAM = "appTeam";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -119,6 +121,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + CONTACTS_DESIGNATION + " TEXT," + CONTACTS_IMAGE_URL + " TEXT,"
                 + CONTACTS_FACEBOOK_URL + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
+
+        String CREATE_APP_TEAM_TABLE = "CREATE TABLE " + TABLE_APP_TEAM + "("
+                + CONTACTS_ID + " INTEGER," + CONTACTS_NAME + " TEXT,"
+                + CONTACTS_DESIGNATION + " TEXT," + CONTACTS_IMAGE_URL + " TEXT,"
+                + CONTACTS_FACEBOOK_URL + " TEXT" + ")";
+        db.execSQL(CREATE_APP_TEAM_TABLE);
 
         String CREATE_SCHEDULE_DAY1_TABLE = "CREATE TABLE " + TABLE_SCHEDULE_DAY1 + "("
                 + EVENT_ID + " TEXT PRIMARY KEY," + EVENT_NAME + " TEXT,"
@@ -296,6 +304,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_CONTACTS);
     }
 
+    public void addAppTeamContact(Contact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CONTACTS_ID, contact.getId());
+        values.put(CONTACTS_NAME, contact.getName());
+        values.put(CONTACTS_DESIGNATION, contact.getDesignation());
+        values.put(CONTACTS_IMAGE_URL, contact.getImageUrl());
+        values.put(CONTACTS_FACEBOOK_URL, contact.getFacebookUrl());
+        // Inserting Row
+        db.insert(TABLE_APP_TEAM, null, values);
+        db.close(); // Closing database connection
+        Log.e("Contact :", "stored in db.");
+    }
+
+    public List<Contact> getAppTeamContacts() {
+        List<Contact> contactList = new ArrayList<Contact>();
+        String selectQuery = "SELECT * FROM " + TABLE_APP_TEAM;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Contact contact = new Contact(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                contactList.add(contact);
+            } while (cursor.moveToNext());
+        }
+        return contactList;
+    }
+
+    public void deleteAppTeamContacts() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_APP_TEAM);
+    }
+
 
     public void addScheduleDay1Item(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -439,7 +482,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         Notifications notifications = new Notifications(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2),cursor.getString(3),
+                cursor.getString(1), cursor.getString(2), cursor.getString(3),
                 cursor.getString(4));
 
         return notifications;
@@ -457,7 +500,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Notifications notification = new Notifications(Integer.parseInt(cursor.getString(0)),
-                        cursor.getString(1), cursor.getString(2),cursor.getString(3),
+                        cursor.getString(1), cursor.getString(2), cursor.getString(3),
                         cursor.getString(4));
 
                 // Adding notification to list

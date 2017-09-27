@@ -16,4 +16,8 @@ public interface ContactView {
     void showContacts(List<Contact> contacts);
 
     void showContactsFromDB();
+
+    void showAppTeamFromDB();
+
+    void showAppTeam(List<Contact> contacts);
 }

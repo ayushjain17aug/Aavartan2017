@@ -7,6 +7,7 @@ import com.technocracy.app.aavartan.helper.App;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -23,6 +24,7 @@ public interface EventApi {
     @GET(App.ROBOTICS_EVENT)
     Call<EventData> getRoboEvent();
 
+    @FormUrlEncoded
     @POST(App.EVENT_REGISTER)
     Call<RegisterData> registerForEvent(@Field("user_id") String user_id, @Field("event_id") String event_id);
 }

@@ -17,9 +17,7 @@ import com.technocracy.app.aavartan.Event.Model.RetrofitEventProvider;
 import com.technocracy.app.aavartan.Event.Presenter.EventPresenter;
 import com.technocracy.app.aavartan.Event.Presenter.EventPresenterImpl;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.activity.LoginActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
-import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
@@ -47,6 +45,7 @@ public class EventDetailsActivity extends AppCompatActivity implements RegisterE
         event_id = "" + data.getInt("id");
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.title));
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

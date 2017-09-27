@@ -10,4 +10,7 @@ public interface ContactApi {
     //TODO: type 1 for all contacts and type 2 for android team
     @GET(App.CONTACT)
     Call<ContactData> getContacts();
+
+    @GET(App.CONTACT_APP)
+    Call<ContactData> getAppTeam();
 }

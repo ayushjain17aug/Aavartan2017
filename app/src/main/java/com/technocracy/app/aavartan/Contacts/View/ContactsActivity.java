@@ -17,11 +17,8 @@ import com.technocracy.app.aavartan.Contacts.Model.RetrofitContactProvider;
 import com.technocracy.app.aavartan.Contacts.Presenter.ContactPresenter;
 import com.technocracy.app.aavartan.Contacts.Presenter.ContactPresenterImpl;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.activity.LoginActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
-import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
-import com.technocracy.app.aavartan.helper.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +26,7 @@ import java.util.List;
 public class ContactsActivity extends AppCompatActivity implements ContactView {
 
     private GridView contactsGridView;
-    private ArrayList<Contact> contactList;
+    private List<Contact> contactList;
     private ContactsAdapter contactsAdapter;
     private DatabaseHandler db;
     private ProgressBar progressBar;
@@ -94,6 +91,25 @@ public class ContactsActivity extends AppCompatActivity implements ContactView {
             contactsAdapter = new ContactsAdapter(contactList, this);
             contactsGridView.setAdapter(contactsAdapter);
         }
+    }
+
+    @Override
+    public void showAppTeamFromDB() {
+        contactList = db.getAppTeamContacts();
+        if (contactList != null) {
+            contactsAdapter = new ContactsAdapter(contactList, this);
+            contactsGridView.setAdapter(contactsAdapter);
+        }
+    }
+
+    @Override
+    public void showAppTeam(List<Contact> contacts) {
+        db.deleteAppTeamContacts();
+        for (Contact i : contacts)
+            db.addAppTeamContact(i);
+        contactList = contacts;
+        contactsAdapter = new ContactsAdapter(contactList, this);
+        contactsGridView.setAdapter(contactsAdapter);
     }
 
     @Override

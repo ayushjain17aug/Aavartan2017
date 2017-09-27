@@ -74,7 +74,8 @@ public class App {
     public static final String TECHNICAL_EVENT = "app.android.events/1";
     public static final String ROBOTICS_EVENT = "app.android.events/1";
     public static final String SPONSORS_URL = "app.android.sponsors";
-    public static final String EVENT_REGISTER = "";
+    public static final String EVENT_REGISTER = "app.android.event.register";
+    public static final String CONTACT_APP = "app.android.android.team";
     public static String LinkPDF;
     public static String Base_Url = "https://beta.aavartan.org/";//TODO : add urlshttps://beta.aavartan.org/app.android.schedule/7
 
