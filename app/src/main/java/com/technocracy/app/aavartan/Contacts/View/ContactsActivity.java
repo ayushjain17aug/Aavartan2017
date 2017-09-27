@@ -1,8 +1,6 @@
 package com.technocracy.app.aavartan.Contacts.View;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +13,7 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import com.technocracy.app.aavartan.Contacts.Model.Data.Contact;
-import com.technocracy.app.aavartan.Contacts.Model.MockContactProvider;
+import com.technocracy.app.aavartan.Contacts.Model.RetrofitContactProvider;
 import com.technocracy.app.aavartan.Contacts.Presenter.ContactPresenter;
 import com.technocracy.app.aavartan.Contacts.Presenter.ContactPresenterImpl;
 import com.technocracy.app.aavartan.R;
@@ -30,15 +28,14 @@ import java.util.List;
 
 public class ContactsActivity extends AppCompatActivity implements ContactView {
 
-    private static final String TAG = ContactsActivity.class.getSimpleName();
     private GridView contactsGridView;
     private ArrayList<Contact> contactList;
     private ContactsAdapter contactsAdapter;
-    private ProgressDialog pDialog;
     private DatabaseHandler db;
     private ProgressBar progressBar;
     private ContactPresenter presenter;
     private String type, toolbarTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +47,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactView {
         else
             toolbarTitle = "Team Android";
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-      //  toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(toolbarTitle);
-    //    toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -61,7 +56,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactView {
         db = new DatabaseHandler(getApplicationContext());
         contactsGridView = (GridView) findViewById(R.id.contacts_gridView);
 
-        presenter = new ContactPresenterImpl(this, new MockContactProvider(), this);
+        presenter = new ContactPresenterImpl(this, new RetrofitContactProvider(), this);
         presenter.getContact(type);
     }
 

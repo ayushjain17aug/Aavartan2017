@@ -2,30 +2,25 @@ package com.technocracy.app.aavartan.gallery.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
-import com.technocracy.app.aavartan.gallery.Model.MockGalleryProvider;
-import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
+import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.activity.MainActivity;
+import com.technocracy.app.aavartan.gallery.Model.Data.Image;
+import com.technocracy.app.aavartan.gallery.Model.RetrofitGalleryProvider;
+import com.technocracy.app.aavartan.gallery.Presenter.GalleryPresenter;
+import com.technocracy.app.aavartan.gallery.Presenter.GalleryPresenterImpl;
+import com.technocracy.app.aavartan.helper.App;
+import com.technocracy.app.aavartan.helper.PicassoImageLoader;
 import com.veinhorn.scrollgalleryview.MediaInfo;
 import com.veinhorn.scrollgalleryview.ScrollGalleryView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.technocracy.app.aavartan.gallery.Model.Data.Image;
-import com.technocracy.app.aavartan.gallery.Presenter.GalleryPresenter;
-import com.technocracy.app.aavartan.gallery.Presenter.GalleryPresenterImpl;
-import com.technocracy.app.aavartan.helper.PicassoImageLoader;
-import com.technocracy.app.aavartan.activity.MainActivity;
-import com.technocracy.app.aavartan.R;
 
 public class GalleryActivity extends AppCompatActivity implements GalleryView {
 
@@ -42,7 +37,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView {
         setSupportActionBar(toolbar);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
      //   presenter = new GalleryPresenterImpl(this, new RetrofitGalleryProvider(), this);
-           presenter = new GalleryPresenterImpl(this,new MockGalleryProvider(),this);
+        presenter = new GalleryPresenterImpl(this, new RetrofitGalleryProvider(), this);
         presenter.getImages();
 
         scrollGalleryView = (ScrollGalleryView) findViewById(R.id.scroll_gallery_view);
@@ -75,7 +70,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView {
     public void loadGallery(List<Image> imageList) {
         List<MediaInfo> infos = new ArrayList<>(imageList.size());
         for (Image image : imageList)
-            infos.add(MediaInfo.mediaLoader(new PicassoImageLoader(image.getImg_url())));
+            infos.add(MediaInfo.mediaLoader(new PicassoImageLoader(App.Base_Url + image.getImg_url())));
 
         scrollGalleryView
                 .setThumbnailSize(100)

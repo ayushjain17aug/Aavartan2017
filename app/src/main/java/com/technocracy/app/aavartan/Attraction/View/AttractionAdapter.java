@@ -11,17 +11,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Attraction.Model.Data.Attraction;
+import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.helper.App;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.MyViewHolder> {
-    private LayoutInflater inflater;
     public Context context;
     List<Attraction> item;
+    private LayoutInflater inflater;
 
     public AttractionAdapter(Context context, List<Attraction> item) {
         inflater = LayoutInflater.from(context);
@@ -51,7 +50,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.My
              }
         });
         holder.name.setText(i.getName());
-        holder.des.setText(i.getDescription());
+        holder.des.setText(i.getDescription() + "\n On  : " + i.getDate() + "\n At : " + i.getVenue());
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ContactPresenterImpl implements ContactPresenter {
     @Override
     public void getContact(String type) {
         view.showProgressBar(true);
-        provider.getContact(type, new ContactCallback() {
+        provider.getContact(new ContactCallback() {
             @Override
             public void onFailure() {
                 view.showProgressBar(false);
@@ -37,7 +37,6 @@ public class ContactPresenterImpl implements ContactPresenter {
                 if (contactData.isSuccess()) {
                     view.showContacts(contactData.getContacts());
                 } else {
-                    view.showMessage(contactData.getMessage());
                     view.showContactsFromDB();
                 }
             }

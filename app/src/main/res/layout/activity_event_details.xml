@@ -24,8 +24,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/title"
-            android:layout_below="@+id/toolbar"/>
+            android:layout_below="@+id/toolbar"
+            android:background="@color/title" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
         <ScrollView
             android:layout_width="match_parent"

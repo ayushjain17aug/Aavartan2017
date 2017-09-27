@@ -5,15 +5,16 @@ public class Contact {
     private int id;
     private String name;
     private String designation;
-    private String imageUrl;
-    private String facebookUrl;
+    private String imageurl;
+    private String facebookurl;
 
-    public Contact(int id, String name, String designation, String imageUrl, String facebookUrl) {
+    public Contact(int id, String name, String designation,
+                   String imageurl, String facebookurl) {
         this.id = id;
         this.name = name;
         this.designation = designation;
-        this.imageUrl = imageUrl;
-        this.facebookUrl = facebookUrl;
+        this.imageurl = imageurl;
+        this.facebookurl = facebookurl;
     }
 
     public int getId() {
@@ -29,10 +30,10 @@ public class Contact {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return imageurl;
     }
 
     public String getFacebookUrl() {
-        return facebookUrl;
+        return facebookurl;
     }
 }

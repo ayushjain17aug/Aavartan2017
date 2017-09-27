@@ -1,18 +1,14 @@
 package com.technocracy.app.aavartan.Attraction.Model.Data;
 
 public class Attraction {
-    private int id;
-    private String name, description, imgUrl;
+    private String name, description, img_url, date, venue;
 
-    public Attraction(int id, String name, String description, String imgUrl) {
-        this.id = id;
+    public Attraction(String name, String date, String venue, String description, String img_url) {
         this.name = name;
         this.description = description;
-        this.imgUrl = imgUrl;
-    }
-
-    public int getId() {
-        return id;
+        this.img_url = img_url;
+        this.date = date;
+        this.venue = venue;
     }
 
     public String getName() {
@@ -24,6 +20,14 @@ public class Attraction {
     }
 
     public String getImgUrl() {
-        return imgUrl;
+        return img_url;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getVenue() {
+        return venue;
     }
 }

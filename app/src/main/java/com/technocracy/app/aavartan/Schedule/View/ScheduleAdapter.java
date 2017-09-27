@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,9 +43,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
     public void onBindViewHolder(final LeaderboardViewHolder holder, final int position) {
         Event event = scheduleArrayList.get(position);
         holder.scheduleCard.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
-        holder.eventNameTv.setText((event.getName()));
-        holder.eventTimeTv.setText(event.getTime());
-        holder.eventVenueTv.setText(event.getVenue());
+        holder.eventNameTv.setText(event.getName());
+        Log.d("abhi", "" + event.getTime() + " " + event.getVenue());
+        holder.eventTimeTv.setText(event.getTime() + "");
+        holder.eventVenueTv.setText(event.getVenue() + "");
         String eventImageUrl = event.getImage_url();
 
         Picasso.with(mContext)

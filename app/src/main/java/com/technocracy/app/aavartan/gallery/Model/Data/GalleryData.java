@@ -6,12 +6,12 @@ import java.util.List;
 public class GalleryData {
     private boolean success;
     private String message;
-    private List<Image> imageList;
+    private List<Image> imagelist;
 
-    public GalleryData(boolean success, String message, List<Image> imageList) {
+    public GalleryData(boolean success, String message, List<Image> imagelist) {
         this.success = success;
         this.message = message;
-        this.imageList = imageList;
+        this.imagelist = imagelist;
     }
 
     public boolean isSuccess() {
@@ -23,6 +23,6 @@ public class GalleryData {
     }
 
     public List<Image> getImageList() {
-        return imageList;
+        return imagelist;
     }
 }

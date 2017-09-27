@@ -30,7 +30,6 @@ public class AttractionPresenterImpl implements AttractionPresenter {
                 view.showProgressBar(false);
                 view.showAttractionsFromDatabase();
                 view.showMessage(context.getResources().getString(R.string.Connection_Error));
-
             }
 
             @Override
@@ -40,7 +39,6 @@ public class AttractionPresenterImpl implements AttractionPresenter {
                     view.showAttractions(body.getAttractionList());
                 } else {
                     view.showAttractionsFromDatabase();
-                    view.showMessage(body.getMessage());
                 }
             }
         });

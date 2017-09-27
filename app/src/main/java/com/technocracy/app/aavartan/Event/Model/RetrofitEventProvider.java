@@ -7,10 +7,14 @@ import com.google.gson.GsonBuilder;
 import com.technocracy.app.aavartan.Event.Api.EventApi;
 import com.technocracy.app.aavartan.Event.EventCallback;
 import com.technocracy.app.aavartan.Event.Model.Data.EventData;
+import com.technocracy.app.aavartan.Event.Model.Data.RegisterData;
+import com.technocracy.app.aavartan.Event.RegisterEventCallback;
 import com.technocracy.app.aavartan.helper.App;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -95,6 +99,24 @@ public class RetrofitEventProvider implements EventProvider {
 
             @Override
             public void onFailure(retrofit2.Call<EventData> call, Throwable t) {
+                callback.onFailure();
+                t.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void registerEvent(String userId, String eventId, final RegisterEventCallback callback) {
+        api = retrofit.create(EventApi.class);
+        retrofit2.Call<RegisterData> call = api.registerForEvent(userId, eventId);
+        call.enqueue(new retrofit2.Callback<RegisterData>() {
+            @Override
+            public void onResponse(Call<RegisterData> call, Response<RegisterData> response) {
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<RegisterData> call, Throwable t) {
                 callback.onFailure();
                 t.printStackTrace();
             }

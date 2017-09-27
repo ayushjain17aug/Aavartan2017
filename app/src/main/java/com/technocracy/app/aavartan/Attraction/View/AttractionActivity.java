@@ -1,14 +1,10 @@
 package com.technocracy.app.aavartan.Attraction.View;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.technocracy.app.aavartan.Attraction.Model.MockAttractionProvider;
+import com.technocracy.app.aavartan.Attraction.Model.Data.Attraction;
+import com.technocracy.app.aavartan.Attraction.Model.RetrofitAttractionProvider;
 import com.technocracy.app.aavartan.Attraction.Presenter.AttractionPresenter;
 import com.technocracy.app.aavartan.Attraction.Presenter.AttractionPresenterImpl;
 import com.technocracy.app.aavartan.Event.View.EventListActivity;
@@ -29,14 +26,11 @@ import com.technocracy.app.aavartan.activity.LoginActivity;
 import com.technocracy.app.aavartan.activity.MainActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.activity.UserActivity;
-import com.technocracy.app.aavartan.Attraction.Model.Data.Attraction;
-import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.Eventkeys;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AttractionActivity extends AppCompatActivity implements Eventkeys.Attractions, AttractionView {
@@ -44,7 +38,6 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
     private SessionManager sessionManager;
     private RecyclerView rCyclerView;
     private AttractionAdapter Adap;
-    private DrawerLayout drawer;
     private DatabaseHandler db;
     private ProgressBar progressBar;
     private AttractionPresenter presenter;
@@ -75,7 +68,7 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
         progressBar = (ProgressBar) findViewById(R.id.progress_bar_attraction);
         //Adap = new AttractionAdapter(AppController.getInstance().getApplicationContext(), attractionsList);
 //        rCyclerView.setAdapter(Adap);
-        presenter = new AttractionPresenterImpl(new MockAttractionProvider(),this,this);
+        presenter = new AttractionPresenterImpl(new RetrofitAttractionProvider(), this, this);
         presenter.getAttractions();
 
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);

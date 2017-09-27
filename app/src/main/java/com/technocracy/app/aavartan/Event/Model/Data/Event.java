@@ -2,16 +2,17 @@ package com.technocracy.app.aavartan.Event.Model.Data;
 
 
 public class Event {
-    private String eventId, type, event_name, description, date,
+    int id;
+    private String type, event_name, description, date,
             time, venue, image_url, created_at, updated_at;
 
-    public Event(String eventId, String event_name, String description, String type,
+    public Event(int id, String event_name, String description, String type,
                  String date, String time, String venue, String image_url,
                  String created_at, String updated_at) {
-        this.eventId = eventId;
-        this.type = type;
+        this.id = id;
         this.event_name = event_name;
         this.description = description;
+        this.type = type;
         this.date = date;
         this.time = time;
         this.venue = venue;
@@ -20,8 +21,8 @@ public class Event {
         this.updated_at = updated_at;
     }
 
-    public String getEventId() {
-        return eventId;
+    public int getEventId() {
+        return id;
     }
 
     public String getName() {
