@@ -27,8 +27,8 @@ public class StayActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        String stayText = "For the outstation students, we have arranged accommodation at Hotel Gagan Regency (Opp. AIIMS, Tatibandh Raipur, 1km from NIT Raipur) On a special tariff of Rs 300 per night per bed in a comfortable dormitory.\n\n\n" +
-                "For any furthur query or details contact :\n\nSagar Wadekar : \n+91 9765464929, +91 9423528297\n\nHotel Gagan Regency is accommodation partner of Aavartan, NIT Raipur thus Organizing committee will not be responsible for any dispute whatsoever between the Hotel and Students";
+        String stayText = "For the outstation students, we have arranged accommodation.\n\n\n" +
+                "For any furthur query or details contact :\n\nShubham Gupta : \n+919098162297";
         stayTextView = (TextView) findViewById(R.id.stay_text);
         stayTextView.setText(stayText);
     }

@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
                     tv.animateText("IMAGINE IMPROVE IMPLEMENT");
                     tv1.setText(" ");
                     tv1.setCharacterDelay(150);
-                    tv1.animateText("ERA OF DIGITALISATION");
+                    tv1.animateText("ERA OF DIGITALIZATION");
                 }
             });
         }
