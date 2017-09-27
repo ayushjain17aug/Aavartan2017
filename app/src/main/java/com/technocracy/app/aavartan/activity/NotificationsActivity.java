@@ -1,5 +1,6 @@
 package com.technocracy.app.aavartan.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,8 +61,8 @@ public class NotificationsActivity extends AppCompatActivity {
         mToolbar.setTitle("Notifications");
 
         setSupportActionBar(mToolbar);
-     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      //  getSupportActionBar().setDisplayShowHomeEnabled(true);
+         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         noNotificationTextView = (TextView) findViewById(R.id.noNotificationsTextView);
 
@@ -165,6 +166,11 @@ public class NotificationsActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent1 = new Intent(NotificationsActivity.this, MainActivity.class);
+        startActivity(intent1);
     }
 
 }

@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar1"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="@color/title"
@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/toolbar"
-            android:background="@color/title" />
+            android:background="@color/title"
+            android:id="@+id/view" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/event_recycler_view"
             android:layout_width="match_parent"
@@ -34,7 +35,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:backgroundTint="@color/lightback"
-            android:layout_below="@+id/toolbar1" />
+            android:layout_below="@+id/view" />
         <!-- TODO: Update blank fragment layout -->
 
         <ProgressBar

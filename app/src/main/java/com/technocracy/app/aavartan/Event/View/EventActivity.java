@@ -31,7 +31,7 @@ public class EventActivity extends AppCompatActivity implements EventView {
     private EventAdapter adapter;
     private EventPresenter presenter;
     private String eventSetId;
-    private String toolbarTitle = "";
+    private String toolbarTitle = "Events";
     private List<Event> eventList;
 
     @Override
@@ -101,21 +101,5 @@ public class EventActivity extends AppCompatActivity implements EventView {
     public void showEventsFromDatabase() {
         eventList = db.getAllEvents(eventSetId);
         adapter = new EventAdapter(this, eventList);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbarbutton, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_notification) {
-            Intent intent = new Intent(EventActivity.this, NotificationsActivity.class);
-            EventActivity.this.startActivity(intent);
-        }
-        return false;
     }
 }
