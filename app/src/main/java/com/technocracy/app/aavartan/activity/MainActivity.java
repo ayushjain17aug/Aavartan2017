@@ -3,6 +3,7 @@ package com.technocracy.app.aavartan.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
@@ -48,27 +50,22 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteHandler sqLiteHandler;
     private Intent intent;
     private String intent_name[] = {"Gallery", "Sponsors", "Contacts", "Team Android", "About Us", "Vigyaan"};
-    private int icons[] = {R.drawable.ic_menu_gallery, R.drawable.context_spons, R.drawable.ic_account_box_24dp,
-            R.drawable.ic_menu_slideshow, R.drawable.ic_accessible_black_24dp, R.drawable.ic_profile};
+    private int icons[] = {R.drawable.ic_photo_library_black_24dp, R.drawable.spons, R.drawable.ic_account_box_24dp,
+            R.drawable.ic_group_black_24dp, R.drawable.ic_accessibility_black_24dp, R.drawable.ic_highlight_black_24dp};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Typewriter tv=(Typewriter)findViewById(R.id.typewriter);
-        tv.setText(" ");
-        tv.setCharacterDelay(150);
-        tv.animateText("IMAGINE IMPROVE IMPLEMENT");
-        final Typewriter tv1=(Typewriter)findViewById(R.id.typewriter1);
-        tv1.setText(" ");
-        tv1.setCharacterDelay(150);
-        tv1.animateText("ERA OF DIGITALIZATION");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // toolbar.setTitleTextColor(Color.WHITE);
         // toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+      //  ImageView lineColorCode = (ImageView)findViewById(R.drawable.spons);
+      //  int color = Color.parseColor("80D8FF"); //The color u want
+      //  lineColorCode.setColorFilter(color);
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new MyTimerTask(), 1200, 4000);
+        timer.scheduleAtFixedRate(new MyTimerTask(), 1200, 5000);
 
 
         //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -251,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                     tv.animateText("IMAGINE IMPROVE IMPLEMENT");
                     tv1.setText(" ");
                     tv1.setCharacterDelay(150);
-                    tv1.animateText("ERA OF DIGITIZATION");
+                    tv1.animateText("ERA OF DIGITALISATION");
                 }
             });
         }
