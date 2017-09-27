@@ -43,6 +43,6 @@ public class AboutUsActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
     }
 }
