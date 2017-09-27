@@ -2,6 +2,7 @@ package com.technocracy.app.aavartan;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,9 +22,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonArray;
 import com.technocracy.app.aavartan.activity.LoginActivity;
+import com.technocracy.app.aavartan.activity.UserActivity;
 import com.technocracy.app.aavartan.api.User;
+import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.ConnectivityReceiver;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
@@ -63,7 +67,7 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (!ConnectivityReceiver.isConnected())
-            Snackbar.make(view.findViewById(R.id.login), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
+            Snackbar.make(getActivity().findViewById(R.id.login), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         db = new SQLiteHandler(getContext());
         session = new SessionManager(getContext());
@@ -116,38 +120,34 @@ public class LoginFragment extends Fragment {
                 hideDialog();
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-                    boolean error = jsonResponse.getBoolean("error");
-                    if (!error) {
+                    boolean success = jsonResponse.getBoolean("success");
+                    String message = jsonResponse.getString("message");
+                    Log.d("ayush",String.valueOf(success));
+                    if (success) {
+                        Log.d("ayush","got response");
                         JSONObject user = jsonResponse.getJSONObject("user");
                         int user_id = user.getInt("id");
                         String last_name = user.getString("last_name");
                         String first_name = user.getString("first_name");
                         String email = user.getString("email");
                         String phone = user.getString("mobile");
+                        String member_since = user.getString("created_at");
                         String college_name = user.getString("college_name");
-
                         JSONArray events_registered = jsonResponse.getJSONArray("events");
                         int count_event_registered=events_registered.length();
-                        Log.d("ayush",String.valueOf(count_event_registered));
+
+                        Log.d("ayush","Events register  "+String.valueOf(count_event_registered));
                         session = new SessionManager(getContext());
                         session.setLogin(true);
-                        db.addUser(user_id, first_name, last_name, email, phone,college_name,count_event_registered);
-
-                    } else {
-                        if (jsonResponse.has("message")) {
-                            new AlertDialog.Builder(getContext()).setIcon(R.drawable.ic_dialog_alert).setTitle("Message")
-                                    .setMessage(jsonResponse.getString("error_msg"))
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    }).show();
-
-                        } else {
-                            Snackbar.make(getView().findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
+                        db.addUser(user_id, first_name, last_name, email, phone,college_name,member_since,count_event_registered);
+                        registerToken(FirebaseInstanceId.getInstance().getToken(), String.valueOf(user_id));
+                        Intent i= new Intent(getActivity(),UserActivity.class);
+                        getActivity().startActivity(i);
+                    } else
+                        {
+                            Snackbar.make(getActivity().findViewById(R.id.login), message, Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -157,7 +157,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // Log.e(TAG, "Login Error: " + error.getMessage());
-                Snackbar.make(getView().findViewById(R.id.relativeLayout), getResources().getString(R.string.connection_error_try_again), Snackbar.LENGTH_LONG)
+                Snackbar.make(getActivity().findViewById(R.id.login), getResources().getString(R.string.connection_error_try_again), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
             }
@@ -215,11 +215,11 @@ public class LoginFragment extends Fragment {
                                 boolean error = jsonResponse.getBoolean("error");
                                 if (!error) {
                                     Log.d("ayush", "no error");
-                                    Snackbar.make(getView().findViewById(R.id.login), "Please check your e-mail for resetting password.", Snackbar.LENGTH_LONG)
+                                    Snackbar.make(getActivity().findViewById(R.id.login), "Please check your e-mail for resetting password.", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
                                 } else {
                                     Log.d("ayush", "got error");
-                                    Snackbar.make(getView().findViewById(R.id.login), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
+                                    Snackbar.make(getActivity().findViewById(R.id.login), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
                                 }
                             } catch (JSONException e) {
@@ -233,6 +233,7 @@ public class LoginFragment extends Fragment {
                             Log.d("ayush", "Login Error: here error response " + error.getMessage());
                             hideDialog();
                             Snackbar.make(getActivity().findViewById(R.id.login),"Please check your e-mail for resetting password.", Snackbar.LENGTH_LONG).show();
+
                         }
                     }) {
                         @Override
@@ -247,7 +248,7 @@ public class LoginFragment extends Fragment {
                     AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
                 } else {
                     // Prompt user to enter credentials
-                    Snackbar.make(getView().findViewById(R.id.relativeLayout), "Please enter your email address.", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().findViewById(R.id.login), "Please enter your email address.", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -268,6 +269,51 @@ public class LoginFragment extends Fragment {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+    private void registerToken(final String token, final String user_id) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_fcm_token_reg";
+        Log.d("ayush",token);
+
+        StringRequest strReq = new StringRequest(com.android.volley.Request.Method.POST,
+                "https://beta.aavartan.org/app.android.token", new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("ayush", "FCM Token Register Response: " + response.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean("error");
+                    // Check for error node in json
+                    if (!error) {
+                        Log.e("FCM Token Registration", " Successfully Registered");
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jsonObject.getString("error_msg");
+                        Log.e("FCM Token Registration", "Error : " + errorMsg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("FCM Token Registration", "JSON Error : " + e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("FCM Token Registration", "Volley Error : " + error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+                params.put("user_id", user_id);
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
 }

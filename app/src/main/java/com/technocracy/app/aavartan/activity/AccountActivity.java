@@ -18,13 +18,17 @@ import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.SectionsPagerAdapter;
 import com.technocracy.app.aavartan.SignupFragment;
+import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
+import com.technocracy.app.aavartan.helper.SQLiteHandler;
+import com.technocracy.app.aavartan.helper.SessionManager;
 
 public class AccountActivity extends AppCompatActivity {
 
     private static final int ACTIVITY_NUM = 3;
     private Intent intent;
     private Toolbar mtoolbar;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,15 @@ public class AccountActivity extends AppCompatActivity {
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setTitle("YOUR ACCOUNT");
         setUpViewPager();
+        session = new SessionManager(getApplicationContext());
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
+            User user = sqLiteHandler.getUser();
+            Intent intent = new Intent(AccountActivity.this, UserActivity.class);
+            startActivity(intent);
+            finish();
+        }
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

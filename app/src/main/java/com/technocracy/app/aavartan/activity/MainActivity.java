@@ -78,24 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (sessionManager.isLoggedIn()) {
             sqLiteHandler = new SQLiteHandler(getApplicationContext());
-            User user = sqLiteHandler.getUser();
-            if (user.getVerified() == 0) {
-                if (getTime(user.getMember_since())) {
-                    sessionManager.setLogin(false);
-                    sqLiteHandler.deleteUsers();
-                    new AlertDialog.Builder(this).setIcon(R.drawable.ic_dialog_alert).setTitle("Verification")
-                            .setMessage("Please verify your email from the verification link sent to your email to continue using this account. ")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    sessionManager.setLogin(false);
-                                    sqLiteHandler.deleteUsers();
-                                    Snackbar.make(findViewById(R.id.main_activity_layout), "You have been logged out.", Snackbar.LENGTH_LONG).show();
-                                }
-                            }).show();
-                }
-            }
-
         }
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLoggedIn()) {
@@ -229,17 +211,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_Login) {
-            sessionManager = new SessionManager(getApplicationContext());
-            boolean userLoggedIn = sessionManager.isLoggedIn();
-            if (userLoggedIn) {
-                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        }
         if (id == R.id.action_notification) {
             Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
             MainActivity.this.startActivity(intent);

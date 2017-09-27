@@ -18,6 +18,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
         Log.e("FireBase ", "onMessageReceived");
 
         Notifications notification = new Notifications(Integer.parseInt(remoteMessage.getData().get("id")),
@@ -45,10 +46,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 notification.getMessage(), notification.getCreatedAt(), resultIntent,
                 notification.getImageUrl(), notification.getType());
     }
-    /**
-     * Showing notification with text only
-     */
-    private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent, String imageUrl, String type) {
+
+   private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent, String imageUrl, String type) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK | IntentCompat.FLAG_ACTIVITY_TASK_ON_HOME);
         notificationUtils.showNotificationMessage(title, message, timeStamp, intent, imageUrl, type);

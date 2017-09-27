@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                         int count_event_registered = user.getInt("count_event_registered");
                         session = new SessionManager(getApplicationContext());
                         session.setLogin(true);
-                        db.addUser(user_id, first_name, last_name, email, phone,college_name,count_event_registered);
+                        //db.addUser(user_id, first_name, last_name, email, phone,college_name,count_event_registered);
                         registerToken(FirebaseInstanceId.getInstance().getToken(), String.valueOf(user_id));
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                         startActivity(intent);

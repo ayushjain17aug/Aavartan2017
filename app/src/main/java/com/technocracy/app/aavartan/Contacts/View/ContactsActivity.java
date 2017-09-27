@@ -108,17 +108,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactView {
             case android.R.id.home:
                 onBackPressed();
                 break;
-            case R.id.action_Login:
-                SessionManager sessionManager = new SessionManager(getApplicationContext());
-                boolean userLoggedIn = sessionManager.isLoggedIn();
-                if (userLoggedIn) {
-                    Intent intent = new Intent(ContactsActivity.this, UserActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(ContactsActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-                break;
             case R.id.action_notification:
                 Intent intent = new Intent(ContactsActivity.this, NotificationsActivity.class);
                 startActivity(intent);

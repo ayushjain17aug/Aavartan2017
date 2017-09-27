@@ -4,15 +4,22 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
+import com.technocracy.app.aavartan.Event.View.EventListActivity;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.api.User;
+import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
@@ -36,7 +43,7 @@ public class UserActivity extends AppCompatActivity {
     User user;
     TextView user_id, first, last;
     TextView first_name;
-
+    private Intent intent;
     TextView email;
     TextView phone;
     TextView college;
@@ -80,7 +87,7 @@ public class UserActivity extends AppCompatActivity {
                 sessionManager = new SessionManager(getApplicationContext());
                 sessionManager.setLogin(false);
                 sqLiteHandler.deleteUsers();
-                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                Intent intent = new Intent(UserActivity.this, AccountActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -127,6 +134,58 @@ public class UserActivity extends AppCompatActivity {
         college.setText(user.getCollege());
         event.setText(String.valueOf(user.getcount_event_registered()));
         member_since.setText(outputdate);
+
+
+
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.btn1:
+                        intent = new Intent(UserActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        break;
+                    case R.id.btn2:
+                        intent = new Intent(UserActivity.this, EventListActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+                        break;
+                    case R.id.btn3:
+                        intent = new Intent(UserActivity.this, AttractionActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+                        break;
+                    case R.id.btn4:
+                        intent = new Intent(UserActivity.this, AccountActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+
+                        break;
+                    case R.id.btn5:
+                        intent = new Intent(UserActivity.this, ScheduleActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                        break;
+                }
+                //   updateNavigationBarState(bottomNavigationView,item.getItemId());
+                return true;
+            }
+        });
+
+        Menu menu=bottomNavigationView.getMenu();
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            if(i==3)
+                item.setChecked(true);
+            else
+                item.setChecked(false);
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -138,6 +197,11 @@ public class UserActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(UserActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
 

@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/spaceblack"
+        android:background="@drawable/image"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:title="My Events"
         android:titleTextColor="@color/white"
@@ -29,7 +29,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/spaceblack"
+            android:background="@drawable/image"
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
@@ -40,9 +40,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:padding="10dp"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="You have not registered for any events. Yet."
+        android:text="You have not registered for any events yet."
+        android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/white"
         android:visibility="gone" />

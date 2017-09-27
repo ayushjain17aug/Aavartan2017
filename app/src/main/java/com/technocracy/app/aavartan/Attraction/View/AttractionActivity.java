@@ -104,6 +104,15 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
                 return true;
             }
         });
+        Menu menu = bottomNavigationView.getMenu();
+
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            if (i == 2)
+                item.setChecked(true);
+            else
+                item.setChecked(false);
+        }
 
     }
 
@@ -117,17 +126,6 @@ public class AttractionActivity extends AppCompatActivity implements Eventkeys.A
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_Login) {
-            sessionManager = new SessionManager(getApplicationContext());
-            boolean userLoggedIn = sessionManager.isLoggedIn();
-            if (userLoggedIn) {
-                Intent intent = new Intent(AttractionActivity.this, UserActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(AttractionActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        }
         if (id == R.id.action_notification) {
             Intent intent = new Intent(AttractionActivity.this, NotificationsActivity.class);
             AttractionActivity.this.startActivity(intent);

@@ -89,18 +89,6 @@ public class EventDetailsActivity extends AppCompatActivity implements RegisterE
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                break;
-            case R.id.action_Login:
-                SessionManager sessionManager = new SessionManager(getApplicationContext());
-                boolean userLoggedIn = sessionManager.isLoggedIn();
-                if (userLoggedIn) {
-                    Intent intent = new Intent(EventDetailsActivity.this, UserActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(EventDetailsActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-                break;
             case R.id.action_notification:
                 Intent intent = new Intent(EventDetailsActivity.this, NotificationsActivity.class);
                 startActivity(intent);

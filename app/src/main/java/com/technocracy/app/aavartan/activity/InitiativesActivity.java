@@ -91,17 +91,6 @@ public class InitiativesActivity extends AppCompatActivity implements Navigation
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_Login) {
-            SessionManager sessionManager = new SessionManager(getApplicationContext());
-            boolean userLoggedIn = sessionManager.isLoggedIn();
-            if (userLoggedIn) {
-                Intent intent = new Intent(InitiativesActivity.this, UserActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(InitiativesActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        }
         if (id == R.id.action_notification) {
             Intent intent = new Intent(InitiativesActivity.this, NotificationsActivity.class);
             startActivity(intent);
