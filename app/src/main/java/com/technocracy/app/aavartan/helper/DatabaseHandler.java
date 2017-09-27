@@ -20,7 +20,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "LocalDatabase";
@@ -29,8 +29,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_NOTIFICATIONS = "notifications";
     // Notifications Table Columns names
     private static final String NOTIFICATION_ID = "id";
-    private static final String NOTIFICATION_TYPE = "type";
-    private static final String NOTIFICATION_EVENT_ID = "event_id";
     private static final String NOTIFICATION_TITLE = "title";
     private static final String NOTIFICATION_MESSAGE = "message";
     private static final String NOTIFICATION_IMAGE_URL = "image_url";
@@ -98,8 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE " + TABLE_NOTIFICATIONS + "("
-                + NOTIFICATION_ID + " INTEGER PRIMARY KEY," + NOTIFICATION_TYPE + " TEXT,"
-                + NOTIFICATION_EVENT_ID + " INTEGER," + NOTIFICATION_TITLE + " TEXT,"
+                + NOTIFICATION_ID + " INTEGER PRIMARY KEY," + NOTIFICATION_TITLE + " TEXT,"
                 + NOTIFICATION_MESSAGE + " TEXT," + NOTIFICATION_IMAGE_URL + " TEXT,"
                 + NOTIFICATION_CREATED_AT + " TEXT" + ")";
         db.execSQL(CREATE_NOTIFICATIONS_TABLE);
@@ -418,8 +415,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(NOTIFICATION_ID, notification.getId());
-        values.put(NOTIFICATION_TYPE, notification.getType());
-        values.put(NOTIFICATION_EVENT_ID, notification.getEventId());
         values.put(NOTIFICATION_TITLE, notification.getTitle());
         values.put(NOTIFICATION_MESSAGE, notification.getMessage());
         values.put(NOTIFICATION_IMAGE_URL, notification.getImageUrl());
@@ -433,7 +428,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NOTIFICATIONS, new String[]{NOTIFICATION_ID,
-                        NOTIFICATION_TYPE, NOTIFICATION_EVENT_ID,
                         NOTIFICATION_TITLE, NOTIFICATION_MESSAGE,
                         NOTIFICATION_IMAGE_URL, NOTIFICATION_CREATED_AT,}, NOTIFICATION_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
@@ -441,8 +435,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         Notifications notifications = new Notifications(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), cursor.getString(4),
-                cursor.getString(5), cursor.getString(6));
+                cursor.getString(1), cursor.getString(2),cursor.getString(3),
+                cursor.getString(4));
 
         return notifications;
     }
@@ -459,8 +453,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Notifications notification = new Notifications(Integer.parseInt(cursor.getString(0)),
-                        cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), cursor.getString(4),
-                        cursor.getString(5), cursor.getString(6));
+                        cursor.getString(1), cursor.getString(2),cursor.getString(3),
+                        cursor.getString(4));
 
                 // Adding notification to list
                 notificationsList.add(notification);
@@ -492,8 +486,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(NOTIFICATION_ID, notification.getId());
-        values.put(NOTIFICATION_TYPE, notification.getType());
-        values.put(NOTIFICATION_EVENT_ID, notification.getEventId());
         values.put(NOTIFICATION_TITLE, notification.getTitle());
         values.put(NOTIFICATION_MESSAGE, notification.getMessage());
         values.put(NOTIFICATION_IMAGE_URL, notification.getImageUrl());

@@ -45,11 +45,11 @@ public class NotificationUtils {
         this.mContext = mContext;
     }
 
-    public void showNotificationMessage(final String title, final String message, final String timeStamp, Intent intent, String imageUrl, String type) {
+    public void showNotificationMessage(final String title, final String message, final String timeStamp, Intent intent, String imageUrl) {
         // Check for empty push message
         if (TextUtils.isEmpty(message))
             return;
-
+        Log.d("ayush","showNotificationMessage method");
         // notification icon
         final int icon = R.mipmap.ic_launcher;
 
@@ -68,30 +68,34 @@ public class NotificationUtils {
         final Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         if (!TextUtils.isEmpty(imageUrl)) {
+
             if (imageUrl != null && imageUrl.length() > 4 && Patterns.WEB_URL.matcher(imageUrl).matches()) {
                 Bitmap bitmap = getBitmapFromURL(imageUrl);
                 if (bitmap != null) {
                     showBigNotification(bitmap, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
                 } else {
-                    showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+                    Bitmap bitmap2 = getBitmapFromURL("https://beta.aavartan.org/assets/main/img/aavartan-logo.png");
+                    showBigNotification(bitmap2, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
                 }
             }
-        } else {
-            showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+            else {
+                Bitmap bitmap2 = getBitmapFromURL("https://beta.aavartan.org/assets/main/img/aavartan-logo.png");
+                showBigNotification(bitmap2, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+            }
         }
     }
 
     private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title,
                                        String message, String timeStamp,
                                        PendingIntent resultPendingIntent, Uri alarmSound) {
-
+        Log.d("ayush","here");
         NotificationCompat.BigTextStyle inboxStyle = new NotificationCompat.BigTextStyle();
         inboxStyle.bigText(Html.fromHtml(message));
-
         Notification notification;
         notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
                 .setAutoCancel(true)
                 .setContentTitle(title)
+                .setContentText(message)
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
                 .setStyle(inboxStyle)
@@ -130,6 +134,7 @@ public class NotificationUtils {
         notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
                 .setAutoCancel(true)
                 .setContentTitle(title)
+                .setContentText(message)
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
                 .setStyle(bigPictureStyle)

@@ -79,110 +79,24 @@ public class NotificationsActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                SessionManager sessionManager = new SessionManager(getApplicationContext());
-                if (sessionManager.isLoggedIn()) {
-                    SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
-                    User user = sqLiteHandler.getUser();
-                    String userid = String.valueOf(user.getUser_id());
-                    preparenotificationdata(userid);
-                } else {
-                    preparenotificationdata();
-                }
+                preparenotificationdata();
             }
         });
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 SessionManager sessionManager = new SessionManager(getApplicationContext());
-                if (sessionManager.isLoggedIn()) {
-                    SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
-                    User user = sqLiteHandler.getUser();
-                    String userid = String.valueOf(user.getUser_id());
-                    preparenotificationdata(userid);
-                } else {
                     preparenotificationdata();
-                }
             }
         });
 
     }
-
-    private void preparenotificationdata(final String userID) {
-        String tag_string_req = "req_getNotification";
-        swipeRefreshLayout.setRefreshing(true);
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                App.GET_NOTIFICATION, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                swipeRefreshLayout.setRefreshing(false);
-                try {
-                    Log.d("ayush", "got response");
-                    JSONObject jsonResponse = new JSONObject(response);
-                    JSONArray jsonArray = jsonResponse.getJSONArray("notifications");
-                    boolean error = jsonResponse.getBoolean("error");
-                    if (!error) {
-                        Log.d("ayush", "no error");
-                        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                        db.deleteAllNotifications();
-                        noNotificationTextView.setVisibility(View.INVISIBLE);
-                        if (jsonArray.length() == 0)
-                            noNotificationTextView.setVisibility(View.VISIBLE);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            Notifications notifications = new Notifications();
-                            notifications.setId(jsonObject.getInt("id"));
-                            notifications.setType(jsonObject.getString("type"));
-                            notifications.setEventId(jsonObject.getInt("event_id"));
-                            notifications.setTitle(jsonObject.getString("title"));
-                            notifications.setMessage(jsonObject.getString("message"));
-                            notifications.setImageUrl(jsonObject.getString("image_url"));
-                            notifications.setCreatedAt(jsonObject.getString("created_at"));
-                            db.addNotification(notifications);
-                        }
-                        notificationsList = db.getAllNotifications();
-                        mAdapter = new NotificationAdapter(notificationsList, NotificationsActivity.this);
-                        recyclerView.setAdapter(mAdapter);
-                    } else {
-                        Log.d("ayush", "error");
-                        noNotificationTextView.setVisibility(View.VISIBLE);
-                        Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                DatabaseHandler db = new DatabaseHandler(NotificationsActivity.this);
-                notificationsList = db.getAllNotifications();
-                mAdapter = new NotificationAdapter(notificationsList, NotificationsActivity.this);
-                recyclerView.setAdapter(mAdapter);
-                swipeRefreshLayout.setRefreshing(false);
-                Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", userID);
-                return params;
-            }
-        };
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
     private void preparenotificationdata() {
         String tag_string_req = "req_getNotification";
         swipeRefreshLayout.setRefreshing(true);
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                App.GET_NOTIFICATION, new Response.Listener<String>() {
+                "https://beta.aavartan.org/app.android.notifications", new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -190,8 +104,8 @@ public class NotificationsActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("notifications");
-                    boolean error = jsonResponse.getBoolean("error");
-                    if (!error) {
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
                         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
                         db.deleteAllNotifications();
                         noNotificationTextView.setVisibility(View.INVISIBLE);
@@ -201,8 +115,6 @@ public class NotificationsActivity extends AppCompatActivity {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             Notifications notifications = new Notifications();
                             notifications.setId(jsonObject.getInt("id"));
-                            notifications.setType(jsonObject.getString("type"));
-                            notifications.setEventId(jsonObject.getInt("event_id"));
                             notifications.setTitle(jsonObject.getString("title"));
                             notifications.setMessage(jsonObject.getString("message"));
                             notifications.setImageUrl(jsonObject.getString("image_url"));

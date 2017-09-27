@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         final Typewriter tv1=(Typewriter)findViewById(R.id.typewriter1);
         tv1.setText(" ");
         tv1.setCharacterDelay(150);
-        tv1.animateText("ERA OF DIGITIZATION");
+        tv1.animateText("ERA OF DIGITALIZATION");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // toolbar.setTitleTextColor(Color.WHITE);
         // toolbar.setSubtitleTextColor(Color.WHITE);

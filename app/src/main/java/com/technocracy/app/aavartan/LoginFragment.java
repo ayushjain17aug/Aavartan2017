@@ -283,24 +283,24 @@ public class LoginFragment extends Fragment {
                 Log.d("ayush", "FCM Token Register Response: " + response.toString());
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    boolean error = jsonObject.getBoolean("error");
+                    boolean success = jsonObject.getBoolean("success");
                     // Check for error node in json
-                    if (!error) {
-                        Log.e("FCM Token Registration", " Successfully Registered");
+                    if (success) {
+                        Log.d("ayush", " Successfully Registered");
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jsonObject.getString("error_msg");
-                        Log.e("FCM Token Registration", "Error : " + errorMsg);
+                        Log.d("ayush", "Error : " + errorMsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("FCM Token Registration", "JSON Error : " + e.getMessage());
+                    Log.d("ayush", "JSON Error : " + e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("FCM Token Registration", "Volley Error : " + error.getMessage());
+                Log.d("ayush", "Volley Error : " + error.getMessage());
             }
         }) {
             @Override

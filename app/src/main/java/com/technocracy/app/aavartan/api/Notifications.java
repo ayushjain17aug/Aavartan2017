@@ -8,19 +8,14 @@ public class Notifications {
     String message;
     String imageUrl;
     String createdAt;
-    String type;
-    int eventId;
-
 
     public Notifications() {
 
     }
 
-    public Notifications(int id, String type, int eventId, String title, String message,
+    public Notifications(int id, String title, String message,
                          String imageUrl, String createdAt) {
         this.id = id;
-        this.type = type;
-        this.eventId = eventId;
         this.title = title;
         this.message = message;
         this.imageUrl = imageUrl;
@@ -67,20 +62,5 @@ public class Notifications {
         this.createdAt = createdAt;
     }
 
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getEventId() {
-        return this.eventId;
-    }
-
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
-    }
 }
 

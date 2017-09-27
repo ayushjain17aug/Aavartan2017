@@ -10,31 +10,44 @@ import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.api.Notifications;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
-    private static final String TAG = FirebaseMessagingService.class.getSimpleName();
+
+    private static final String TAG = "ayush";
     private NotificationUtils notificationUtils;
     DatabaseHandler db = new DatabaseHandler(this);
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.e("FireBase ", "onMessageReceived");
-
+        Log.d("ayush", "onMessageReceived");
+        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.d("ayush",remoteMessage.getData().get("created_at"));
+        Log.d("ayush",remoteMessage.getData().get("image_url"));
+        Log.d("ayush",remoteMessage.getData().get("title"));
+        String date = null;
+        try {
+            
+            JSONObject jsonObject = new JSONObject( remoteMessage.getData().get("created_at"));
+            date = jsonObject.getString("date");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Notifications notification = new Notifications(Integer.parseInt(remoteMessage.getData().get("id")),
-                remoteMessage.getData().get("type"), Integer.parseInt(remoteMessage.getData().get("event_id")),
                 remoteMessage.getData().get("title"), remoteMessage.getData().get("message"),
                 remoteMessage.getData().get("image_url"),
-                remoteMessage.getData().get("created_at"));
+                date);
 
         db.addNotification(notification);
 
-        Log.e(TAG, "From: " + remoteMessage.getFrom());
-        Log.e(TAG, "Title: " + notification.getTitle());
-        Log.e(TAG, "message: " + notification.getMessage());
-        Log.e(TAG, "image: " + notification.getImageUrl());
-        Log.e(TAG, "timestamp: " + notification.getCreatedAt());
-        Log.e(TAG, "notification_type" + notification.getType());
+        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.d(TAG, "Title: " + notification.getTitle());
+        Log.d(TAG, "message: " + notification.getMessage());
+        Log.d(TAG, "image: " + notification.getImageUrl());
+        Log.d(TAG, "timestamp: " + notification.getCreatedAt());
 
         Intent resultIntent = new Intent(getApplicationContext(), NotificationsActivity.class);
         resultIntent.putExtra("message", notification.getMessage());
@@ -43,13 +56,13 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         resultIntent.putExtra("created_at", notification.getCreatedAt());
 
         showNotificationMessage(getApplicationContext(), notification.getTitle(),
-                notification.getMessage(), notification.getCreatedAt(), resultIntent,
-                notification.getImageUrl(), notification.getType());
+        notification.getMessage(), notification.getCreatedAt(), resultIntent,
+        notification.getImageUrl());
     }
 
-   private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent, String imageUrl, String type) {
+   private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent, String imageUrl) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK | IntentCompat.FLAG_ACTIVITY_TASK_ON_HOME);
-        notificationUtils.showNotificationMessage(title, message, timeStamp, intent, imageUrl, type);
+        notificationUtils.showNotificationMessage(title, message, timeStamp, intent, imageUrl);
     }
 }
