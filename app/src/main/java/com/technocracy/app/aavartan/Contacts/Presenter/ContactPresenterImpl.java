@@ -23,23 +23,44 @@ public class ContactPresenterImpl implements ContactPresenter {
     @Override
     public void getContact(String type) {
         view.showProgressBar(true);
-        provider.getContact(new ContactCallback() {
-            @Override
-            public void onFailure() {
-                view.showProgressBar(false);
-                view.showContactsFromDB();
-                view.showMessage(context.getResources().getString(R.string.Connection_Error));
-            }
-
-            @Override
-            public void onSuccess(ContactData contactData) {
-                view.showProgressBar(false);
-                if (contactData.isSuccess()) {
-                    view.showContacts(contactData.getContacts());
-                } else {
+        if (type.equals("1")) {
+            provider.getContact(new ContactCallback() {
+                @Override
+                public void onFailure() {
+                    view.showProgressBar(false);
                     view.showContactsFromDB();
+                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(ContactData contactData) {
+                    view.showProgressBar(false);
+                    if (contactData.isSuccess()) {
+                        view.showContacts(contactData.getContacts());
+                    } else {
+                        view.showContactsFromDB();
+                    }
+                }
+            });
+        } else {
+            provider.getAppTeam(new ContactCallback() {
+                @Override
+                public void onFailure() {
+                    view.showProgressBar(false);
+                    view.showAppTeamFromDB();
+                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+                }
+
+                @Override
+                public void onSuccess(ContactData contactData) {
+                    view.showProgressBar(false);
+                    if (contactData.isSuccess()) {
+                        view.showAppTeam(contactData.getContacts());
+                    } else {
+                        view.showAppTeamFromDB();
+                    }
+                }
+            });
+        }
     }
 }

@@ -16,6 +16,7 @@ import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.activity.AccountActivity;
 import com.technocracy.app.aavartan.activity.MainActivity;
+import com.technocracy.app.aavartan.activity.MapsActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 
@@ -113,6 +114,9 @@ public class EventListActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_notification) {
             Intent intent = new Intent(EventListActivity.this, NotificationsActivity.class);
+            EventListActivity.this.startActivity(intent);
+        }if (id == R.id.map) {
+            Intent intent = new Intent(EventListActivity.this, MapsActivity.class);
             EventListActivity.this.startActivity(intent);
         }
         return false;

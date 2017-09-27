@@ -49,4 +49,22 @@ public class RetrofitContactProvider implements ContactProvider {
             }
         });
     }
+
+    @Override
+    public void getAppTeam(final ContactCallback callback) {
+        api = retrofit.create(ContactApi.class);
+        retrofit2.Call<ContactData> call = api.getAppTeam();
+        call.enqueue(new retrofit2.Callback<ContactData>() {
+            @Override
+            public void onResponse(Call<ContactData> call, Response<ContactData> response) {
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ContactData> call, Throwable t) {
+                callback.onFailure();
+                t.printStackTrace();
+            }
+        });
+    }
 }

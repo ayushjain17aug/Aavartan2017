@@ -80,6 +80,7 @@ public class Tab1 extends Fragment implements ScheduleView {
     @Override
     public void showSchedule(List<Event> schedule) {
         db.deleteScheduleDay1();
+        scheduleList = schedule;
         adapter = new ScheduleAdapter(context, schedule);
         for (Event x : schedule)
             db.addScheduleDay1Item(x);

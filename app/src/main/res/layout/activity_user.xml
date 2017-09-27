@@ -2,18 +2,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/image">
+    android:background="@drawable/image"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:layout_height="?attr/actionBarSize"
-        android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        android:background="@drawable/image"
-        android:titleTextColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@null"
         android:theme="@style/AppTheme.AppBarOverlay"
+        android:titleTextColor="@color/white"
         app:popupTheme="@style/AppTheme.AppBarOverlay"/>
 
   <LinearLayout
@@ -26,45 +26,45 @@
           android:layout_marginTop="30dp"
           android:gravity="center_horizontal">
           <TextView
-              android:text="Welcome "
-              android:textStyle="bold"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/lightback"
               android:id="@+id/textView3"
-              android:textSize="30dp" />
-          <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textStyle="bold"
+              android:text="Welcome "
               android:textColor="@color/lightback"
+              android:textSize="30dp"
+              android:textStyle="bold" />
+          <TextView
               android:id="@+id/first_name"
-              android:textSize="30dp" />
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/lightback"
+              android:textSize="30dp"
+              android:textStyle="bold" />
       </LinearLayout>
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="25dp">
           <TextView
-              android:text="Full Name : "
-              android:layout_width="wrap_content"
-              android:layout_marginLeft="60dp"
-              android:textColor="@color/title"
-              android:layout_height="wrap_content"
               android:id="@+id/textView5"
-              android:textSize="15dp" />
-          <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textColor="@color/lightback"
+              android:layout_marginLeft="60dp"
+              android:text="Full Name : "
+              android:textColor="@color/title"
+              android:textSize="15dp" />
+          <TextView
               android:id="@+id/first"
-              android:paddingRight="3dp"
-              android:textSize="15dp" />
-          <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:paddingRight="3dp"
               android:textColor="@color/lightback"
-              android:id="@+id/last" />
+              android:textSize="15dp" />
+          <TextView
+              android:id="@+id/last"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/lightback" />
       </LinearLayout>
       <LinearLayout
           android:layout_width="match_parent"
@@ -72,12 +72,12 @@
           android:layout_marginTop="10dp">
 
           <TextView
-              android:text="User Id : "
-              android:layout_width="wrap_content"
-              android:layout_marginLeft="60dp"
-              android:textColor="@color/title"
-              android:layout_height="wrap_content"
               android:id="@+id/textView4"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="60dp"
+              android:text="User Id : "
+              android:textColor="@color/title"
               android:textSize="15dp" />
           <TextView
               android:layout_width="wrap_content"
@@ -85,10 +85,10 @@
               android:text="NITRR/AV-"
               android:textColor="@color/lightback"/>
           <TextView
+              android:id="@+id/user_id"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:textColor="@color/lightback"
-              android:id="@+id/user_id"
               android:textSize="15dp" />
 
       </LinearLayout>
@@ -97,19 +97,19 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp">
           <TextView
-              android:text="Login/Email : "
-              android:layout_width="wrap_content"
-              android:layout_marginLeft="60dp"
-              android:layout_height="wrap_content"
-              android:textColor="@color/title"
               android:id="@+id/textView6"
-              android:textSize="15dp" />
-          <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textColor="@color/lightback"
+              android:layout_marginLeft="60dp"
+              android:text="Login/Email : "
+              android:textColor="@color/title"
+              android:textSize="15dp" />
+          <TextView
               android:id="@+id/email"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
               android:maxLength="24"
+              android:textColor="@color/lightback"
               android:textSize="15dp" />
       </LinearLayout>
       <LinearLayout
@@ -117,18 +117,18 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp">
           <TextView
-              android:text="Phone : "
-              android:layout_width="wrap_content"
-              android:layout_marginLeft="60dp"
-              android:layout_height="wrap_content"
-              android:textColor="@color/title"
               android:id="@+id/textView7"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="60dp"
+              android:text="Phone : "
+              android:textColor="@color/title"
               android:textSize="15dp" />
           <TextView
-              android:layout_width="wrap_content"
-              android:textColor="@color/lightback"
-              android:layout_height="wrap_content"
               android:id="@+id/phone"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/lightback"
               android:textSize="15dp" />
       </LinearLayout>
       <LinearLayout
@@ -136,18 +136,18 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp">
           <TextView
-              android:text="College Name : "
-              android:layout_width="wrap_content"
-              android:layout_marginLeft="60dp"
-              android:textColor="@color/title"
-              android:layout_height="wrap_content"
               android:id="@+id/textView8"
-              android:textSize="15dp" />
-          <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textColor="@color/lightback"
+              android:layout_marginLeft="60dp"
+              android:text="College Name : "
+              android:textColor="@color/title"
+              android:textSize="15dp" />
+          <TextView
               android:id="@+id/college"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/lightback"
               android:textSize="15dp" />
       </LinearLayout>
       <LinearLayout
@@ -155,18 +155,18 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp">
           <TextView
-              android:text="Event Registered : "
-              android:layout_width="wrap_content"
-              android:layout_marginLeft="60dp"
-              android:layout_height="wrap_content"
-              android:textColor="@color/title"
               android:id="@+id/textView9"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="60dp"
+              android:text="Event Registered : "
+              android:textColor="@color/title"
               android:textSize="15dp" />
           <TextView
-              android:layout_width="wrap_content"
-              android:textColor="@color/lightback"
-              android:layout_height="wrap_content"
               android:id="@+id/event"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/lightback"
               android:textSize="15dp" />
       </LinearLayout>
       <LinearLayout
@@ -174,18 +174,18 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp">
           <TextView
-              android:text="Member Since : "
-              android:layout_width="wrap_content"
-              android:layout_marginLeft="60dp"
-              android:layout_height="wrap_content"
-              android:textColor="@color/title"
               android:id="@+id/textView10"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="60dp"
+              android:text="Member Since : "
+              android:textColor="@color/title"
               android:textSize="15dp" />
           <TextView
-              android:layout_width="wrap_content"
-              android:textColor="@color/lightback"
-              android:layout_height="wrap_content"
               android:id="@+id/member_since"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/lightback"
               android:textSize="15dp" />
       </LinearLayout>
 
@@ -195,44 +195,44 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="15dp"
-          android:weightSum="1"
-          android:gravity="center_horizontal">
+          android:gravity="center_horizontal"
+          android:weightSum="1">
 
 
           <Button
-              android:text="My Events"
+              android:id="@+id/button2"
               android:layout_width="250dp"
-              android:background="@drawable/button_bg_rounded_corners"
               android:layout_height="wrap_content"
-              android:textColor="@color/colorPrimary"
-              android:id="@+id/button2" />
+              android:background="@drawable/button_bg_rounded_corners"
+              android:text="My Events"
+              android:textColor="@color/colorPrimary" />
 
 
       </LinearLayout>
       <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:orientation="horizontal"
+          android:layout_gravity="center_horizontal"
           android:layout_marginBottom="10dp"
-          android:layout_gravity="center_horizontal">
+          android:layout_marginTop="10dp"
+          android:orientation="horizontal">
           <Button
-              android:text="Stay"
+              android:id="@+id/stay"
               android:layout_width="150dp"
+              android:layout_height="wrap_content"
               android:background="@drawable/button_bg_rounded_corners"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorPrimary"
               android:padding="10dp"
-              android:id="@+id/stay" />
+              android:text="Stay"
+              android:textColor="@color/colorPrimary" />
           <Button
-              android:text="Log Out"
-              android:padding="10dp"
-              android:textColor="@color/colorPrimary"
-              android:layout_height="wrap_content"
               android:id="@+id/button1"
               android:layout_width="150dp"
+              android:layout_height="wrap_content"
               android:background="@drawable/button_bg_rounded_corners"
-              android:gravity="center"/>
+              android:gravity="center"
+              android:padding="10dp"
+              android:text="Log Out"
+              android:textColor="@color/colorPrimary" />
       </LinearLayout>
   </LinearLayout>
     <LinearLayout
@@ -244,10 +244,10 @@
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="@color/lightback"
             app:itemIconTint="@drawable/nav_item_colors"
             app:itemTextColor="@drawable/nav_item_colors"
-            android:layout_alignParentBottom="true"
             app:menu="@menu/menu_bottom_navigation" />
     </LinearLayout>
 

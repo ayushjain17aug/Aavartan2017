@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <ProgressBar
-            android:id="@+id/progress_bar_attraction"
+            android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -27,43 +27,43 @@
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@color/title"
             android:backgroundTint="@color/lightback"
-            android:theme="@style/ThemeOverlay.AppCompat.Light">
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextColor="@color/title">
 
             </android.support.v7.widget.Toolbar>
         <View
+            android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/title"
-            android:id="@+id/line"
-            android:layout_below="@+id/toolbar1"/>
+            android:layout_below="@+id/toolbar1"
+            android:background="@color/title" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_below="@+id/line">
+            android:layout_below="@+id/line"
+            android:orientation="vertical">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.9"
-            android:layout_marginTop="5dp"
+            android:layout_above="@+id/bottom_navigation"
             android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/progress_bar_attraction"
             android:layout_toRightOf="@+id/progress_bar_attraction"
+            android:layout_weight="0.9"
             android:background="@drawable/image"
-            android:layout_above="@+id/bottom_navigation"
             android:scrollbars="vertical"/>
         <!-- TODO: Update blank fragment layout -->
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_weight="0.1"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
+            android:layout_weight="0.1"
             app:itemIconTint="@drawable/nav_item_colors"
             app:itemTextColor="@drawable/nav_item_colors"
             app:menu="@menu/menu_bottom_navigation" />

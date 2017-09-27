@@ -26,6 +26,11 @@ public class MockContactProvider implements ContactProvider {
         }, 500);
     }
 
+    @Override
+    public void getAppTeam(ContactCallback callback) {
+
+    }
+
     public ContactData getMockContactData() {
         List<Contact> contacts = new ArrayList<>();
         contacts.add(new Contact(5, "ANSHUL", "CORE MEMBER",

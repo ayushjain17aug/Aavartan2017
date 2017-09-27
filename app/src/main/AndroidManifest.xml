@@ -65,7 +65,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB5-D4zZKVzXnylxLy8eQ-WWg8J_1YsJRo" />
+            android:value="AIzaSyBKaTDfctMfv7o1jEGcy8qH0gs1yZnYSEk" />
 
         <activity
             android:name=".Event.View.EventActivity"

@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/image"
+        android:background="@null"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:title="My Events"
         android:titleTextColor="@color/white"
@@ -40,13 +40,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:padding="10dp"
         android:layout_centerVertical="true"
         android:gravity="center"
+        android:padding="10dp"
         android:text="You have not registered for any events yet."
-        android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/white"
+        android:textSize="30dp"
         android:visibility="gone" />
 
 
