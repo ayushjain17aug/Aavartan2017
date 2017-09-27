@@ -34,6 +34,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,18 +53,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Typewriter tv=(Typewriter)findViewById(R.id.typewriter);
-        tv.setText(" ");
-        tv.setCharacterDelay(150);
-        tv.animateText("IMAGINE IMPROVE IMPLEMENT");
-        final Typewriter tv1=(Typewriter)findViewById(R.id.typewriter1);
-        tv1.setText(" ");
-        tv1.setCharacterDelay(150);
-        tv1.animateText("ERA OF DIGITIZATION");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // toolbar.setTitleTextColor(Color.WHITE);
         // toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new MyTimerTask(), 1200, 4000);
+
+
         //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -70,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
 
         //new DatabaseHandler(getApplicationContext()).dropDB();
-
-
 
 
         if (sessionManager.isLoggedIn()) {
@@ -232,4 +228,25 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+    public class MyTimerTask extends TimerTask{
+
+        @Override
+        public void run() {
+            MainActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    final Typewriter tv = (Typewriter) findViewById(R.id.typewriter);
+                    final Typewriter tv1 = (Typewriter) findViewById(R.id.typewriter1);
+                    tv.setText(" ");
+                    tv.setCharacterDelay(150);
+                    tv.animateText("IMAGINE IMPROVE IMPLEMENT");
+                    tv1.setText(" ");
+                    tv1.setCharacterDelay(150);
+                    tv1.animateText("ERA OF DIGITIZATION");
+                }
+            });
+        }
+    }
+
+
 }
