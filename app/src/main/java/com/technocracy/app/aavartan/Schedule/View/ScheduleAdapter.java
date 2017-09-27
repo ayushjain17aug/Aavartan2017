@@ -44,8 +44,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
         Event event = scheduleArrayList.get(position);
         holder.scheduleCard.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
         holder.eventNameTv.setText(event.getName());
-        holder.eventTimeTv.setText(event.getTime() + "");
-        holder.eventVenueTv.setText(event.getVenue() + "");
+        String time = event.getTime();
+        String venue= event.getVenue();
+        if(time==null)
+            time = "7-8 October";
+        if(venue==null)
+            venue = "NIT Raipur";
+        holder.eventTimeTv.setText(time);
+        holder.eventVenueTv.setText(venue);
         String eventImageUrl = event.getImage_url();
         Log.d("abhi", "" + event.getName() + " " + event.getVenue());
         Picasso.with(mContext)

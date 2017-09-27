@@ -32,7 +32,7 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
     }
 
     public EventTypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(mContext).inflate(R.layout.event_set_item, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_set_item, parent, false);
         return new EventTypeHolder(view);
     }
 
