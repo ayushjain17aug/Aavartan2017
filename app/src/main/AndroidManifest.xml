@@ -138,6 +138,10 @@
         <activity
             android:name=".activity.AccountActivity"
             android:windowSoftInputMode="adjustPan" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f3bb74558b888fe39673c3bda839a45dea0460ec" />
     </application>
 
 </manifest>

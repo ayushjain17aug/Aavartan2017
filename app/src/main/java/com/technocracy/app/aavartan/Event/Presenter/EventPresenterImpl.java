@@ -49,7 +49,7 @@ public class EventPresenterImpl implements EventPresenter {
                     if (body.isSuccess()) {
                         view.showEvents(body.getEventList());
                     } else {
-                        //  view.showEventsFromDatabase();
+                        view.showEventsFromDatabase();
                         view.showMessage(body.getMessage());
                     }
                 }
@@ -59,7 +59,7 @@ public class EventPresenterImpl implements EventPresenter {
                 @Override
                 public void onFailure() {
                     view.showProgressBar(false);
-                    // view.showEventsFromDatabase();
+                    view.showEventsFromDatabase();
                     view.showMessage(context.getResources().getString(R.string.Connection_Error));
 
                 }
@@ -70,7 +70,7 @@ public class EventPresenterImpl implements EventPresenter {
                     if (body.isSuccess()) {
                         view.showEvents(body.getEventList());
                     } else {
-                        //   view.showEventsFromDatabase();
+                        view.showEventsFromDatabase();
                         view.showMessage(body.getMessage());
                     }
                 }
@@ -80,7 +80,7 @@ public class EventPresenterImpl implements EventPresenter {
                 @Override
                 public void onFailure() {
                     view.showProgressBar(false);
-//                    view.showEventsFromDatabase();
+                    view.showEventsFromDatabase();
                     view.showMessage(context.getResources().getString(R.string.Connection_Error));
 
                 }
@@ -91,7 +91,7 @@ public class EventPresenterImpl implements EventPresenter {
                     if (body.isSuccess()) {
                         view.showEvents(body.getEventList());
                     } else {
-//                        view.showEventsFromDatabase();
+                        view.showEventsFromDatabase();
                         view.showMessage(body.getMessage());
                     }
                 }
@@ -101,7 +101,7 @@ public class EventPresenterImpl implements EventPresenter {
                 @Override
                 public void onFailure() {
                     view.showProgressBar(false);
-//                    view.showEventsFromDatabase();
+                    view.showEventsFromDatabase();
                     view.showMessage(context.getResources().getString(R.string.Connection_Error));
 
                 }
@@ -112,7 +112,7 @@ public class EventPresenterImpl implements EventPresenter {
                     if (body.isSuccess()) {
                         view.showEvents(body.getEventList());
                     } else {
-//                        view.showEventsFromDatabase();
+                        view.showEventsFromDatabase();
                         view.showMessage(body.getMessage());
                     }
                 }

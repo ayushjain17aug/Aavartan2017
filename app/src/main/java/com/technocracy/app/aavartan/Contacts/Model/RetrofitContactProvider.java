@@ -7,6 +7,8 @@ import com.technocracy.app.aavartan.Contacts.ContactCallback;
 import com.technocracy.app.aavartan.Contacts.Model.Data.ContactData;
 import com.technocracy.app.aavartan.helper.App;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -26,7 +28,10 @@ public class RetrofitContactProvider implements ContactProvider {
     public RetrofitContactProvider() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).
+                readTimeout(60, TimeUnit.SECONDS).
+                connectTimeout(60, TimeUnit.SECONDS).
+                build();
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder().baseUrl(App.Base_Url).
                 addConverterFactory(GsonConverterFactory.create(gson)).client(client).build();
