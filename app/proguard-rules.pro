@@ -19,3 +19,5 @@
 -keepclassmembers class android.support.design.internal.BottomNavigationMenuView {
     boolean mShiftingMode;
 }
+-keep class com.technocracy.app.aavartan.** { *; }
+-keep public class com.google.gson

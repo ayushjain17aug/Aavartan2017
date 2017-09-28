@@ -65,8 +65,8 @@
         <EditText
             android:id="@+id/college"
             android:inputType="text"
-            android:drawableStart="@drawable/ic_location_city_black_24dp"
-            android:drawableLeft="@drawable/ic_location_city_black_24dp"
+            android:drawableStart="@drawable/ic_view_array_black_24dp"
+            android:drawableLeft="@drawable/ic_view_array_black_24dp"
             android:textColor="@color/white"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
