@@ -37,7 +37,6 @@ public class ViewPDF extends AppCompatActivity {
         mToolbar.setTitle("Problem Statement");
         mToolbar.setTitleTextColor(this.getResources().getColor(R.color.title));
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         LinkToPDF = App.LinkPDF;
         try {
             lt.setMessage("Loading Problem Statement...");

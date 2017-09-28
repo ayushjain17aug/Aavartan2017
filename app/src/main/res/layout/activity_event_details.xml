@@ -42,7 +42,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="408dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/description_textView"
@@ -63,7 +63,7 @@
                 <TextView
                     android:id="@+id/event_details_textView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentRight="true"

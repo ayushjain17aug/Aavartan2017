@@ -33,7 +33,7 @@ public class EventPresenterImpl implements EventPresenter {
     @Override
     public void getEvents(String eventSetId) {
         view.showProgressBar(true);
-        if (eventSetId.equals("1")) {
+        if (eventSetId.equals("fun")) {
             provider.getFunEvent(new EventCallback() {
                 @Override
                 public void onFailure() {
@@ -54,7 +54,7 @@ public class EventPresenterImpl implements EventPresenter {
                     }
                 }
             });
-        } else if (eventSetId.equals("2")) {
+        } else if (eventSetId.equals("manager")) {
             provider.getManagerialEvent(new EventCallback() {
                 @Override
                 public void onFailure() {
@@ -75,7 +75,7 @@ public class EventPresenterImpl implements EventPresenter {
                     }
                 }
             });
-        } else if (eventSetId.equals("1")) {
+        } else if (eventSetId.equals("tech")) {
             provider.getTechEvent(new EventCallback() {
                 @Override
                 public void onFailure() {

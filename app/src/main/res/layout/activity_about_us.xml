@@ -45,11 +45,45 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Who we are ?"
+                    android:textSize="30dp"/>
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
-                    android:text="All the theories and formulae boils down to one most crucial thing in engineering- Application.This ideology forms the basis of an occasion which lets the engineer in every student fly and air the spark within. And we have named it as Aavartan.It is a two day annual symposium of NIT Raipur, by far the largest Techfest of central India, by some standards.\n\n Aavartan is the celebration of engineering, science and technology organized wholly and solely by the students of TechnoCracy-Technical Committee NIT Raipur.Thus, one cannot go wrong with the level of enthusiam shown by the young engineering population and the resulting magnificient fire from the aired spark.Meticulously planned events, enticing guest lectures and modern workshops organized with the help of other committees and clubs of NIT Raipur makes Aavartan a hard to miss event.\n\nAnd if that is not all, Aavartan also sees itself as a socially responsible entity by encouraging and undertaking various social causes every year, like this time around it is; Awareness about cyber crime.This is the edition of Aavartan and is planned to be bigger and better than before. One can definitely expect an altogether new spin to things already done and something far more amazing like never seen before."
+                    android:text="Started in 2007 with the aim of inspiring technology, innovation and scientific thinking, AAVARTAN is now accepted as Central India’s Largest Science and Technological fest with a footfall of more than 10,000 yearly and a reach of over 150+ Indian Colleges."
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/lightback" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="How is AAVARTAN put up ?"
+                    android:textSize="25dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:text="Complete planning and execution of AAVARTAN is done by the students of NIT Raipur in a three- layer team structure. The core managerial team is of 16 members with 2 Overall Coordinators guiding 16 Head Coordinators. We greatly rely upon the perception of “Together everyone achieves more”. Every success and failure is shared equally by all of us. Although every facet of AAVARTAN is no dear to one coordinator than the other but for proper functioning, certain assortments are made within the team.
+The assortments can be broadly categorised into six sections. Each domain is specialised in its own task. The various groups are Media and Marketing, Publicity, Web and App, Events, Creatives and Design. They collaboratively take care of the various happenings and initiatives of AAVARTAN. A team of over 200 Coordinators and volunteers work in synchronization to execute and implement the marvellous spectacle called AAVARTAN."
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/lightback" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Why come to AAVARTAN ?"
+                    android:textSize="25dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:text="In its attempt to provide a national platform for the youth to showcase their talents and skills in aggressive competitions, displaying latest technology and having renowned personalities motivate the youth and providing solutions to various significant problems, AAVARTAN endeavours for one and all to get inspired and look up to."
                     android:textAlignment="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/lightback" />

@@ -58,6 +58,7 @@ public class ContactPresenterImpl implements ContactPresenter {
                         view.showAppTeam(contactData.getContacts());
                     } else {
                         view.showAppTeamFromDB();
+                        view.showMessage("Some Error!Try Again");
                     }
                 }
             });
