@@ -1,6 +1,5 @@
 package com.technocracy.app.aavartan.Schedule.View.tabs;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -32,22 +31,17 @@ public class Tab2 extends Fragment implements ScheduleView {
     private ScheduleAdapter adapter;
     private ProgressBar progressBar;
     private SchedulePresenter presenter;
-    private Context context;
-
-    public Tab2() {
-        this.context = getActivity();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.tab_2, container, false);
         db = new DatabaseHandler(getActivity());
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-        mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         //scheduleList = db.getScheduleDay2Items();
         progressBar = (ProgressBar) v.findViewById(R.id.progress_bar_tab2);
-        presenter = new SchedulePresenterImpl(new RetrofitScheduleProvider(), this, context);
+        presenter = new SchedulePresenterImpl(new RetrofitScheduleProvider(), this, getActivity());
         presenter.getSchedule("8");
         return v;
     }
