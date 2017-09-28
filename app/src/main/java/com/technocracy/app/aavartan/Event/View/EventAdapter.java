@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.Event.Model.Data.Event;
 import com.technocracy.app.aavartan.R;
 
@@ -45,8 +47,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         if (date==null)
             date = " 7-8 Oct";
 
-        holder.txt.setText(event.getName() + "\nDate : " + date + "\nTime:" + time +
+        holder.txt.setText(event.getName());
+        holder.txt1.setText("Date : " + date + "\nTime:" + time +
                 "\nVenue:" + venue);
+        Picasso.with(context).load(event.getImage_url()).into(holder.img);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,13 +72,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
         public final View mView;
         public final TextView txt;
-//        public final ImageView img;
+        public final TextView txt1;
+        public final ImageView img;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
             txt = (TextView) itemView.findViewById(R.id.event_name);
-//            img = (ImageView) itemView.findViewById(R.id.icon1);
+            img = (ImageView) itemView.findViewById(R.id.icon1);
+            txt1 = (TextView) itemView.findViewById(R.id.date_venue_time);
         }
     }
 }
