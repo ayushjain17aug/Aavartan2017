@@ -38,7 +38,7 @@ public class SchedulePresenterImpl implements SchedulePresenter {
                 @Override
                 public void onFailure() {
                     view.showProgressBar(false);
-                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+                    view.showMessage("Connection Error! Please check your connection");
                     view.showScheduleFromDatabase();
                 }
             });
@@ -58,7 +58,7 @@ public class SchedulePresenterImpl implements SchedulePresenter {
                 @Override
                 public void onFailure() {
                     view.showProgressBar(false);
-                    view.showMessage(context.getResources().getString(R.string.Connection_Error));
+                    view.showMessage("Connection Error! Please check your connection");
                     view.showScheduleFromDatabase();
                 }
             });

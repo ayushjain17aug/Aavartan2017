@@ -34,6 +34,7 @@ public class EventActivity extends AppCompatActivity implements EventView {
         super.onCreate(savedInstanceState);
         Bundle data = getIntent().getExtras();
         eventSetId = data.getString("event_selected");
+        Log.d("ayush",String.valueOf(eventSetId));
         if (eventSetId.equals("1")) {
             eventSetId = "fun";
             toolbarTitle = "   Fun";
