@@ -27,25 +27,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private String currentDateString;
     private SimpleDateFormat dateFormat;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, message, createdAt;
-        public ImageView notificationImage;
-
-        public MyViewHolder(View view) {
-            super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            message = (TextView) view.findViewById(R.id.message);
-            createdAt = (TextView) view.findViewById(R.id.createdAt);
-            notificationImage = (ImageView) view.findViewById(R.id.notificationImage);
-        }
-    }
-
-
     public NotificationAdapter(List<Notifications> notificationList, Context mContext) {
         this.notificationList = notificationList;
         this.mContext = mContext;
     }
-
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -65,10 +50,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.message.setText(notifications.getMessage());
 
         holder.notificationImage.setImageDrawable(null);
-        Log.d("ayush",notifications.getCreatedAt());
+        Log.d("ayush", notifications.getCreatedAt());
         setNotificationTime(holder.createdAt, notifications.getCreatedAt());
         String notificationImageUrl = notifications.getImageUrl();
-        if (notificationImageUrl != null && notificationImageUrl.length()>4) {
+        if (notificationImageUrl != null && notificationImageUrl.length() > 4) {
             Picasso.with(mContext)
                     .load(notificationImageUrl)
                     .into(holder.notificationImage);
@@ -142,6 +127,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         } catch (ParseException e) {
             notifTimeTextView.setText(notifTime);
             e.printStackTrace();
+        }
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView title, message, createdAt;
+        public ImageView notificationImage;
+
+        public MyViewHolder(View view) {
+            super(view);
+            title = (TextView) view.findViewById(R.id.title);
+            message = (TextView) view.findViewById(R.id.message);
+            createdAt = (TextView) view.findViewById(R.id.createdAt);
+            notificationImage = (ImageView) view.findViewById(R.id.notificationImage);
         }
     }
 }

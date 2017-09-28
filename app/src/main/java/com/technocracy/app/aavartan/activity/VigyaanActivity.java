@@ -13,13 +13,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.helper.SessionManager;
 
 
 public class VigyaanActivity extends AppCompatActivity {
 
-    public static String[] prgmNameList = {"Architecture", "Bio Med", "Bio Tech", "Chemical", "Civil", "CSE", "Electrical", "Elex", "IT", "Mechanical", "Metallurgy", "Mining", "MCA", "E-Cell", "Go Green"};
-    public static int[] movImgs = {R.drawable.archi1, R.drawable.biomedical, R.drawable.bio, R.drawable.chemical, R.drawable.civil1, R.drawable.cse1, R.drawable.electrical, R.drawable.elex, R.drawable.it1, R.drawable.mech1, R.drawable.meta1, R.drawable.mining1, R.drawable.mca1, R.drawable.ecell1, R.drawable.gogreen1};
+    public static String[] prgmNameList = {"Architecture", "Bio Med", "Bio Tech", "Chemical",
+            "Civil", "CSE", "Electrical", "Elex", "IT", "Mechanical", "Metallurgy", "Mining", "MCA", "E-Cell", "Go Green"};
+    public static int[] movImgs = {R.drawable.archi1, R.drawable.biomedical, R.drawable.bio, R.drawable.chemical,
+            R.drawable.civil1, R.drawable.cse1, R.drawable.electrical, R.drawable.elex, R.drawable.it1,
+            R.drawable.mech1, R.drawable.meta1, R.drawable.mining1, R.drawable.mca1, R.drawable.ecell1, R.drawable.gogreen1};
     ViewPager viewPager;
     LinearLayout sliderDotspanel;
     private Toolbar mToolbar;
@@ -43,10 +45,6 @@ public class VigyaanActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-
-//        Timer timer = new Timer();
-        //      timer.scheduleAtFixedRate(new MyTimerTask(), 1800, 1800);
-
         dotscount = viewPagerAdapter.getCount();
         dots = new ImageView[dotscount];
 
@@ -92,7 +90,6 @@ public class VigyaanActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.actionbarbutton, menu);
         return true;
     }
 
@@ -107,48 +104,4 @@ public class VigyaanActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    /*public class MyTimerTask extends TimerTask {
-
-
-        @Override
-        public void run() {
-            VigyaanActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (viewPager.getCurrentItem() == 0) {
-                        viewPager.setCurrentItem(1);
-                    } else if (viewPager.getCurrentItem() == 1) {
-                        viewPager.setCurrentItem(2);
-                    } else if (viewPager.getCurrentItem() == 2) {
-                        viewPager.setCurrentItem(3);
-                    } else if (viewPager.getCurrentItem() == 3) {
-                        viewPager.setCurrentItem(4);
-                    } else if (viewPager.getCurrentItem() == 4) {
-                        viewPager.setCurrentItem(5);
-                    } else if (viewPager.getCurrentItem() == 5) {
-                        viewPager.setCurrentItem(6);
-                    } else if (viewPager.getCurrentItem() == 6) {
-                        viewPager.setCurrentItem(7);
-                    } else if (viewPager.getCurrentItem() == 7) {
-                        viewPager.setCurrentItem(8);
-                    } else if (viewPager.getCurrentItem() == 8) {
-                        viewPager.setCurrentItem(9);
-                    } else if (viewPager.getCurrentItem() == 9) {
-                        viewPager.setCurrentItem(10);
-                    } else if (viewPager.getCurrentItem() == 10) {
-                        viewPager.setCurrentItem(11);
-                    } else if (viewPager.getCurrentItem() == 11) {
-                        viewPager.setCurrentItem(12);
-                    } else if (viewPager.getCurrentItem() == 12) {
-                        viewPager.setCurrentItem(13);
-                    } else if (viewPager.getCurrentItem() == 13) {
-                        viewPager.setCurrentItem(14);
-                    } else {
-                        viewPager.setCurrentItem(0);
-                    }
-                }
-            });
-        }
-    }*/
 }

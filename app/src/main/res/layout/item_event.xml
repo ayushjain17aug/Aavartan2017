@@ -39,7 +39,7 @@
                 android:padding="8dp"
                 android:text="AAvaartan"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView

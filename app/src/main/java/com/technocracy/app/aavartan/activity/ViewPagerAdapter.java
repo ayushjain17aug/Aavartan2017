@@ -17,12 +17,12 @@ import com.technocracy.app.aavartan.helper.App;
 /**
  * Created by ALFURQUAN on 08-09-2017.
  */
-public class ViewPagerAdapter extends PagerAdapter{
+public class ViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
     private Integer[] images = {R.drawable.ar, R.drawable.biomedical, R.drawable.bio, R.drawable.chemical, R.drawable.civil1, R.drawable.cse1, R.drawable.electrical, R.drawable.elex, R.drawable.it_1, R.drawable.me, R.drawable.meta, R.drawable.mining1, R.drawable.mca, R.drawable.img1, R.drawable.go_green1};
-    private String[]  names = {"Architecture", "Bio Med", "Bio Tech", "Chemical", "Civil", "CSE", "Electrical", "Elex", "IT", "Mechanical", "Metallurgy", "Mining", "MCA", "E-Cell", "Go Green"};
+    private String[] names = {"Architecture", "Bio Med", "Bio Tech", "Chemical", "Civil", "CSE", "Electrical", "Elex", "IT", "Mechanical", "Metallurgy", "Mining", "MCA", "E-Cell", "Go Green"};
 
     public ViewPagerAdapter(Context context) {
         this.context = context;
@@ -39,17 +39,17 @@ public class ViewPagerAdapter extends PagerAdapter{
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container,final int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
 
 
-        layoutInflater=(LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view=layoutInflater.inflate(R.layout.custom_layout,null);
-        ImageView imageView=(ImageView)view.findViewById(R.id.thumbnail);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.custom_layout, null);
+        ImageView imageView = (ImageView) view.findViewById(R.id.thumbnail);
         imageView.setImageResource(images[position]);
-        TextView textView=(TextView)view.findViewById(R.id.title);
+        TextView textView = (TextView) view.findViewById(R.id.title);
         textView.setText(names[position]);
 
-        imageView.setOnClickListener(new View.OnClickListener(){
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -136,16 +136,14 @@ public class ViewPagerAdapter extends PagerAdapter{
             }
         });
 
-        ViewPager vp=(ViewPager) container;
-        vp.addView(view ,0);
+        ViewPager vp = (ViewPager) container;
+        vp.addView(view, 0);
         return view;
-
-
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ViewPager vp =(ViewPager) container;
+        ViewPager vp = (ViewPager) container;
         View view = (View) object;
         vp.removeView(view);
     }
