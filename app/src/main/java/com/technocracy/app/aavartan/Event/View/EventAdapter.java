@@ -50,7 +50,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         holder.txt.setText(event.getName());
         holder.txt1.setText("Date : " + date + "\nTime:" + time +
                 "\nVenue:" + venue);
-        Picasso.with(context).load(event.getImage_url()).into(holder.img);
+        Picasso.with(context).load(event.getImage_url()).placeholder(R.drawable.avartan_logo100).into(holder.img);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
