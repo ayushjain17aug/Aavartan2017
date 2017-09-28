@@ -38,6 +38,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private SessionManager session;
     private SQLiteHandler db;
     private EditText etUsername;
@@ -45,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button bLogin;
     private TextView forgotpassword;
     private ProgressDialog pDialog;
-    private static final String TAG = LoginActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             User user = sqLiteHandler.getUser();
             Intent intent = new Intent(LoginActivity.this, UserActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+            overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
             finish();
         }
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                         registerToken(FirebaseInstanceId.getInstance().getToken(), String.valueOf(user_id));
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                         finish();
                     } else {

@@ -46,8 +46,6 @@ public class ContactsActivity extends AppCompatActivity implements ContactView {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(toolbarTitle);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         contactList = new ArrayList<>();
         db = new DatabaseHandler(getApplicationContext());

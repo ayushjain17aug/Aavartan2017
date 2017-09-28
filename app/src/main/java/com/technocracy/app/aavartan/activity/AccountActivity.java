@@ -36,7 +36,7 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         mtoolbar=(Toolbar)findViewById(R.id.loginbar);
         setSupportActionBar(mtoolbar);
-        getSupportActionBar().setTitle("YOUR ACCOUNT");
+        getSupportActionBar().setTitle("Your Account");
         setUpViewPager();
         session = new SessionManager(getApplicationContext());
         if (session.isLoggedIn()) {
@@ -71,10 +71,6 @@ public class AccountActivity extends AppCompatActivity {
 
                         break;
                     case R.id.btn4:
-                        intent = new Intent(AccountActivity.this, AccountActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
-
                         break;
                     case R.id.btn5:
                         intent = new Intent(AccountActivity.this, ScheduleActivity.class);

@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.helper.SessionManager;
 
 public class AboutUsActivity extends AppCompatActivity {
 
@@ -20,8 +19,6 @@ public class AboutUsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("About Us");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -49,6 +46,6 @@ public class AboutUsActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
-
+        finish();
     }
 }

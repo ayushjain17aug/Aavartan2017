@@ -15,13 +15,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.squareup.picasso.Picasso;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
@@ -72,14 +70,6 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
-        /*captcha = (ImageView) findViewById(R.id)
-        Picasso.with(getApplicationContext())
-                .load("https://beta.aavartan.org/captcha.show")
-                .resize(50, 50)
-                .centerCrop()
-                .into(imageView)*/
-
         phoneEditText = (EditText) findViewById(R.id.phone);
         collegeEditText = (EditText) findViewById(R.id.college);
         firstNameEditText = (EditText) findViewById(R.id.first_name);
@@ -101,23 +91,23 @@ public class RegisterActivity extends AppCompatActivity {
                 final String college = collegeEditText.getText().toString().trim();
                 final String phone = phoneEditText.getText().toString().trim();
 
-                if(!first_name.isEmpty() && !last_name.isEmpty() && !password0.isEmpty()
-                        && !password1.isEmpty() && !email.isEmpty() && !college.isEmpty() && !phone.isEmpty()){
-                    if(password0.equals(password1)){
-                        if(password0.length()>5){
-                            if(phone.length()==10){
+                if (!first_name.isEmpty() && !last_name.isEmpty() && !password0.isEmpty()
+                        && !password1.isEmpty() && !email.isEmpty() && !college.isEmpty() && !phone.isEmpty()) {
+                    if (password0.equals(password1)) {
+                        if (password0.length() > 5) {
+                            if (phone.length() == 10) {
                                 registerUser(first_name, last_name, email, password0, password1, phone, college);
-                            }else{
-                                Snackbar.make(findViewById(R.id.drawer_layout),"Enter a valid 10 digit phone number.",Snackbar.LENGTH_LONG).show();
+                            } else {
+                                Snackbar.make(findViewById(R.id.drawer_layout), "Enter a valid 10 digit phone number.", Snackbar.LENGTH_LONG).show();
                             }
-                        }else{
-                            Snackbar.make(findViewById(R.id.drawer_layout),"Password should be atleast 6 character long.",Snackbar.LENGTH_LONG).show();
+                        } else {
+                            Snackbar.make(findViewById(R.id.drawer_layout), "Password should be atleast 6 character long.", Snackbar.LENGTH_LONG).show();
                         }
-                    }else{
-                        Snackbar.make(findViewById(R.id.drawer_layout),"Passwords are not same.",Snackbar.LENGTH_LONG).show();
+                    } else {
+                        Snackbar.make(findViewById(R.id.drawer_layout), "Passwords are not same.", Snackbar.LENGTH_LONG).show();
                     }
-                }else{
-                    Snackbar.make(findViewById(R.id.drawer_layout),"All fields are necessary.",Snackbar.LENGTH_LONG).show();
+                } else {
+                    Snackbar.make(findViewById(R.id.drawer_layout), "All fields are necessary.", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -157,14 +147,14 @@ public class RegisterActivity extends AppCompatActivity {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent toLogin = new Intent(RegisterActivity.this,LoginActivity.class);
+                                        Intent toLogin = new Intent(RegisterActivity.this, LoginActivity.class);
                                         startActivity(toLogin);
                                         finish();
                                     }
                                 }).show();
 
                     } else {
-                        Snackbar.make(findViewById(R.id.drawer_layout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG)
+                        Snackbar.make(findViewById(R.id.drawer_layout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
                 } catch (JSONException e) {
@@ -176,23 +166,22 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Registration Error: " + error.getMessage());
-                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.connection_error_try_again),Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.drawer_layout), getResources().getString(R.string.connection_error_try_again), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 hideDialog();
             }
-        })
-         {
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("first_name",firstName);
-                params.put("last_name",lastName);
-                params.put("email",email);
-                params.put("password0",password0);
-                params.put("password1",password1);
-                params.put("phone",phone);
-                params.put("college",college);
+                params.put("first_name", firstName);
+                params.put("last_name", lastName);
+                params.put("email", email);
+                params.put("password0", password0);
+                params.put("password1", password1);
+                params.put("phone", phone);
+                params.put("college", college);
                 return params;
             }
         };
