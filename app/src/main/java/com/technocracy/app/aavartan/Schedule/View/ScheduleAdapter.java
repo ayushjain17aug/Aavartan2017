@@ -45,10 +45,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Leader
         holder.scheduleCard.setBackgroundColor(mContext.getResources().getColor(R.color.blue));
         holder.eventNameTv.setText(event.getName());
         String time = event.getTime();
-        String venue= event.getVenue();
-        if(time==null)
+        String venue = event.getVenue();
+        if (time == null)
             time = "7-8 October";
-        if(venue==null)
+        if (venue == null)
             venue = "NIT Raipur";
         holder.eventTimeTv.setText(time);
         holder.eventVenueTv.setText(venue);

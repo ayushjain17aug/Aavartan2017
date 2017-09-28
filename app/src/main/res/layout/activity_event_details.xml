@@ -84,9 +84,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@null"
-            android:text="CLICK HERE TO REGISTER !"
+            android:text="CLICK HERE TO REGISTER "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white"
+            android:textColor="@color/lightback"
             android:textStyle="bold" />
     </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

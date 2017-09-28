@@ -24,7 +24,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.gson.JsonArray;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.User;
@@ -37,14 +36,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class MyEventsActivity extends AppCompatActivity {
 
+    private static final String TAG = MyEventsActivity.class.getSimpleName();
     private Toolbar mToolbar;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -55,7 +52,6 @@ public class MyEventsActivity extends AppCompatActivity {
     private DatabaseHandler db;
     private User user;
     private TextView noEventsTextView;
-    private static final String TAG = MyEventsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +109,8 @@ public class MyEventsActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing(true);
 
         StringRequest strReq = new StringRequest(Request.Method.GET,
-                "https://beta.aavartan.org/app.android.registered.events/"+String.valueOf(user.getUser_id()), new Response.Listener<String>() {
-                  //String.valueOf(user.getUser_id())
+                "https://beta.aavartan.org/app.android.registered.events/" + String.valueOf(user.getUser_id()), new Response.Listener<String>() {
+            //String.valueOf(user.getUser_id())
             @Override
             public void onResponse(String response) {
                 Log.d("ayush", "MyEvents Response: " + response.toString());
@@ -123,7 +119,7 @@ public class MyEventsActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if (success) {
-                        Log.d("ayush","success");
+                        Log.d("ayush", "success");
                         JSONArray enlist = jsonResponse.getJSONArray("eventList");
                         SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
                         User updatedUser = sqLiteHandler.getUser();
@@ -131,14 +127,14 @@ public class MyEventsActivity extends AppCompatActivity {
                         sqLiteHandler.updateeventscount(updatedUser);
                         user = updatedUser;
                         db.deleteAllMyEvents();
-                        Log.d("ayush","eventlist length : "+String.valueOf(enlist.length()));
+                        Log.d("ayush", "eventlist length : " + String.valueOf(enlist.length()));
                         if (enlist.length() == 0)
                             noEventsTextView.setVisibility(View.VISIBLE);
                         for (int i = 0; i < enlist.length(); i++) {
                             JSONObject jsonObject = enlist.getJSONObject(i);
                             JSONObject eventobject = jsonObject.getJSONObject("event");
-                            Log.d("ayush","id : "+eventobject.getString("date"));
-                            Log.d("ayush","here nahi");
+                            Log.d("ayush", "id : " + eventobject.getString("date"));
+                            Log.d("ayush", "here nahi");
                             MyEvent myEvent = new MyEvent(jsonObject.getInt("id"),
                                     eventobject.getString("event_name"), eventobject.getString("date"));
                             db.addMyEvent(myEvent);

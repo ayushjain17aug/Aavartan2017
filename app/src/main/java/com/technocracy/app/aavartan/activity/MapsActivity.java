@@ -1,12 +1,9 @@
 package com.technocracy.app.aavartan.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,7 +12,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.helper.SessionManager;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -26,9 +22,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setTitleTextColor(Color.CYAN);
         toolbar.setTitle("Reach Us");
-        //toolbar.setSubtitleTextColor(Color.CYAN);
         setSupportActionBar(toolbar);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -57,6 +51,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
 
     }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(MapsActivity.this, MainActivity.class);

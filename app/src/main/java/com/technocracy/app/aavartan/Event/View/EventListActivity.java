@@ -31,7 +31,7 @@ public class EventListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.menubar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("EVENTS");
+        getSupportActionBar().setTitle("Events");
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_event_set);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         EventSetAdapter adapter = new EventSetAdapter(this);
@@ -50,10 +50,6 @@ public class EventListActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         break;
                     case R.id.btn2:
-                        intent = new Intent(EventListActivity.this, EventListActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-
                         break;
                     case R.id.btn3:
                         intent = new Intent(EventListActivity.this, AttractionActivity.class);

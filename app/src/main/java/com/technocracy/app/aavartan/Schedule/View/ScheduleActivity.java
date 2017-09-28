@@ -6,9 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,11 +24,6 @@ import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 
 public class ScheduleActivity extends ActionBarActivity {
 
-    private static final int ACTIVITY_NUM = 4;
-    Toolbar toolbar;
-    DrawerLayout drawer;
-    private TabLayout mTabs;
-    private ViewPager mPager;
     private Intent intent;
 
     @Override
@@ -70,49 +63,26 @@ public class ScheduleActivity extends ActionBarActivity {
 
                         break;
                     case R.id.btn5:
-                        intent = new Intent(ScheduleActivity.this, ScheduleActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
-
                         break;
                 }
-                //  updateNavigationBarState(bottomNavigationView,item.getItemId());
                 return true;
             }
         });
 
-        Menu menu=bottomNavigationView.getMenu();
+        Menu menu = bottomNavigationView.getMenu();
         for (int i = 0, size = menu.size(); i < size; i++) {
             MenuItem item = menu.getItem(i);
-            if(i==4)
+            if (i == 4)
                 item.setChecked(true);
             else
                 item.setChecked(false);
         }
-        
-        /*drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        try {
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
-        } catch (NullPointerException e) {
-        }*/
     }
 
     public void onBackPressed() {
-        //if (drawer.isDrawerOpen(GravityCompat.START)) {
-          //  drawer.closeDrawer(GravityCompat.START);
-        //} else {
-          //  super.onBackPressed();
-        //}
-        Intent intent1=new Intent(ScheduleActivity.this,MainActivity.class);
+        Intent intent1 = new Intent(ScheduleActivity.this, MainActivity.class);
         startActivity(intent1);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-
     }
 
     @Override
@@ -125,11 +95,10 @@ public class ScheduleActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_notification) {
             Intent intent = new Intent(ScheduleActivity.this, NotificationsActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
         if (id == R.id.map) {
             Intent intent = new Intent(ScheduleActivity.this, MapsActivity.class);
@@ -137,15 +106,15 @@ public class ScheduleActivity extends ActionBarActivity {
         }
         return false;
     }
-    private void setUpViewPager()
-    {
-        SectionsPagerAdapter adapter=new SectionsPagerAdapter(getSupportFragmentManager());
+
+    private void setUpViewPager() {
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         Tab1 tab1 = new Tab1();
         adapter.addFragment(tab1);
         adapter.addFragment(new Tab2());
-        ViewPager viewPager=(ViewPager)findViewById(R.id.pager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
-        TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setText("7 October");
         tabLayout.getTabAt(1).setText("8 October");

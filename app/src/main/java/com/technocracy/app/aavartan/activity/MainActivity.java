@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,18 +28,13 @@ import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private static final int ACTIVITY_NUM = 0;
-    FloatingActionButton fab;
-    private Boolean isFabOpen = true;
     private SessionManager sessionManager;
     private String currentDateString;
     private SimpleDateFormat dateFormat;
@@ -55,23 +49,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Typewriter tv = (Typewriter) findViewById(R.id.typewriter);
-        /*tv.setText(" ");
-        tv.setCharacterDelay(150);
-        tv.animateText("IMAGINE IMPROVE IMPLEMENT");*/
         final Typewriter tv1 = (Typewriter) findViewById(R.id.typewriter1);
- /*       tv1.setText(" ");
-        tv1.setCharacterDelay(150);
-        tv1.animateText("ERA OF DIGITALIZATION");*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // toolbar.setTitleTextColor(Color.WHITE);
-        // toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimerTask(), 1200, 5000);
-
-
-        //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         currentDateString = dateFormat.format(Calendar.getInstance().getTime());
         sessionManager = new SessionManager(getApplicationContext());
@@ -113,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         break;
                 }
-                //   updateNavigationBarState(bottomNavigationView,item.getItemId());
                 return true;
             }
         });
@@ -125,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onBoomButtonClick(int index) {
                             Intent intent2;
                             if (index == 0) {
-                                //intent2 = new Intent(MainActivity.this, GalleryActivity.class);
+                                //TODO : intent2 = new Intent(MainActivity.this, GalleryActivity.class);
                                 //startActivity(intent2);
                                 //overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                                 Snackbar.make(findViewById(R.id.relativeLayout_main), "This feature is currently unavailable!App will be updated soon", Snackbar.LENGTH_LONG)
@@ -208,22 +189,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.map) {
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
             MainActivity.this.startActivity(intent);
-        }
-        return false;
-    }
-
-    private boolean getTime(String notifTime) {
-        try {
-            Date currentDate = dateFormat.parse(currentDateString);
-            Date notifDate = dateFormat.parse(notifTime);
-            long differenceInMS = currentDate.getTime() - notifDate.getTime();
-            long differenceInSecs = TimeUnit.MILLISECONDS.toSeconds(differenceInMS);
-            long differenceInDays = TimeUnit.SECONDS.toDays(differenceInSecs);
-            String time = new SimpleDateFormat("h:mm aa").format(notifDate);
-            if (differenceInDays >= 1)
-                return true;
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
         return false;
     }

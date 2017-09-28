@@ -1,7 +1,6 @@
 package com.technocracy.app.aavartan.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -11,7 +10,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -23,11 +21,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.adapter.NotificationAdapter;
 import com.technocracy.app.aavartan.api.Notifications;
-import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
-import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
 import com.technocracy.app.aavartan.util.DividerItemDecoration;
 
@@ -57,7 +53,7 @@ public class NotificationsActivity extends AppCompatActivity {
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-      //  mToolbar.setTitleTextColor(Color.);
+        //  mToolbar.setTitleTextColor(Color.);
         mToolbar.setTitle("Notifications");
         setSupportActionBar(mToolbar);
         noNotificationTextView = (TextView) findViewById(R.id.noNotificationsTextView);
@@ -83,11 +79,12 @@ public class NotificationsActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SessionManager sessionManager = new SessionManager(getApplicationContext());
-                    preparenotificationdata();
+                preparenotificationdata();
             }
         });
 
     }
+
     private void preparenotificationdata() {
         String tag_string_req = "req_getNotification";
         swipeRefreshLayout.setRefreshing(true);
@@ -123,7 +120,7 @@ public class NotificationsActivity extends AppCompatActivity {
                         recyclerView.setAdapter(mAdapter);
                     } else {
                         noNotificationTextView.setVisibility(View.VISIBLE);
-                        Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"),Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -132,7 +129,7 @@ public class NotificationsActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Snackbar.make(findViewById(R.id.relativeLayout),getResources().getString(R.string.no_internet_error),Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.relativeLayout), getResources().getString(R.string.no_internet_error), Snackbar.LENGTH_LONG).show();
                 DatabaseHandler db = new DatabaseHandler(NotificationsActivity.this);
                 notificationsList = db.getAllNotifications();
                 mAdapter = new NotificationAdapter(notificationsList, NotificationsActivity.this);
@@ -163,6 +160,7 @@ public class NotificationsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         Intent intent1 = new Intent(NotificationsActivity.this, MainActivity.class);
