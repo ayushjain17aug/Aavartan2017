@@ -24,6 +24,7 @@ import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
 import com.technocracy.app.aavartan.Sponsors.View.SponsActivity;
 import com.technocracy.app.aavartan.api.User;
+import com.technocracy.app.aavartan.gallery.View.GalleryActivity;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
@@ -106,11 +107,11 @@ public class MainActivity extends AppCompatActivity {
                         public void onBoomButtonClick(int index) {
                             Intent intent2;
                             if (index == 0) {
-                                //TODO : intent2 = new Intent(MainActivity.this, GalleryActivity.class);
-                                //startActivity(intent2);
-                                //overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
-                                Snackbar.make(findViewById(R.id.relativeLayout_main), "This feature is currently unavailable!App will be updated soon", Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                                intent2 = new Intent(MainActivity.this, GalleryActivity.class);
+                                startActivity(intent2);
+                                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                              //  Snackbar.make(findViewById(R.id.relativeLayout_main), "This feature is currently unavailable!App will be updated soon", Snackbar.LENGTH_LONG)
+                               //         .setAction("Action", null).show();
                             } else if (index == 1) {
                                 intent2 = new Intent(MainActivity.this, SponsActivity.class);
                                 startActivity(intent2);

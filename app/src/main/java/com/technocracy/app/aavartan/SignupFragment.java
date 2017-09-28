@@ -155,7 +155,6 @@ public class SignupFragment extends Fragment {
                     if (success) {
                         Snackbar.make(getActivity().findViewById(R.id.linear),"You have been registered successfully!",Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-
                     } else {
                         Snackbar.make(getActivity().findViewById(R.id.linear),"Error! Please try after some time.",Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
