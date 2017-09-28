@@ -38,13 +38,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 //        Log.d("AAVARTAN17","IN BIND VIEW HOLDER"+position);
         final Event event = eventList.get(position);
         String time = event.getTime();
-        String venue= event.getVenue();
+        String venue = event.getVenue();
         String date = event.getDate();
-        if(time==null)
+        if (time == null)
             time = " 9:00AM-5:15PM ";
-        if(venue==null)
+        if (venue == null)
             venue = " NIT Raipur";
-        if (date==null)
+        if (date == null)
             date = " 7-8 Oct";
 
         holder.txt.setText(event.getName());

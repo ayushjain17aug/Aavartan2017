@@ -218,7 +218,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 attractionList.add(attraction);
             } while (cursor.moveToNext());
         }
-
         return attractionList;
     }
 
@@ -230,7 +229,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void addEvents(Event event, String key) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(EVENT_ID, event.getEventId());
         values.put(EVENT_NAME, event.getName());
@@ -241,23 +239,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(EVENT_VENUE, event.getVenue());
         values.put(EVENT_IMAGE_URL, event.getImage_url());
         // Inserting Row
-        db.insert(key, null, values);
+        long loc = db.insert(key, null, values);
+        Log.d("abhi", "Adding Event" + loc + " " + key);
         db.close(); // Closing database connection
     }
 
     public List<Event> getAllEvents(String key) {
         List<Event> eventList = new ArrayList<Event>();
         String selectQuery = "SELECT  * FROM " + key + " ORDER BY " + EVENT_ID;
-
+        Log.d("abhi", "trying to get events" + key);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
         if (cursor.moveToFirst()) {
             do {
                 Event event = new Event(cursor.getInt(0), cursor.getString(1),
                         cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6),
                         cursor.getString(7), "", "");
                 eventList.add(event);
+                Log.d("abhi", "trying to get events" + 11);
+
             } while (cursor.moveToNext());
         }
         return eventList;
