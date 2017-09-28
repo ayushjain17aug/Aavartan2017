@@ -273,7 +273,6 @@ public class LoginFragment extends Fragment {
     private void registerToken(final String token, final String user_id) {
         // Tag used to cancel the request
         String tag_string_req = "req_fcm_token_reg";
-        Log.d("ayush",token);
 
         StringRequest strReq = new StringRequest(com.android.volley.Request.Method.POST,
                 "https://beta.aavartan.org/app.android.token", new Response.Listener<String>() {

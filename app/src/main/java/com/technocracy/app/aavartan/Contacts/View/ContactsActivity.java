@@ -17,6 +17,8 @@ import com.technocracy.app.aavartan.Contacts.Model.RetrofitContactProvider;
 import com.technocracy.app.aavartan.Contacts.Presenter.ContactPresenter;
 import com.technocracy.app.aavartan.Contacts.Presenter.ContactPresenterImpl;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.activity.MainActivity;
+import com.technocracy.app.aavartan.activity.MapsActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
 
@@ -125,6 +127,10 @@ public class ContactsActivity extends AppCompatActivity implements ContactView {
             case R.id.action_notification:
                 Intent intent = new Intent(ContactsActivity.this, NotificationsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.map:
+                Intent intent1 = new Intent(ContactsActivity.this, MapsActivity.class);
+                ContactsActivity.this.startActivity(intent1);
                 break;
             default:
                 break;
