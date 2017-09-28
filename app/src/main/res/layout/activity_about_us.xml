@@ -15,24 +15,24 @@
         android:background="@drawable/image">
 
        <android.support.v7.widget.Toolbar
+           android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
-        app:titleTextColor="@color/title"
         android:backgroundTint="@color/lightback"
-        android:theme="@style/ThemeOverlay.AppCompat.Light">
+           android:theme="@style/ThemeOverlay.AppCompat.Light"
+           app:titleTextColor="@color/title">
 
     </android.support.v7.widget.Toolbar>
         <ImageView
+            android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:id="@+id/img"
-            android:layout_below="@+id/toolbar"
             android:scaleType="fitXY"
             android:src="@drawable/back_img" />
         <ScrollView
@@ -48,10 +48,11 @@
                     android:id="@+id/about"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:padding="10dp"
                     android:text="All the theories and formulae boils down to one most crucial thing in engineering- Application.This ideology forms the basis of an occasion which lets the engineer in every student fly and air the spark within. And we have named it as Aavartan.It is a two day annual symposium of NIT Raipur, by far the largest Techfest of central India, by some standards.\n\n Aavartan is the celebration of engineering, science and technology organized wholly and solely by the students of TechnoCracy-Technical Committee NIT Raipur.Thus, one cannot go wrong with the level of enthusiam shown by the young engineering population and the resulting magnificient fire from the aired spark.Meticulously planned events, enticing guest lectures and modern workshops organized with the help of other committees and clubs of NIT Raipur makes Aavartan a hard to miss event.\n\nAnd if that is not all, Aavartan also sees itself as a socially responsible entity by encouraging and undertaking various social causes every year, like this time around it is; Awareness about cyber crime.This is the edition of Aavartan and is planned to be bigger and better than before. One can definitely expect an altogether new spin to things already done and something far more amazing like never seen before."
                     android:textAlignment="center"
-                    android:textColor="@color/lightback"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/lightback" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
