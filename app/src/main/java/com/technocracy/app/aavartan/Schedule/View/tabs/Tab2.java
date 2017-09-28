@@ -35,10 +35,7 @@ public class Tab2 extends Fragment implements ScheduleView {
     private Context context;
 
     public Tab2() {
-    }
-
-    public Tab2(Context context) {
-        this.context = context;
+        this.context = getActivity();
     }
 
     @Override

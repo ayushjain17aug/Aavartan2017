@@ -35,12 +35,10 @@ public class Tab1 extends Fragment implements ScheduleView {
     private Context context;
 
     public Tab1() {
+        this.context = getActivity();
     }
 
 
-    public Tab1(Context context) {
-        this.context = context;
-    }
 
 
     @Override
@@ -73,7 +71,7 @@ public class Tab1 extends Fragment implements ScheduleView {
     @Override
     public void showScheduleFromDatabase() {
         scheduleList = db.getScheduleDay1Items();
-        adapter = new ScheduleAdapter(context, scheduleList);
+        adapter = new ScheduleAdapter(getActivity(), scheduleList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -81,7 +79,7 @@ public class Tab1 extends Fragment implements ScheduleView {
     public void showSchedule(List<Event> schedule) {
         db.deleteScheduleDay1();
         scheduleList = schedule;
-        adapter = new ScheduleAdapter(context, schedule);
+        adapter = new ScheduleAdapter(getActivity(), schedule);
         for (Event x : schedule)
             db.addScheduleDay1Item(x);
         recyclerView.setAdapter(adapter);

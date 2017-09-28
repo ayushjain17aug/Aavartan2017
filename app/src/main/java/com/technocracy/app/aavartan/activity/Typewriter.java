@@ -3,25 +3,12 @@ package com.technocracy.app.aavartan.activity;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-/**
- * Created by ALFURQUAN on 25-09-2017.
- */
-class Typewriter extends android.support.v7.widget.AppCompatTextView {
+
+public class Typewriter extends android.support.v7.widget.AppCompatTextView {
     private CharSequence mText;
     private int mIndex;
     private long mDelay = 500; //Default 500ms delay
-
-
-    public Typewriter(Context context) {
-        super(context);
-    }
-
-    public Typewriter(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
     private Handler mHandler = new Handler();
     private Runnable characterAdder = new Runnable() {
         @Override
@@ -32,6 +19,14 @@ class Typewriter extends android.support.v7.widget.AppCompatTextView {
             }
         }
     };
+
+    public Typewriter(Context context) {
+        super(context);
+    }
+
+    public Typewriter(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
     public void animateText(CharSequence text) {
         mText = text;

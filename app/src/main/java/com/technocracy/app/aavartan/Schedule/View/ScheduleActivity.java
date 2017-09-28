@@ -140,9 +140,9 @@ public class ScheduleActivity extends ActionBarActivity {
     private void setUpViewPager()
     {
         SectionsPagerAdapter adapter=new SectionsPagerAdapter(getSupportFragmentManager());
-        Tab1 tab1 = new Tab1(this);
+        Tab1 tab1 = new Tab1();
         adapter.addFragment(tab1);
-        adapter.addFragment(new Tab2(this));
+        adapter.addFragment(new Tab2());
         ViewPager viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabs);
