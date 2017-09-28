@@ -6,26 +6,40 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.technocracy.app.aavartan.Attraction.View.AttractionActivity;
 import com.technocracy.app.aavartan.Event.View.EventListActivity;
 import com.technocracy.app.aavartan.R;
 import com.technocracy.app.aavartan.Schedule.View.ScheduleActivity;
+import com.technocracy.app.aavartan.api.MyEvent;
 import com.technocracy.app.aavartan.api.User;
+import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.BottomNavigationViewHelper;
+import com.technocracy.app.aavartan.helper.DatabaseHandler;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
 import com.technocracy.app.aavartan.helper.SessionManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -45,10 +59,13 @@ public class UserActivity extends AppCompatActivity {
     TextView first_name;
     private Intent intent;
     TextView email;
+    private SQLiteHandler uesrDB;
     TextView phone;
     TextView college;
     TextView event;
     TextView member_since;
+    private List<MyEvent> eventlist;
+    private DatabaseHandler db;
 
 
     @Override
@@ -61,7 +78,10 @@ public class UserActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
+        uesrDB = new SQLiteHandler(getApplicationContext());
+        user = uesrDB.getUser();
 
+        getMyEvents();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setTitle("User");
@@ -70,6 +90,10 @@ public class UserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         sqLiteHandler = new SQLiteHandler(getApplicationContext());
+        db = new DatabaseHandler(getApplicationContext());
+        eventlist = db.getAllMyEvents();
+        int count = eventlist.size();
+
         user = sqLiteHandler.getUser();
         button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +227,57 @@ public class UserActivity extends AppCompatActivity {
         Intent intent = new Intent(UserActivity.this, MainActivity.class);
         startActivity(intent);
     }
+    private void getMyEvents() {
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                "https://beta.aavartan.org/app.android.registered.events/" + String.valueOf(user.getUser_id()), new Response.Listener<String>() {
+            //String.valueOf(user.getUser_id())
+            @Override
+            public void onResponse(String response) {
+                Log.d("ayush", "MyEvents Response: " + response.toString());
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+                        Log.d("ayush", "success");
+                        JSONArray enlist = jsonResponse.getJSONArray("eventList");
+                        SQLiteHandler sqLiteHandler = new SQLiteHandler(getApplicationContext());
+                        User updatedUser = sqLiteHandler.getUser();
+                        updatedUser.setcount_event_registered(enlist.length());
+                        sqLiteHandler.updateeventscount(updatedUser);
+                        user = updatedUser;
+                        db.deleteAllMyEvents();
+                        Log.d("ayush", "eventlist length : " + String.valueOf(enlist.length()));
+                        for (int i = 0; i < enlist.length(); i++) {
+                            JSONObject jsonObject = enlist.getJSONObject(i);
+                            JSONObject eventobject = jsonObject.getJSONObject("event");
+                            Log.d("ayush", "id : " + eventobject.getString("date"));
+                            Log.d("ayush", "here nahi");
+                            MyEvent myEvent = new MyEvent(jsonObject.getInt("id"),
+                                    eventobject.getString("event_name"), eventobject.getString("date"));
+                            db.addMyEvent(myEvent);
+                        }
+                        eventlist = db.getAllMyEvents();
+                    } else {
+                        Snackbar.make(findViewById(R.id.relativeLayout), jsonResponse.getString("error_msg"), Snackbar.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    eventlist = db.getAllMyEvents();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                eventlist = db.getAllMyEvents();
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 }
 
 

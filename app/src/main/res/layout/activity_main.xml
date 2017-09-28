@@ -112,7 +112,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#000000"
+                android:background="@drawable/image"
                 app:titleTextColor="#00FFFFFF" />
 
             <View
@@ -125,8 +125,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/bottom_navigation"
-                android:layout_alignParentTop="true"
-                android:background="@mipmap/main_back">
+                android:background="@mipmap/main_back"
+                android:layout_below="@+id/toolbar">
 
             </RelativeLayout>
 

@@ -12,7 +12,7 @@
     <color name="colorblack">#000000</color>
     <color name="white">#ffffff</color>
     <color name="colorsecondary">#000000</color>
-    <color name="primary_material_dark_1">#4a7e4c</color>
+    <color name="primary_material_dark_1">#000000</color>
     <color name="primary_dark_material_dark">#000000</color>
     <color name="accent_material_dark">#E0F2F1</color>
     <color name="background_material_dark">#216e1b</color>
