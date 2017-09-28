@@ -112,15 +112,15 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#000000"
+                android:background="@null"
                 app:titleTextColor="#00FFFFFF" />
 
             <View
                 android:id="@+id/viewline"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/lightback"
-                android:layout_below="@+id/toolbar"/>
+                android:layout_below="@+id/toolbar"
+                android:background="@color/lightback" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

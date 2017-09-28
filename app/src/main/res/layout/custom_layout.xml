@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:background="@color/lightback"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/lightback"
         card_view:cardCornerRadius="6dp">
 
 
@@ -25,22 +25,22 @@
                 android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:backgroundTint="@color/lightback"
-                android:scaleType="fitXY"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:backgroundTint="@color/lightback"
+                android:clickable="true"
+                android:scaleType="fitXY" />
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/thumbnail"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
                 android:background="@color/lightback"
-                android:textColor="@color/title"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="25dp"
+                android:textStyle="bold"
                 />
 
         </RelativeLayout>
