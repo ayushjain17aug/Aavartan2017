@@ -71,7 +71,7 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
             mAdapter = new SimpleAdapter(SponsActivity.this, sponsorCategoryList);
             sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
             sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size(), "MEGAEVENT SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size(), "MEGA SPONSORS"));
             sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size() +
                     sponsorCategoryList[1].size(), "EVENT SPONSORS"));
             sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size() + sponsorCategoryList[1].size()
