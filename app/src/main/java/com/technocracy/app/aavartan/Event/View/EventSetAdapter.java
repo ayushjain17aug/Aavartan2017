@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -36,7 +35,6 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
 
     @Override
     public void onBindViewHolder(final EventTypeHolder holder, final int position) {
-        //App.showProgressBar(holder.pBAr);
         int width = (int) App.getScreenWidth(mContext);
         holder.imageView.getLayoutParams().height = width / 2;
         holder.imageView.getLayoutParams().width = width;
@@ -45,12 +43,10 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
                 into(holder.imageView, new Callback() {
                     @Override
                     public void onSuccess() {
-                        //App.hideProgressBar(holder.pBAr);
                     }
 
                     @Override
                     public void onError() {
-                        //App.hideProgressBar(holder.pBAr);
                     }
                 });
         holder.name.setText(events[position]);
@@ -90,7 +86,6 @@ public class EventSetAdapter extends RecyclerView.Adapter<EventSetAdapter.EventT
 
     public static class EventTypeHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
-        public ProgressBar pBAr;
         public TextView name;
         private Intent intent;
 

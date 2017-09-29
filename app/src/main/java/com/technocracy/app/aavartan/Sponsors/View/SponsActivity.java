@@ -53,7 +53,7 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
 
     @Override
     public void showSpons(List<Sponsor> sponsorList) {
-        List<Sponsor> spons1 = new ArrayList<>(),spons2= new ArrayList<>(),spons3= new ArrayList<>(),spons4= new ArrayList<>();
+        List<Sponsor> spons1 = new ArrayList<>(), spons2 = new ArrayList<>(), spons3 = new ArrayList<>(), spons4 = new ArrayList<>();
         for (int i = 0; i < sponsorList.size(); i++) {
             if (sponsorList.get(i).getType().equals("1"))
                 spons1.add(sponsorList.get(i));
@@ -63,10 +63,10 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
                 spons3.add(sponsorList.get(i));
             else
                 spons4.add(sponsorList.get(i));
-            sponsorCategoryList[0]=spons1;
-            sponsorCategoryList[1]=spons2;
-            sponsorCategoryList[2]=spons3;
-            sponsorCategoryList[3]=spons4;
+            sponsorCategoryList[0] = spons1;
+            sponsorCategoryList[1] = spons2;
+            sponsorCategoryList[2] = spons3;
+            sponsorCategoryList[3] = spons4;
 
             mAdapter = new SimpleAdapter(SponsActivity.this, sponsorCategoryList);
             sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();

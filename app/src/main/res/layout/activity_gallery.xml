@@ -5,23 +5,15 @@
     android:id="@+id/gallery_rel_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image"
     tools:context="com.technocracy.app.aavartan.gallery.View.GalleryActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@color/title"
-            android:background="@drawable/image"
-            android:theme="@style/ThemeOverlay.AppCompat.Light" />
-
-    </android.support.design.widget.AppBarLayout>
-
+        android:layout_height="?attr/actionBarSize"
+        android:background="@null"
+        app:titleTextColor="@color/title" />
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
@@ -33,6 +25,7 @@
         android:id="@+id/scroll_gallery_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:background="#000" />
 
 </RelativeLayout>

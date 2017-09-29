@@ -17,7 +17,6 @@ import com.technocracy.app.aavartan.Contacts.Model.RetrofitContactProvider;
 import com.technocracy.app.aavartan.Contacts.Presenter.ContactPresenter;
 import com.technocracy.app.aavartan.Contacts.Presenter.ContactPresenterImpl;
 import com.technocracy.app.aavartan.R;
-import com.technocracy.app.aavartan.activity.MainActivity;
 import com.technocracy.app.aavartan.activity.MapsActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.helper.DatabaseHandler;
@@ -44,7 +43,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactView {
         if (type.equals("1"))
             toolbarTitle = "Our Team";
         else
-            toolbarTitle = "Team Android";
+            toolbarTitle = "App Team";
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(toolbarTitle);
         setSupportActionBar(toolbar);

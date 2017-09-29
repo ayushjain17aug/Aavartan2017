@@ -20,7 +20,7 @@ public class StayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stay);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.title));
         toolbar.setTitle("Stay");
         toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);

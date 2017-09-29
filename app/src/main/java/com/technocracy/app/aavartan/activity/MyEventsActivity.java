@@ -1,7 +1,6 @@
 package com.technocracy.app.aavartan.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -55,7 +54,6 @@ public class MyEventsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("ayush", "eneterd myevents");
         super.onCreate(savedInstanceState);
         try {
             setContentView(R.layout.activity_myevents);
@@ -66,9 +64,8 @@ public class MyEventsActivity extends AppCompatActivity {
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.title));
         mToolbar.setTitle("My Events");
-        mToolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

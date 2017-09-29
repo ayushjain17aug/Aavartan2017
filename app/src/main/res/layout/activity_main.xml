@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/main_back"
+    android:background="@drawable/image"
     tools:context=".activity.MainActivity">
 
     <FrameLayout
@@ -119,8 +119,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/bottom_navigation"
-                android:background="@mipmap/main_back"
-                android:layout_below="@+id/toolbar">
+                android:layout_below="@+id/toolbar"
+                android:background="@mipmap/main_back">
 
             </RelativeLayout>
 

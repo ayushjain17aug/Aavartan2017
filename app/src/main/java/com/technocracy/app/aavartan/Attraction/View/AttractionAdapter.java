@@ -3,6 +3,7 @@ package com.technocracy.app.aavartan.Attraction.View;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.My
              }
         });
         holder.name.setText(i.getName());
+        Log.d("abhi", "name" + i.getName());
         holder.des.setText(i.getDescription() + "\n On  : " + i.getDate() + "\n At : " + i.getVenue());
     }
 

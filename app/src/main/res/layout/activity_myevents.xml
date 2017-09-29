@@ -5,6 +5,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image"
     tools:context="com.technocracy.app.aavartan.activity.MyEventsActivity">
 
 
@@ -12,10 +13,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/image"
+        android:background="@null"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:title="My Events"
-        android:titleTextColor="@color/white"
+        android:titleTextColor="@color/title"
         app:popupTheme="@style/AppTheme.AppBarOverlay" />
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -29,7 +30,6 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/image"
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

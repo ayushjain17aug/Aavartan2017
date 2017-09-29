@@ -17,6 +17,7 @@ import com.technocracy.app.aavartan.Event.Model.RetrofitEventProvider;
 import com.technocracy.app.aavartan.Event.Presenter.EventPresenter;
 import com.technocracy.app.aavartan.Event.Presenter.EventPresenterImpl;
 import com.technocracy.app.aavartan.R;
+import com.technocracy.app.aavartan.activity.AccountActivity;
 import com.technocracy.app.aavartan.activity.NotificationsActivity;
 import com.technocracy.app.aavartan.api.User;
 import com.technocracy.app.aavartan.helper.SQLiteHandler;
@@ -67,7 +68,14 @@ public class EventDetailsActivity extends AppCompatActivity implements RegisterE
                     presenter = new EventPresenterImpl(EventDetailsActivity.this, new RetrofitEventProvider(), EventDetailsActivity.this);
                     presenter.registerEvent(user_id, event_id);
                 } else {
-                    showMessage("Please login first!");
+                    Snackbar.make(findViewById(R.id.drawer_layout), "Please Login First!", Snackbar.LENGTH_LONG)
+                            .setAction("Login", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent i = new Intent(EventDetailsActivity.this, AccountActivity.class);
+                                    startActivity(i);
+                                }
+                            }).show();
                 }
             }
         });

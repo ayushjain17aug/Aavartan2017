@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/eventsImage"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_centerVertical="true"
             android:layout_gravity="top|bottom|center_vertical|center_horizontal"
             android:layout_marginLeft="5dp"

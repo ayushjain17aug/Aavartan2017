@@ -57,13 +57,13 @@ public class UserActivity extends AppCompatActivity {
     User user;
     TextView user_id, first, last;
     TextView first_name;
-    private Intent intent;
     TextView email;
-    private SQLiteHandler uesrDB;
     TextView phone;
     TextView college;
     TextView event;
     TextView member_since;
+    private Intent intent;
+    private SQLiteHandler uesrDB;
     private List<MyEvent> eventlist;
     private DatabaseHandler db;
 
@@ -83,7 +83,7 @@ public class UserActivity extends AppCompatActivity {
 
         getMyEvents();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.title));
         mToolbar.setTitle("User");
         mToolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
