@@ -30,13 +30,16 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView {
     private Intent intent;
 
     @Override
+    protected void onSaveInstanceState(Bundle oldInstanceState) {
+        super.onSaveInstanceState(oldInstanceState);
+        oldInstanceState.clear();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
      //   presenter = new GalleryPresenterImpl(this, new RetrofitGalleryProvider(), this);
         presenter = new GalleryPresenterImpl(this, new RetrofitGalleryProvider(), this);

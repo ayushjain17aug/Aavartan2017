@@ -153,9 +153,8 @@ public class SignupFragment extends Fragment {
                     boolean success = jsonResponse.getBoolean("success");
                     Log.d("ayush", String.valueOf(success));
                     if (success) {
-                        Snackbar.make(getActivity().findViewById(R.id.linear),"You have been registered successfully!",Snackbar.LENGTH_LONG)
+                        Snackbar.make(getActivity().findViewById(R.id.linear),"You have been registered successfully! Login Please.",Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-
                     } else {
                         Snackbar.make(getActivity().findViewById(R.id.linear),"Error! Please try after some time.",Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();

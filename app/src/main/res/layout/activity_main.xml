@@ -115,12 +115,6 @@
                 android:background="@drawable/image"
                 app:titleTextColor="#00FFFFFF" />
 
-            <View
-                android:id="@+id/viewline"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/lightback"
-                android:layout_below="@+id/toolbar"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -3,50 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorblack"
+    android:background="@drawable/splash2"
     tools:context=".activity.SplashActivity">
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/avartan_logo100"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="AAVARTAN'17"
-        android:textSize="25dp"
-        android:textColor="#80D8FF"
-        android:gravity="center"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="74dp"
-        android:id="@+id/textView13" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TECH-FEST NIT RAIPUR"
-        android:textSize="15dp"
-        android:textColor="#80D8FF"
-        android:gravity="center"
-        android:id="@+id/textView12"
-        android:layout_below="@+id/textView13"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="7th-8th OCTOBER"
-        android:textSize="25dp"
-        android:textColor="#80D8FF"
-        android:gravity="center"
-        android:layout_marginTop="107dp"
-        android:layout_below="@+id/logo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 
 
