@@ -30,7 +30,7 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sponsorCategoryList = new List[4];
+        sponsorCategoryList = new List[3];
         setContentView(R.layout.activity_sponsors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Sponsors");
@@ -53,29 +53,24 @@ public class SponsActivity extends AppCompatActivity implements SponsView {
 
     @Override
     public void showSpons(List<Sponsor> sponsorList) {
-        List<Sponsor> spons1 = new ArrayList<>(), spons2 = new ArrayList<>(), spons3 = new ArrayList<>(), spons4 = new ArrayList<>();
+        List<Sponsor> spons2 = new ArrayList<>(), spons3 = new ArrayList<>(), spons4 = new ArrayList<>();
         for (int i = 0; i < sponsorList.size(); i++) {
-            if (sponsorList.get(i).getType().equals("1"))
-                spons1.add(sponsorList.get(i));
-            else if (sponsorList.get(i).getType().equals("2"))
+            if (sponsorList.get(i).getType().equals("2"))
                 spons2.add(sponsorList.get(i));
             else if (sponsorList.get(i).getType().equals("3"))
                 spons3.add(sponsorList.get(i));
-            else
+            else if (sponsorList.get(i).getType().equals("4"))
                 spons4.add(sponsorList.get(i));
-            sponsorCategoryList[0] = spons1;
-            sponsorCategoryList[1] = spons2;
-            sponsorCategoryList[2] = spons3;
-            sponsorCategoryList[3] = spons4;
+            sponsorCategoryList[0] = spons2;
+            sponsorCategoryList[1] = spons3;
+            sponsorCategoryList[2] = spons4;
 
             mAdapter = new SimpleAdapter(SponsActivity.this, sponsorCategoryList);
             sections = new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "ASSOCIATE SPONSORS"));
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size(), "MEGA SPONSORS"));
-            sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size() +
-                    sponsorCategoryList[1].size(), "EVENT SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(0, "MAJOR SPONSORS"));
+            sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size(), "EVENT SPONSORS"));
             sections.add(new SectionedGridRecyclerViewAdapter.Section(sponsorCategoryList[0].size() + sponsorCategoryList[1].size()
-                    + sponsorCategoryList[2].size(), "MEDIA PARTNERS"));
+                    , "MEDIA PARTNERS"));
             SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
             SectionedGridRecyclerViewAdapter mSectionedAdapter = new
                     SectionedGridRecyclerViewAdapter(SponsActivity.this, R.layout.section, R.id.section_text, mRecyclerView, mAdapter);

@@ -41,11 +41,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * Created by User on 16/09/2016.
- */
-
 public class UserActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
@@ -160,7 +155,6 @@ public class UserActivity extends AppCompatActivity {
         member_since.setText(outputdate);
 
 
-
         final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -187,7 +181,7 @@ public class UserActivity extends AppCompatActivity {
                     case R.id.btn4:
                         intent = new Intent(UserActivity.this, AccountActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
                         break;
                     case R.id.btn5:
@@ -202,10 +196,10 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
-        Menu menu=bottomNavigationView.getMenu();
+        Menu menu = bottomNavigationView.getMenu();
         for (int i = 0, size = menu.size(); i < size; i++) {
             MenuItem item = menu.getItem(i);
-            if(i==3)
+            if (i == 3)
                 item.setChecked(true);
             else
                 item.setChecked(false);
@@ -222,11 +216,13 @@ public class UserActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(UserActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
     private void getMyEvents() {
         // Tag used to cancel the request
         String tag_string_req = "req_login";

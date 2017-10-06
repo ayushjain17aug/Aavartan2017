@@ -1,14 +1,10 @@
 package com.technocracy.app.aavartan;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +20,6 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
-import com.technocracy.app.aavartan.activity.LoginActivity;
-import com.technocracy.app.aavartan.activity.RegisterActivity;
-import com.technocracy.app.aavartan.gallery.Model.Data.Image;
-import com.technocracy.app.aavartan.helper.App;
 import com.technocracy.app.aavartan.helper.AppController;
 import com.technocracy.app.aavartan.helper.SessionManager;
 
@@ -36,8 +28,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.technocracy.app.aavartan.helper.AppController.TAG;
 
 
 public class SignupFragment extends Fragment {
@@ -151,12 +141,13 @@ public class SignupFragment extends Fragment {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
+                    String message = jsonResponse.getString("message");
                     Log.d("ayush", String.valueOf(success));
                     if (success) {
                         Snackbar.make(getActivity().findViewById(R.id.linear),"You have been registered successfully! Login Please.",Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     } else {
-                        Snackbar.make(getActivity().findViewById(R.id.linear),"Error! Please try after some time.",Snackbar.LENGTH_LONG)
+                        Snackbar.make(getActivity().findViewById(R.id.linear), message, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
                 } catch (JSONException e) {
@@ -189,7 +180,7 @@ public class SignupFragment extends Fragment {
             }
         };
         // Adding request to request queue
-        int socketTimeout = 30000;//30 seconds - change to what you want
+        int socketTimeout = 300000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         strReq.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);

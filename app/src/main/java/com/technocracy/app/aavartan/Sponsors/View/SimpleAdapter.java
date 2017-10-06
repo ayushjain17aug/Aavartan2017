@@ -24,7 +24,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     private static int COUNT;
     private final Context mContext;
     private final List<Integer> mItems;
-    private final int size1, size2, size3, size4;
+    private final int size1, size2, size3;
     private int mCurrentItemId = 0;
     private List<Sponsor> sponsorList[];
 
@@ -34,9 +34,8 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         size1 = sponsorList[0].size();
         size2 = sponsorList[1].size();
         size3 = sponsorList[2].size();
-        size4 = sponsorList[3].size();
-        COUNT = size1 + size2 + size3 + size4;
-        Log.d("Aavartan2k17",""+size1+"  "+size2+" "+size3+" "+size4);
+        COUNT = size1 + size2 + size3;
+        Log.d("Aavartan2k17", "" + size1 + "  " + size2 + " " + size3);
         mItems = new ArrayList<>(COUNT);
         for (int i = 0; i < COUNT; i++) {
             addItem(i);
@@ -59,11 +58,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         } else if (position >= (size1 + size2 )&& position < (size1 + size2 + size3)) {
             category = 2;
             position = position - (size1 + size2);
-        } else if (position >= (size1 + size2 + size3) && position < COUNT) {
-            category = 3;
-            position = position - (size1 + size2 + size3);
         }
-        Log.d("Aavartan2k17"," "+position+" " +category);
         App.showProgressBar(holder.pBAr);
         int width = (int) App.getScreenWidth(mContext);
         holder.imageView.getLayoutParams().height = width / 2;
